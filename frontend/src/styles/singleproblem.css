@@ -1,0 +1,109 @@
+
+
+
+.problem-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title {
+    font-size:2rem;
+    padding-bottom: 5px;
+    font-weight: 700;
+}
+
+.problem-title .time-limit, .problem-title .topics {
+    color:#77B0B9;
+    width: 100%;
+}
+
+.main-div {
+
+    width:60%;
+    margin: auto;
+    margin-top:40px;
+    display: flex;
+    gap:25px;
+    flex-direction: column;
+    color:#E3FEF7;
+    align-items: center;
+    
+    
+}
+
+.main-div .problem-description {
+    text-align: justify;
+
+}
+
+.inputi-withCopy {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+  
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    
+}
+
+.input-output p {
+    padding: 0;
+    margin: 0;
+    margin-top:5px;
+}
+
+.output {
+    border-top:2px solid #E3FEF7;
+}
+
+.input-output {
+    width: 100%;
+    display: flex;
+    padding:10px 20px;
+    flex-direction: column;
+    background-color: #77B0B9;
+    border:2px solid #E3FEF7;
+
+}
+
+.submit {
+    transition: padding 0.2s ease-in-out;
+
+    padding:20px 40px;
+    border-radius: 10px;
+    border:2px solid #E3FEF7;
+    background-color: #77B0B9;
+    color:#135D66;
+
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition:color 0.2s ease-in-out;
+    transition:font-size 0.5s ease-in;
+}
+
+.submit:hover {
+    transition: color 0.2s ease-in-out;
+    transition:font-size 0.5s ease-in;
+
+    font-size: 1rem;
+    background-color: #E3FEF7;
+    color: #135D66;
+
+}
+
+button a {
+    text-decoration: none;
+    color:#135D66;
+
+}
+
+button a:visited, button a:hover {
+    cursor: pointer;
+    text-decoration: none;
+}

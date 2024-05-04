@@ -1,0 +1,114 @@
+
+.navBar {
+    width: 95%;
+    display: flex;
+    border-radius: 5px;
+    padding:5px 10px;
+    flex-wrap: wrap;
+    margin:0 auto;
+    padding-top:20px;
+    padding-bottom: 20px;
+
+
+    align-items: center;
+    justify-content: space-around;
+  
+    border-radius:3px;
+  
+
+    border-bottom: 1px solid #E3FEF7;
+}
+
+ .navBar .appNamefirst {
+    font-weight: 700;
+    color:#526D82;
+}
+
+.navBar .appNamesecond {
+    font-weight: 700;
+    color:#E3FEF7;
+}
+
+button .appNamefirst {
+    margin-left:20px;
+    font-weight: 700;
+    color:#526D82;
+    font-size:0.8rem;
+}
+
+button .appNamesecond {
+    font-weight: 700;
+    color:#E3FEF7;
+    font-size: 0.8rem;
+    
+}
+
+
+.links-div {
+    display: flex;
+    flex:2;
+    justify-content: flex-end;
+    gap:40px;
+}
+
+.linksNavBar {
+    color:#E3FEF7;
+    text-decoration: none;
+}
+
+.linksNavBar:hover {
+   
+    text-decoration: underline;
+}
+
+
+
+.dropdown{
+    transition: left 0.3s ease-out;
+    position: absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    z-index: 2;
+  
+    flex-direction: column;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100px;
+    background-color: #27374D;
+    border-right: 1px solid #E3FEF7;
+    border-bottom: 1px solid #E3FEF7;
+}
+
+.dropdown-btn p {
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown-btn {
+    
+    z-index: 50;
+    background-color: #27374D;
+    position: absolute;
+    top:0;
+    
+    color:#E3FEF7;
+    border:none;
+    transition: background-color 0.3s ease-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap:20px;
+    padding-top:10px;
+  
+   
+    
+}
+
+.dropdown a {
+    margin-top:40px;
+}
+
+
