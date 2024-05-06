@@ -1,70 +1,95 @@
 
-
-.grid-container {
-    display: grid;
-    grid-template-columns: auto 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    column-gap:20px;
+.profile-links-div ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    padding-top:20px;
+    display: flex;
+    gap:30px
 }
 
-.fullName-username p {
-    margin-bottom:8px;
-    margin-top:8px;
+.profile-links-div li {
+ 
+display: inline;
+font-size: 1.5rem;
+      
 }
 
+.profile-link,.profile-link:visited {
+    color:#E3FEF7;
+    text-decoration: none;
+}
 
-#username-photo-editprofile-container {
-    padding-top: 15px;
-    grid-row-start: 1;
-    grid-row-end: -1;
+.profile-link:hover {
+    text-decoration: underline;
+}
+
+.profileContainer {
     display: flex;
     flex-direction: column;
-    justify-content:space-between;
     align-items: center;
-    background-color: #77B0AA;
-    padding-bottom:10px;
-    color:#135D66;
-    gap:20px;
-
+    gap:30px;
 }
 
-#editprofile {
-    width:50%;
-    border: none;
-    background-color: #E3FEF7;
-    border-radius: 3px;
-    color:#003C43;
-    font-weight: bold;
-    padding:3px 10px;
+.profileInfoAndImg {
+    display: flex;
+    background-color: #526D82;
+    justify-content: space-between;
 }
 
-#editprofile:hover {
+
+.profileInfoAndImg img {
+    max-width: 150px;
+   
+    width: 100%;
+    height: auto; 
+    object-fit: contain;
+}
+
+.profileInfo {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom:20px;
+    padding-right:20px;
+    color:#E3FEF7;
+    padding-top:20px;
+   
+    
+}
+
+.profileInfo p {
+    margin: 0;
+    padding: 0;
+}
+
+.editProfileBtn {
+    background-color: #526D82;
+    padding: 10px 0px;
+    border:2px solid #E3FEF7;
+    border-radius: 10px;
+}
+
+.editProfileBtn .profile-link {
+    display: block;
+}
+
+.editProfileBtn .profile-link:hover {
+    text-decoration: none;
     cursor: pointer;
+    
 }
 
-#username-photo {
-    display: flex;
-    align-items: center;
-    gap:20px;
-    justify-content: space-between;
-    padding-left:10px;
+@media (max-width:363px) {
+    .profile-links-div li {
+        font-size: 1rem;
+    }
 }
 
-.userPhoto {
-    height: 100%;
-    width: 100px;
-    object-fit: cover;
+@media (max-width:620px) {
+    .profile-links-div ul {
+        display: flex;
+        justify-content: space-around;
+    }
 }
-
-#username-rating {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding-right: 10px;
-}
-
-#username-rating p {
-    margin-bottom: 0;
-}
-

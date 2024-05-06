@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from '../styles/submitproblem.css'
 import {useRef,useState} from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams,useNavigate} from 'react-router-dom'
 
 
 const SubmitProblem = () => {
@@ -9,6 +9,11 @@ const SubmitProblem = () => {
     const [TextArea,setTextArea] = useState("")
 
     const {name} = useParams()
+    const navigate = useNavigate()
+
+    if(!name) {
+        navigate('/home')
+    }
   
 
     let list = TextArea.split("\n");

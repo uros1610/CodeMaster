@@ -2,10 +2,35 @@ import React from 'react'
 import styles from '../styles/singleproblem.css'
 import {Link} from 'react-router-dom'
 import axios from 'axios'
+import { useState, useEffect} from 'react'
+import { useParams,useNavigate} from 'react-router-dom'
+
 
 const SingleProblem = () => {
 
-  const title = 'Coin Games'
+  const [title,setTitle] = useState("")
+  const [description,setDescription] = useState("")
+  const navigate = useNavigate()
+
+  const {name} = useParams()
+
+  useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8800/backend/problem/${name}`)
+
+      setTitle(response.title)
+      setDescription(response.description)
+    }
+    catch(error) {
+
+      navigate('/notfound')
+    }
+  }
+
+  fetchData()
+
+},[])
 
 
   return (

@@ -21,6 +21,7 @@ app.use('/backend/contest',require('./routes/contests.js'))
 app.use('/backend/auth',require('./routes/auth.js'))
 app.use('/backend/problem',require('./routes/problem.js'))
 app.use('/backend/rating',require('./routes/rating'))
+app.use('/backend/profile',require('./routes/users'))
 
 app.listen(8800,() => {
     console.log("Connected")

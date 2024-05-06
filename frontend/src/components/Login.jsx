@@ -11,7 +11,13 @@ const Login = ({isVisible}) => {
 
 
   const navigate = useNavigate()
-  const {login} = useContext(AuthContext)
+  const {login,user} = useContext(AuthContext)
+
+  if(user) {
+    navigate('/home')
+  }
+
+
 
 
   const [inputs,setInputs] = useState({

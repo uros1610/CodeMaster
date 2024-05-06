@@ -15,7 +15,7 @@ const NavBar = ({ width, isVisible,setIsVisible}) => {
   const bgColor = '#9DB2BF' 
   const left = isVisible ? '0px' : '-1000px'; 
 
-  if (width > 736) {
+  if (width > 780) {
     setIsVisible(false)
     // If the width is larger than 525px, render the full navbar
     return (
@@ -24,7 +24,7 @@ const NavBar = ({ width, isVisible,setIsVisible}) => {
         <span className = "appNamefirst">Code<span className = "appNamesecond">Master</span></span>
 
        
-        {user && <span className = "userName">{user.username}</span>}
+        {user && <Link to = {`/profile/${user.username}`} className = "userName">{user.username}</Link>}
         {user && <span className = "logout" onClick = {logout}>Logout</span>}
         </div>
 

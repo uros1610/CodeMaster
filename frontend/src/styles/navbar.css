@@ -93,6 +93,15 @@ button .appNamesecond {
     font-size:1rem;
 }
 
+.userName,.userName:visited {
+    color:#E3FEF7;
+    text-decoration: none;
+}
+
+.userName:hover {
+    text-decoration: underline;
+}
+
 .userNameDropdown span {
     font-size:1rem;
 }

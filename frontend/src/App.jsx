@@ -7,7 +7,7 @@ import Signup from './components/Signup';
 import SubmitProblem from './components/SubmitProblem';
 import useWindowResize from './hooks/useWindowResize'
 import NavBar from './components/NavBar';
-import {useState,useEffect} from 'react'
+import {useState,useEffect, useContext} from 'react'
 import Contests from './components/Contests'
 import axios from 'axios'
 import AddContest from './components/AddContest';
@@ -15,7 +15,13 @@ import SingleProblem from './components/SingleProblem';
 import "@fontsource/roboto";
 import ProblemSet from './components/ProblemSet';
 import Rating from './components/Rating';
-
+import AuthContext from './context/AuthContext';
+import Home from './components/Home'
+import Profile from './components/Profile';
+import { Outlet } from 'react-router-dom';
+import { ProfileNavBar } from './components/ProfileNavBar';
+import Submissions from './components/Submissions';
+import UserContests from './components/UserContests';
 
 
 function App() {
@@ -25,14 +31,14 @@ function App() {
  
    const [contests, setContests] = useState([])
 
+   const {user} = useContext(AuthContext)
+
 
   // dio za takmicenja
 
 
 
-  
 
-  
 
  
   return (
@@ -40,7 +46,7 @@ function App() {
       <NavBar width = {width} isVisible={isVisible} setIsVisible={setIsVisible}/>
       
       <Routes>
-      <Route path = '/' element = {<Login/>}/>
+      <Route path = '/' element = {!user ? <Login/> : <Home/>}/>
       <Route path = '/login' element = {<Login/>}/>
       <Route path = '/register' element = {<Signup/>} />
       <Route path = '/submitproblem' element = {<SubmitProblem/>} />
@@ -50,6 +56,12 @@ function App() {
       <Route path = '/submitproblem/:name' element = {<SubmitProblem/>}/>
       <Route path = '/problemset' element = {<ProblemSet/>}/>
       <Route path = '/rating' element = {<Rating/>}/>
+      <Route path = '/home' element = {<div>Home</div>}/>
+      <Route path = '/profile/:username' element = {<Profile/>}/>
+      <Route path = '/profile/submissions/:username' element = {<Submissions/>}/>
+      <Route path = '/profile/contests/:username' element = {<UserContests/>}/>
+
+
       </Routes>
       
     </div>
