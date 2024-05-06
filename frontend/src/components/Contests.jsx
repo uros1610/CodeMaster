@@ -1,11 +1,31 @@
 import React from 'react'
 import styles from '../styles/contests.css'
-
+import {useState,useEffect} from 'react'
 import Contest from './Contest'
+import axios from 'axios'
 
 
-const Contests = ({contests}) => {
+const Contests = ({contests,setContests}) => {
 
+ 
+
+  useEffect(() => {
+
+    const fetchData = async () => {
+    const resp = await axios.get('http://localhost:8800/backend/contest')
+    
+    console.log(resp)
+  
+
+    setContests(resp.data.sort(
+      (a, b) => new Date(a.date) - new Date(b.date)
+    ))
+
+}
+
+fetchData()
+
+},[])
     
 
    

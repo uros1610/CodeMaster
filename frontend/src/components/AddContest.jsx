@@ -3,8 +3,15 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import styles from '../styles/addcontest.css'
 
-const AddContest = ({ contests, setContests, name, setName, authors, setAuthors, length, setLength, date, setDate }) => {
+const AddContest = ({contests,setContests}) => {
   const navigate = useNavigate();
+
+  const [name,setName] = useState('')
+  const [authors,setAuthors] = useState('')
+  const [length,setLength] = useState('')
+  const [date,setDate] = useState('')
+
+
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -24,7 +31,7 @@ const AddContest = ({ contests, setContests, name, setName, authors, setAuthors,
       );
 
     
-      await axios.post('http://localhost:3500/contests', newContest);
+      await axios.post('http://localhost:8800/backend/contest/addcontest', newContest);
 
     
       setContests(updatedContests);

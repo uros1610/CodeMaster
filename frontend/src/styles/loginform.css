@@ -49,13 +49,13 @@
 
 }
 
-.signupHere,.signupHere:visited {
+.signupHere,.signupHere:visited,.signinHere,.signinHere:visited {
     color:#E3FEF7;
     text-decoration: none;
     margin-left:15px;
 }
 
-.signupHere:hover {
+.signupHere:hover,.signinHere:hover {
     text-decoration: underline;
 }
 
@@ -99,7 +99,7 @@
 }
 
 
-.noAccount {
+.noAccount,.Account {
     color:#E3FEF7;
     font-size: 1.1rem;
 }

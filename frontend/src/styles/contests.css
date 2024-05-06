@@ -51,13 +51,6 @@
 
 
 
-tr:nth-child(odd) {
-    background-color: #9DB2BF;
-}
-
-tr:nth-child(even) {
-    background-color: #526D82;
-}
 
 
 
@@ -96,6 +89,6 @@ tr:nth-child(even) {
 
 @media (max-width:500px) {
     #futurecontests {
-        padding:2px 5px
+        font-size: 0.7rem;
     }
 }

@@ -1,0 +1,32 @@
+
+.orderedListRating {
+   
+    margin-top:50px;
+    width: 100%;
+    color:#E3FEF7;
+    text-align: center;
+    border:1px solid #E3FEF7;
+    border-collapse: collapse;
+    
+}
+
+.orderedListRating td, .orderedListRating th  {
+    border:1px solid #E3FEF7;
+    padding:5px 10px;
+}
+
+.orderedListRating tr:nth-child(odd) {
+    background-color: #27374F;
+   
+}
+
+.orderedListRating td:first-child {
+    width:10%;
+    min-width: 50px;
+}
+
+.orderedListRating td:last-child{
+    width:10%;
+    min-width: 50px;
+}
+

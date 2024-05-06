@@ -1,17 +1,80 @@
 import React from 'react'
 import styles from '../styles/loginform.css'
+import { useState } from 'react'
+import axios from 'axios'
+import {Link} from 'react-router-dom'
+
+const URL = "http://localhost:8800/backend/"
 
 const Signup = () => {
+
+    const [inputs,setInputs] = useState({
+      username:"",
+      password:"",
+      confirmpassword:"",
+      email:""
+    })
+
+    const [error,setError] = useState(null)
+
+    const handleChange = (e) => {
+    
+      const value = e.target.value
+      const changed = {...inputs,[e.target.id]:e.target.value}
+      setError(null)
+      setInputs(changed)
+    }
+
+    const handleSubmit = async (e) => {
+      e.preventDefault()
+
+      if((inputs.username).includes('\'')) {
+        setError("mene ces da zeznes")
+        return;
+  
+      }
+  
+        try {
+          const res = await axios.post(`${URL}auth/register`,inputs)
+          console.log(res)
+        }
+        catch (err) {
+          if(err.response)
+            setError(err.response.data.message)
+        }
+
+        finally {
+          setInputs(
+            {
+              username:"",
+              password:"",
+              confirmpassword:"",
+              email:""
+            }
+          )
+        }
+    }
+
   return (
     <div className='login-div'>
     <div className='main-container'>
       <form>
-        <input type = "text" id = "username" placeholder = "Username"/>
-        <input type = "email" id = "username" placeholder = "Email"/>
-        <input type = "text" id = "password" placeholder="Password"/>
-        <input type = "text" id = "password" placeholder="Confirm password"/>
-        <button type = "submit" className = "sign-up">Sign up</button>
-        <label for = "password" id = "passwordSuggestion">Password should contain at least 7 characters</label>
+        <input type = "text" id = "username" placeholder = "Username" value = {inputs.username} onChange = {handleChange}/>
+        <input type = "email" id = "email" placeholder = "Email" value = {inputs.email} onChange = {handleChange}/>
+        <input type = "password" id = "password" placeholder="Password" value = {inputs.password} onChange = {handleChange}/>
+        <input type = "password" id = "confirmpassword" placeholder="Confirm password" value = {inputs.confirmpassword} onChange = {handleChange}/>
+        <button type = "submit" className = "sign-up" onClick={handleSubmit}>Sign up</button>
+        <div className = "Account">
+            Have an account?
+            <Link to = '/login' className = "signinHere">Sign in here</Link>
+        </div>
+        <label htmlFor = "password" id = "passwordSuggestion">Password should contain at least 7 characters</label>
+        {error && <p style = {{
+          color:'red',
+          fontSize:'1.2rem',
+          padding:'0',
+          margin:'0'
+        }}>{error}</p>}
         </form>
     </div>
     </div>

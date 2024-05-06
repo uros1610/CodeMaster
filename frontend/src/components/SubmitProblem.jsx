@@ -1,8 +1,15 @@
 import React from 'react'
 import styles from '../styles/submitproblem.css'
-import {useRef} from 'react'
+import {useRef,useState} from 'react'
+import { useParams } from 'react-router-dom'
 
-const SubmitProblem = ({TextArea,setTextArea}) => {
+
+const SubmitProblem = () => {
+
+    const [TextArea,setTextArea] = useState("")
+
+    const {name} = useParams()
+  
 
     let list = TextArea.split("\n");
     const lineNumbersRef = useRef(null);
@@ -24,13 +31,13 @@ const SubmitProblem = ({TextArea,setTextArea}) => {
             <div className= "problem">
                 
                 <span className= "prob">Problem:</span>
-                <span className = "prob">Uvrnuti string XD</span>
+                <span className = "prob">{name}</span>
 
             </div>
 
             <div className= "language-sourcecode">
                 <div className= "language">
-                    <label for = "languages">Choose a language:</label>
+                    <label htmlFor = "languages" style = {{color:'#E3FEF7',marginRight:'10px'}}>Choose a language:</label>
                     <select name = "languages" id = "languages">
                         <option value = "C++">C++</option>
                         <option value = "Python">Python</option>
