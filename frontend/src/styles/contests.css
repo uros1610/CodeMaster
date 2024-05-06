@@ -1,0 +1,94 @@
+
+
+
+.table-div {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap:20px;
+   
+}
+
+
+#futurecontests {
+    
+    border-collapse: collapse;
+    text-align: center;
+    width: 90%;
+    margin-top: 100px;
+    
+   
+    
+}
+
+
+#futurecontests th {
+    color:#E3FEF7;
+    border:2px solid #DDE6ED;
+    text-overflow: ellipsis;
+    
+
+
+}
+
+#futurecontests td {
+    color:#E3FEF7;
+    border:2px solid #DDE6ED;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    text-overflow: ellipsis;
+  
+
+      
+}
+
+#futurecontests td {
+    color:white;
+
+}
+
+
+
+
+
+
+
+.choice {
+    width:10%;
+}
+
+.registration {
+    margin-top:20px;
+    text-align: center;
+    
+}
+
+.regButton {
+    font-size:1.3rem;
+    padding:10px 20px;
+    background-color: #526D82;
+    border: 2px solid #DDE6ED;
+    border-radius: 10px;
+    color:#E3FEF7;
+    transition:background-color 0.5s ease-out;
+
+}
+
+.regButton:hover {
+    background-color: #9DB2BF;
+    transition:background-color 0.5s ease-out;
+}
+
+@media (min-width:600px) {
+    #futurecontests th, #futurecontests td {
+        padding:5px 10px
+    }
+}
+
+@media (max-width:500px) {
+    #futurecontests {
+        font-size: 0.7rem;
+    }
+}

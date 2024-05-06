@@ -1,0 +1,198 @@
+
+.singleproblemmain {
+    margin-top:60px;
+    display: grid;
+    width: inherit;
+    color:#E3FEF7;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    padding: 20px;
+    padding-left: 0px;
+    column-gap:20px;
+    width: 100%;
+    
+    
+}
+
+.input,.output {
+    margin: 0;
+    padding: 0;
+}
+
+
+
+.singleproblemdiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:20px;
+    text-align: justify;
+    justify-content: center;
+    grid-row-start: 1;
+    grid-row-end:3;
+    grid-column-start: 1;
+    grid-column-end: 3;
+
+}
+
+.problem-title {
+    font-size:2rem;
+}
+
+.problem-testIO {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+   
+}
+
+.problem-testIO .inputTable, .problem-testIO .outputTable {
+    width: 100%;
+    border-collapse: collapse;
+
+}
+
+.problem-testIO .inputTable tr{
+    border:2px solid #DDE6ED;
+    
+}
+
+.problem-testIO .outputTable tr {
+    border:2px solid #DDE6ED;
+}
+
+.problem-testIO .inputTable tr:nth-child(odd) {
+    background-color: #9DB2BF;
+    
+}
+
+.problem-testIO .inputTable div, .problem-testIO .outputTable div {
+    padding-left: 20px;
+    padding-bottom:3px;
+    padding-top:3px;
+  
+}
+
+.problem-testIO table div p {
+    margin: 0;
+    padding: 0;
+    border: none;
+  
+}
+
+.inContest {
+    display: flex;
+    gap:60px;
+    grid-row-start: 1;
+    grid-row-end:3;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+   
+}
+
+
+.linkToContest,.linkToContest:visited {
+    font-size: 1.7rem;
+    color:#E3FEF7;
+    text-decoration: none;
+   
+    padding-bottom:5px;
+   
+    
+ 
+    
+}
+
+.linkToSubmit, .linkToSubmit:visited {
+    color:#E3FEF7;
+    text-decoration: none;
+    display: block;
+    font-size:2rem;
+    padding: 10px 20px;
+   
+}
+
+
+
+.linkToContest:hover {
+    text-decoration: underline;
+}
+
+.whichContest {
+    width: 100%;
+    border:2px solid #9DB2BF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    padding-bottom:10px;
+    box-sizing: border-box;
+
+    
+}
+
+.tutorial {
+    font-size:1.7rem;
+    color:#E3FEF7;
+    text-decoration: none;
+}
+
+.tutorial:visited {
+    color:#E3FEF7;
+}
+
+.tutorial:hover {
+    text-decoration: underline;
+}
+
+.problem-tags-div {
+    
+    display: flex;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    gap:10px;
+    border:2px solid #9DB2BF;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    padding-bottom:10px;
+}
+
+.problemTags {
+   font-size:2rem;
+   margin: 0;
+   padding: 0;
+   
+}
+
+.submitProblemBtn {
+    border:none;
+    border-radius:15px;
+    background-color:#526D82;
+    color: #DDE6ED;
+    font-weight: bold;
+    
+   
+   
+}
+
+.submitProblemBtn:hover {
+    color:#DDE6ED;
+    background-color: #9DB2BF;
+    border:2px solid #DDE6ED;
+    cursor: pointer;
+}
+
+
+@media (max-width:700px) {
+    .singleproblemmain {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap:20px;
+    }
+}

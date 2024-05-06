@@ -1,0 +1,74 @@
+
+.contests-div {
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-containerContests {
+    border-radius: 5px;
+    width:50%;
+    min-width:300px;
+
+    padding-top:50px;
+    padding-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    background-color: #526D82;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+    transition: box-shadow 0.5s ease-in;
+
+   
+}
+
+.formContests {
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    gap:30px;
+}
+
+.formContests input {
+    padding-left:5px;
+    padding-top:10px;
+    padding-bottom:10px;
+    margin-right:5px;
+    background-color: inherit;
+    border:none;
+    border-bottom: 2px solid #DDE6ED;
+    border-radius: 5px;
+    width: 60%;
+    color:#E3FEF7;
+}
+
+.formContests input:focus {
+    outline: none;
+}
+
+.formContests input::placeholder {
+  
+    color:#E3FEF7;
+}
+
+.addcontest {
+    border:none;
+    border-radius:15px;
+    background-color:#27374D;
+    color: #DDE6ED;
+    font-weight: bold;
+    padding:10px 50px;
+    width: 60%;
+}
+
+.addcontest:hover {
+    color:#DDE6ED;
+    background-color: #526D82;
+    border:2px solid #DDE6ED;
+    padding:8px 48px;
+    cursor: pointer;
+}

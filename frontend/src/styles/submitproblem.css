@@ -1,0 +1,141 @@
+
+
+.problem-container {
+    width:75%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap:20px;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+    padding-bottom:30px;
+    
+}
+
+
+
+.source-code {
+    
+    width: 100%;
+    position: relative;
+}
+
+textarea, .linenumbers {
+    font-size:0.9rem;
+}
+
+.prob, #lblfile {
+    color:#E3FEF7;
+}
+
+#fileinput {
+    margin-left:15px;
+    color: #E3FEF7;
+  }
+
+
+.linenumbers {
+    padding-top:5px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    top:0px;
+    bottom: 20px;
+    left: 0;
+    z-index: 1;
+    color: black;
+    overflow: hidden;
+    
+    background-color: #526D82;
+    width: 60px;
+    padding-bottom:5px;
+    
+    
+}
+
+
+
+.code {
+    width: 100%;
+
+    position: relative;
+    padding-top:5px;
+    padding-left: 65px;
+ 
+    height: 400px;
+    overflow: scroll auto;
+    background-color: #DDE6ED;
+    color: black;
+    white-space: nowrap;
+    resize: none;
+    line-height: 17.6px;
+    outline: 2px solid black;
+    padding-bottom:5px;
+    
+
+
+}
+
+
+.code::placeholder {
+    color: black;
+}
+
+span {
+    font-size: 1.7rem;
+}
+
+.prob {
+    margin-right:10px;
+
+}
+
+.btnSubmit {
+    border:none;
+    border-radius:15px;
+    background-color:#DDE6ED;
+    color: #27374D;
+    font-weight: bold;
+   
+    padding:10px 50px;
+
+
+}
+
+.btnSubmit:hover {
+    cursor: pointer;
+    background-color: #27374D;
+    color:#DDE6ED;
+    border:2px solid #DDE6ED;
+    padding:8.5px 48.5px;
+
+}
+
+.language-sourcecode {
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    width: 60%;
+
+
+}
+
+.main-div {
+    height:100vh;
+    padding-top:50px;
+    display: flex;
+    width:100%;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+
+.code:focus {
+    outline:2px solid black;
+   
+}
+
+
+

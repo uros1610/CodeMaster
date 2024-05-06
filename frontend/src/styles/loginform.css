@@ -1,0 +1,107 @@
+
+
+
+.login-div {
+    height:100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.main-container {
+    border-radius: 5px;
+    width:50%;
+    min-width:300px;
+
+    padding-top:50px;
+    padding-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    background-color: #526D82;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+    transition: box-shadow 0.5s ease-in;
+
+    
+}
+
+.main-container input[type = "text"], .main-container input[type = "password"],.main-container input[type = "email"] {
+   
+    padding-left:5px;
+    padding-top:10px;
+    padding-bottom:10px;
+    margin-right:5px;
+    background-color: inherit;
+    border:none;
+    border-bottom: 2px solid #DDE6ED;
+    border-radius: 5px;
+    width: 60%;
+    color:#E3FEF7;
+
+}
+
+.main-container input::placeholder {
+    color:#E3FEF7;
+}
+.main-container input:focus {
+   
+    outline: none;
+
+}
+
+.signupHere,.signupHere:visited,.signinHere,.signinHere:visited {
+    color:#E3FEF7;
+    text-decoration: none;
+    margin-left:15px;
+}
+
+.signupHere:hover,.signinHere:hover {
+    text-decoration: underline;
+}
+
+
+
+.login-div form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap:25px;
+
+}
+
+
+
+
+
+
+
+.loginBtn,.sign-up {
+    
+    border:none;
+    border-radius:15px;
+    background-color:#27374D;
+    color: #DDE6ED;
+    font-weight: bold;
+    padding:10px 50px;
+    width: 60%;
+}
+
+.loginBtn:hover,.sign-up:hover {
+    color:#DDE6ED;
+    background-color: #526D82;
+    border:2px solid #DDE6ED;
+    padding:8px 48px;
+    cursor: pointer;
+}
+
+#passwordSuggestion {
+    color:#E3FEF7;
+}
+
+
+.noAccount,.Account {
+    color:#E3FEF7;
+    font-size: 1.1rem;
+}
+
+
