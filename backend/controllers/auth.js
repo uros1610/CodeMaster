@@ -50,7 +50,7 @@ const login = (req,res) => {
     
     const query = `SELECT * FROM User WHERE username = ? OR email = ?`
 
-    db.query(query,[username,password],(err,data) => {
+    db.query(query,[username,username],(err,data) => {
         if(err) return res.json(err)
 
         if(data.length === 0) return res.status(401).json({message:"Invalid username/email!"})
@@ -61,7 +61,7 @@ const login = (req,res) => {
 
         const token = jwt.sign(data[0].username,"secret-key")
 
-        const sendObj = {username:req.body.username,email:req.body.email}
+        const sendObj = {username:data[0].username}
 
         res.cookie("access_token",token,{
             httpOnly:true

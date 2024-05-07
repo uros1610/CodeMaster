@@ -13,6 +13,7 @@ const SingleProblem = () => {
   const navigate = useNavigate()
 
   const {name} = useParams()
+  console.log(name)
 
   useEffect(() => {
   const fetchData = async () => {
@@ -28,7 +29,7 @@ const SingleProblem = () => {
     }
   }
 
-  fetchData()
+ // fetchData()
 
 },[])
 
@@ -41,7 +42,7 @@ const SingleProblem = () => {
 
         <div className = "problem-title">
 
-          Coin Games
+          {name}
 
         </div>
 
@@ -141,7 +142,7 @@ const SingleProblem = () => {
 
     </div>
 
-    <button type = "submit" className = "submitProblemBtn"><Link className = "linkToSubmit" to = {`/submitproblem/${title}`}>Submit</Link></button>
+    <button type = "submit" className = "submitProblemBtn"><Link className = "linkToSubmit" to = {`/submitproblem/${name}`}>Submit</Link></button>
 
 
     </div>
