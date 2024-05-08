@@ -15,7 +15,7 @@ const getUser = (req,res) => {
             return res.status(404).json(err)
         }
 
-        const object = {username:data[0].username,img:data[0].userPicture,rating:data[0].rating}
+        const object = {username:data[0].username,img:data[0].userPicture,rating:data[0].rating,role:data[0].role}
 
         res.status(200).json(object)
 

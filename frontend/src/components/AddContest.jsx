@@ -30,8 +30,12 @@ const AddContest = ({contests,setContests}) => {
         (a, b) => new Date(a.date) - new Date(b.date)
       );
 
+      const config = {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+    };
+
     
-      await axios.post('http://localhost:8800/backend/contest/addcontest', newContest);
+      await axios.post('http://localhost:8800/backend/contest/addcontest', newContest,config);
 
     
       setContests(updatedContests);

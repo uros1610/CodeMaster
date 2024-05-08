@@ -1,6 +1,10 @@
 const db = require("../db")
+
+
 var bcrypt = require("bcrypt")
 var jwt = require('jsonwebtoken')
+
+require('dotenv').config()
 
 const register = (req,res) => {
 
@@ -21,13 +25,13 @@ const register = (req,res) => {
     db.query(query,[username,email],(err,data) => {
         if(err) return res.json(err)
 
-        if(data.length) return res.status(409).json({message:"Username already exists!"})
+        if(data.length) return res.status(409).json({message:"Username/Email already exists!"})
 
         var salt = bcrypt.genSaltSync(10)
         var hashed = bcrypt.hashSync(password,salt)
 
-        const query = "INSERT INTO User(username,password,email,rating,idRole) VALUES(?)"
-        const values = [username,hashed,email,1300,1]
+        const query = "INSERT INTO User(username,password,email,rating,roleName) VALUES(?)"
+        const values = [username,hashed,email,1300,'User']
 
         db.query(query,[values],(err,data) => {
             if(err) return res.json(err)
@@ -59,9 +63,13 @@ const login = (req,res) => {
 
         if(!correctPassword) return res.status(401).json({message:"Incorrect password!"})
 
-        const token = jwt.sign(data[0].username,"secret-key")
+        
 
-        const sendObj = {username:data[0].username}
+        const token = jwt.sign(data[0].username,process.env.SECRET_KEY)
+
+        const sendObj = {username:data[0].username,token:token,role:data[0].roleName}
+
+        console.log(sendObj)
 
         res.cookie("access_token",token,{
             httpOnly:true

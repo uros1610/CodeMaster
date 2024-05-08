@@ -2,12 +2,13 @@ import React from 'react'
 import styles from '../styles/loginform.css'
 import { useState } from 'react'
 import axios from 'axios'
-import {Link} from 'react-router-dom'
+import {Link,useNavigate} from 'react-router-dom'
 
 const URL = "http://localhost:8800/backend/"
 
 const Signup = () => {
 
+    const navigate = useNavigate()
     const [inputs,setInputs] = useState({
       username:"",
       password:"",
@@ -35,8 +36,10 @@ const Signup = () => {
       }
   
         try {
+         
           const res = await axios.post(`${URL}auth/register`,inputs)
           console.log(res)
+          navigate('/login')
         }
         catch (err) {
           if(err.response)

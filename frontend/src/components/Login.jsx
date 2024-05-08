@@ -75,7 +75,9 @@ const Login = ({isVisible}) => {
          <input type = "password" id = "password" placeholder="Password" onChange = {handleChange}/>
          <button className = 'loginBtn' type = "submit" onClick = {handleSubmit}>Sign in</button>
 
-        <div className = "noAccount">
+        <div className = "noAccount" style = {{
+          paddingLeft:'10px'
+        }}>
             Don't have an account yet?
             <Link to = '/register' className = "signupHere">Sign up here</Link>
         </div>

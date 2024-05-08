@@ -17,6 +17,7 @@ const Rating = () => {
 
         const fetchData = async () => {
             try {
+               
                 const response = await axios.get('http://localhost:8800/backend/rating')
                 console.log(response.data)
                 setUsers(response.data.sort((a,b) => {

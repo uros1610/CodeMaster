@@ -1,19 +1,42 @@
 import React from 'react'
 import styles from '../styles/submitproblem.css'
-import {useRef,useState} from 'react'
+import {useRef,useState,useEffect} from 'react'
 import { useParams,useNavigate} from 'react-router-dom'
+import axios from 'axios'
 
 
 const SubmitProblem = () => {
 
     const [TextArea,setTextArea] = useState("")
 
-    const {name} = useParams()
+    
     const navigate = useNavigate()
+    const [nameProblem,setNameProblem] = useState('')
 
-    if(!name) {
-        navigate('/home')
-    }
+    const {name} = useParams()
+
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const config = {
+              headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+          };
+           
+            const response = await axios.get(`http://localhost:8800/backend/submitproblem/${name}`,config)
+      
+            setNameProblem(response.title)
+            
+          }
+          catch(error) {
+      
+            navigate('/notfound')
+          }
+        }
+      
+       fetchData()
+      
+      },[])
+
   
 
     let list = TextArea.split("\n");

@@ -12,6 +12,9 @@ const Contests = ({contests,setContests}) => {
   useEffect(() => {
 
     const fetchData = async () => {
+
+     
+
     const resp = await axios.get('http://localhost:8800/backend/contest')
     
     console.log(resp)

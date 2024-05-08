@@ -19,9 +19,10 @@ const Profile = () => {
 
         const fetchData = async () => {
             try {
-            const response = await axios.get(`http://localhost:8800/backend/profile/${username}`)
-            console.log(response)
-            setUserInfo(response.data)
+              
+                const response = await axios.get(`http://localhost:8800/backend/profile/${username}`)
+                console.log(response)
+                setUserInfo(response.data)
             }
             catch(err) {
                 console.log(err)
