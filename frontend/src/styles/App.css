@@ -1,12 +1,11 @@
 
-.App {
-    width: 95%;
-    margin: 0 auto;
+
+
+body {
+    min-height: 100vh;
+    background-color: #27374D;
+
 }
 
-#root {
-    background-color: #27374D;
-    min-height: 100vh;
-}
 
 

@@ -11,14 +11,14 @@ const Rating = () => {
 
     const {user} = useContext(AuthContext)
 
-    
+    const BASE_URL = process.env.REACT_APP_BASE_URL
 
     useEffect(() => {
 
         const fetchData = async () => {
             try {
                
-                const response = await axios.get('http://localhost:8800/backend/rating')
+                const response = await axios.get(`${BASE_URL}/rating`)
                 console.log(response.data)
                 setUsers(response.data.sort((a,b) => {
                     if(a.rating > b.rating) {

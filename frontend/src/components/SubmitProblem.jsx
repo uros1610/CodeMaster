@@ -15,6 +15,8 @@ const SubmitProblem = () => {
 
     const {name} = useParams()
 
+    const BASE_URL = process.env.REACT_APP_BASE_URL
+
     useEffect(() => {
         const fetchData = async () => {
           try {
@@ -22,7 +24,7 @@ const SubmitProblem = () => {
               headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
           };
            
-            const response = await axios.get(`http://localhost:8800/backend/submitproblem/${name}`,config)
+            const response = await axios.get(`${BASE_URL}/${name}`,config)
       
             setNameProblem(response.title)
             

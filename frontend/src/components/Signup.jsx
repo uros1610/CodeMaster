@@ -4,7 +4,7 @@ import { useState } from 'react'
 import axios from 'axios'
 import {Link,useNavigate} from 'react-router-dom'
 
-const URL = "http://localhost:8800/backend/"
+
 
 const Signup = () => {
 
@@ -15,6 +15,8 @@ const Signup = () => {
       confirmpassword:"",
       email:""
     })
+
+    const BASE_URL = process.env.REACT_APP_BASE_URL
 
     const [error,setError] = useState(null)
 
@@ -37,7 +39,7 @@ const Signup = () => {
   
         try {
          
-          const res = await axios.post(`${URL}auth/register`,inputs)
+          const res = await axios.post(`${BASE_URL}/auth/register`,inputs)
           console.log(res)
           navigate('/login')
         }

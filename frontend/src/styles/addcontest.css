@@ -1,25 +1,38 @@
 
 .contests-div {
-    height: 80vh;
-    display: flex;
-    align-items: center;
+    margin-top:50px;
     justify-content: center;
+    display: flex;
+    
+    gap:20px;
+    flex-direction: column;
+    align-items: center;
+    
+    
 }
 
-.main-containerContests {
+
+.main-containerContests, .main-containerProblem {
     border-radius: 5px;
     width:50%;
-    min-width:300px;
 
-    padding-top:50px;
-    padding-bottom: 50px;
+    padding-top:20px;
+    padding-bottom:20px;
     display: flex;
     flex-direction: column;
     background-color: #526D82;
     box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
     transition: box-shadow 0.5s ease-in;
+    align-items: center;
+    gap:20px;
+    justify-content: space-around;
+}
 
-   
+.main-containerContests p, .main-containerProblem p {
+    color:#E3FEF7;
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
 }
 
 .formContests {
@@ -55,20 +68,67 @@
     color:#E3FEF7;
 }
 
-.addcontest {
+.addcontest,.addproblem {
     border:none;
     border-radius:15px;
     background-color:#27374D;
     color: #DDE6ED;
     font-weight: bold;
-    padding:10px 50px;
+    font-size:1rem;
+    padding:10px 10px;  
     width: 60%;
 }
 
-.addcontest:hover {
+.addcontest:hover,.addproblem:hover {
     color:#DDE6ED;
     background-color: #526D82;
     border:2px solid #DDE6ED;
     padding:8px 48px;
     cursor: pointer;
 }
+
+.main-containerProblem textarea {
+    width: 60%;
+    flex: 2;
+    overflow-x: auto;
+    overflow-y: auto;
+    resize: none;
+    min-height: 200px;
+    display: block;   
+}
+.main-containerProblem textarea:focus {
+    outline: none;
+}
+
+.wrapperDiv {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap:20px;
+}
+
+.inputoutput {
+    display: flex;
+    align-items: center;
+    gap:20px;
+}
+
+.addInputOutput {
+    background-color: #27374D;
+    color:#E3FEF7;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.addedproblems {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap:10px;
+}
+
