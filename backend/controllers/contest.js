@@ -52,4 +52,17 @@ const getAllContests = (req,res) => {
     })
 }
 
-module.exports = {createContest,getAllContests}
+const deleteContest = (req,res) => {
+    const name = req.params.name
+    console.log("NAME",name)
+    const query = 'DELETE FROM Contest WHERE name = ? '
+
+    db.query(query,[name],(err,data) => {
+        if(err) {
+            return res.status(500).json(err)
+        }
+        return res.status(204).json("Contest has been removed")
+    })
+}
+
+module.exports = {createContest,getAllContests,deleteContest}

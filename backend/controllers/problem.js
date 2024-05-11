@@ -26,7 +26,7 @@ const allProblems = (req,res) => {
     const query = 'SELECT * from Problem'
 
     
-    db.query(query,[problemTitle],(err, data) => {
+    db.query(query,[],(err, data) => {
         if (err) {
             console.error(err);
             return res.status(500).json({ message: 'Internal Server Error' });
@@ -36,4 +36,42 @@ const allProblems = (req,res) => {
     })
 }
 
-module.exports = {getProblemByName,allProblems}
+const addProblem = (req,res) => {
+    
+    console.log(req.body)
+    const query = 'SELECT * FROM Problem WHERE title = ?'
+    const result = db.query(query,[req.body.title],(err,data) => {
+
+        console.log("DATAAAA",data)
+
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ message: 'Internal Server Error' });
+        }
+
+    if(data.length > 0) {
+        return res.status(403).json("Problem with that name already exists!")
+    }
+    
+    const insertQuery = 'INSERT INTO Problem(title,description,contest_name,rating,topics) VALUES(?)'
+    const values = [req.body.title,req.body.description,req.body.contestname,parseInt(req.body.rating),req.body.topics]
+
+    const resp = db.query(insertQuery,[values],(err,otherdata) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ message: 'Internal Server Error' });
+        }
+        return res.status(200).json("Problem has successfully been created!")
+
+    });
+
+    //console.log(resp)
+
+
+    })
+
+}
+  
+
+
+module.exports = {getProblemByName,allProblems,addProblem}

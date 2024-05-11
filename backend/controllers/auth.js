@@ -30,7 +30,7 @@ const register = (req,res) => {
         var salt = bcrypt.genSaltSync(10)
         var hashed = bcrypt.hashSync(password,salt)
 
-        const query = "INSERT INTO User(username,password,email,rating,roleName) VALUES(?)"
+        const query = "INSERT INTO User(username,password,email,rating,rola) VALUES(?)"
         const values = [username,hashed,email,1300,'User']
 
         db.query(query,[values],(err,data) => {
