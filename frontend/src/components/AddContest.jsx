@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import styles from '../styles/addcontest.css'
 import {FaPlus} from 'react-icons/fa'
 import AddedProblem from './AddedProblem';
+import Input from './Input';
+import { useEffect } from 'react';
 
 const AddContest = ({contests,setContests}) => {
   const navigate = useNavigate();
@@ -22,6 +24,9 @@ const AddContest = ({contests,setContests}) => {
   const [currInput,setCurrInput] = useState('')
   const [currOutput,setCurrOutput] = useState('')
 
+  const [rating,setRating] = useState('')
+  const [topics,setTopics] = useState('')
+
 
   const handleInputOutput = (e) => {
     e.preventDefault()
@@ -29,17 +34,27 @@ const AddContest = ({contests,setContests}) => {
     setInputs([...inputs,currInput])
     setOutputs([...outputs,currOutput])
 
-
-
   }
+
+  
 
   const handleAddProblem = (e) => {
     e.preventDefault()
 
-    const currProblem = {title:problemName,description:problemDesc,inputs,outputs}
+    const currProblem = {id:problems.length+1,contestname:name,title:problemName,description:problemDesc,inputs,outputs,rating,topics}
+
 
     setProblems([...problems,currProblem])
+    setproblemName('')
+    setproblemDesc('')
+    setInputs([])
+    setOutputs([])
+    setCurrInput('')
+    setCurrOutput('')
+    setRating('')
+    setTopics('')
 
+    console.log(currProblem)
   }
 
 
@@ -48,33 +63,36 @@ const AddContest = ({contests,setContests}) => {
     e.preventDefault();
 
     try {
-     
-      const config = {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-    };
-
-    const dateFormatted = new Date(date).toISOString();
-    const newContest = {name, authors, length, date: dateFormatted };
+      const dateFormatted = new Date(date).toISOString();
+      const newContest = {name, authors, length, date: dateFormatted};
 
       const BASE_URL = process.env.REACT_APP_BASE_URL
 
-      console.log("NESTO",localStorage.getItem('token'))
-    
-      await axios.post(`${BASE_URL}/contest/addcontest`, newContest,config);
+        console.log("NESTO",localStorage.getItem('token'))
+      
+        await axios.post(`${BASE_URL}/contest/addcontest`, newContest);
 
-      const updatedContests = [...contests, newContest].sort(
-        (a, b) => new Date(a.date) - new Date(b.date)
-      );
+        for(let problem of problems) {
+            console.log(problem)
+            problem.contestname = name
+            try {
+            await axios.post(`${BASE_URL}/problem`,problem)
+            }
+            catch (err) {
+              await axios.delete(`${BASE_URL}/contest/delete/${name}`)
+              break;
+            }
+        }
 
-    
+        const updatedContests = [...contests, newContest].sort(
+          (a, b) => new Date(a.date) - new Date(b.date)
+        );
       setContests(updatedContests);
-
-    
       setName('');
       setDate('');
       setAuthors('');
       setLength('');
-      
+      setProblems([])
       navigate('/contests'); 
 
     } catch (error) {
@@ -139,7 +157,9 @@ const AddContest = ({contests,setContests}) => {
 
         <div className = "addedproblems">
             <p>Added problems:</p>
-            {problems.map((problem) => <AddedProblem problem = {problem} problems={problems} setProblems={setProblems}/>)}
+            {problems.map((problem) => <AddedProblem problem = {problem} problems={problems} setProblems={setProblems}
+            setProblemName={setproblemName} setProblemDesc={setproblemDesc} setProblemInputs={setInputs} setProblemOutputs={setOutputs}
+            rating={rating} setRating={setRating} topics={topics} setTopics={setTopics}/>)}
         </div>
 
         <button className="addcontest" onClick={handleClick}>
@@ -161,6 +181,20 @@ const AddContest = ({contests,setContests}) => {
           value={problemName}
           onChange={(e) => setproblemName(e.target.value)}
         />
+
+        <input type = "text"
+        placeholder='Rating'
+        required
+        value = {rating}
+        onChange = {(e) => setRating(e.target.value)}/>
+
+        <input type = "text"
+        placeholder='Topics'
+        required
+        value = {topics}
+        onChange = {(e) => setTopics(e.target.value)}/>
+        
+
         <div className = "wrapperDiv">
           <textarea required value = {problemDesc} onInput={(e) => setproblemDesc(e.target.value)} placeholder='Problem description'></textarea>
 
@@ -169,9 +203,19 @@ const AddContest = ({contests,setContests}) => {
             <textarea className = "output" placeholder='outputs' value = {currOutput} onInput = {(e) => setCurrOutput(e.target.value)} />
           </div>
 
+
           <button className = "addInputOutput" onClick = {handleInputOutput}>
             <FaPlus/>
           </button>
+
+          <div className = "addedinputsoutputs">
+          
+          {inputs.map((input,idx) => (<Input id = {idx} inputs = {inputs} outputs = {outputs} setInputs = {setInputs} setOutputs = {setOutputs} setCurrInput = {setCurrInput} setCurrOutput = {setCurrOutput}
+          currInput = {currInput} currOutput = {currOutput}
+          />))}
+
+          </div>
+
 
           <button className='addproblem' onClick = {handleAddProblem}>Add problem</button>
 
