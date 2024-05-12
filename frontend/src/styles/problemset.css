@@ -1,79 +1,44 @@
 
-
-table {
-    position: absolute;
-    top:70px;
-    left:50%;
-    transform: translate(-50%);
-    width:95%;
+.problemsetTable {
+    margin-top:50px;
+    width: 100%;
+    color:#e3fef7;
+    border:1px solid #e3fef7;
     border-collapse: collapse;
-    border: 2px solid #77B0AF;
-    
 }
 
-th, td {
-    color: #E3FEF7;
-    padding-top:10px;
-    padding-bottom:10px;
-    border: 2px solid #77B0AF;
+.problemsetTable td, .problemsetTable th {
+    padding: 10px 20px;
+    border:1px solid #e3fef7;
 }
 
-th:nth-child(2), td:nth-child(2) {
-    max-width:100px;
-    width: 15%;
+.problemsetTable tr:last-child {
+    text-align: center;
 }
 
-.name-topics {
+.problemsetTable td div {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-left:10px;
-    padding-right: 10px;
+    width: 100%;
 }
 
-.name-topics p {
-
-    padding: 0;
-    margin: 0;
-    font-weight: 400;
-    color:#E3FEF7;
+.problemsetTable .problemTitle {
+    font-size: 1rem;
     
 }
 
-.name-topics a {
-    padding-left:5px;
-    margin-bottom: 5px;
-    color:#E3FEF7;
+.problemsetTable .problemSpanTopics {
+    font-size:0.9rem;
+    color:#526D82;
+}
+
+.problemTitle, .problemTitle:visited {
+    color: #e3fef7;
     text-decoration: none;
 }
 
-.name-topics a:hover {
-    
-    color:#E3FEF7;
+.problemTitle:hover {
     text-decoration: underline;
 }
 
-.name-topics .topics {
-    font-size:0.8em;
-    
-    
-}
-
-.rating, .id {
-    
-    text-align: center;
-    color: #E3FEF7;
-    
-}
-
-tr:nth-child(even) {
-    background-color: #135D6B;
-}
-
-@media (max-width:1000px) {
-    .name-topics {
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-}

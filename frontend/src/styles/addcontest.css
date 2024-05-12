@@ -96,6 +96,12 @@
     min-height: 200px;
     display: block;   
 }
+
+.inputoutput textarea {
+    min-height: 50px;
+    width: 70%;
+}
+
 .main-containerProblem textarea:focus {
     outline: none;
 }
@@ -130,5 +136,16 @@
     justify-content: center;
     flex-direction: column;
     gap:10px;
+    width: 60%;
+    flex-wrap: wrap;
+}
+
+.addedinputsoutputs {
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+    height:200px;
+    align-items: center;
+    overflow-y: auto;
 }
 

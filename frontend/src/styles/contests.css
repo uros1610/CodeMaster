@@ -50,10 +50,22 @@
 }
 
 
+.future, .past {
+    font-size:2rem;
+    padding: 5px;
+    margin: 5px;
+    color:#E3FEF7
+}
 
 
+.standingsLink, .standingsLink:visited {
+    color: #E3FEF7;
+    text-decoration: none;
+}
 
-
+.standingsLink:hover {
+    text-decoration: underline;
+}
 
 .choice {
     width:10%;
