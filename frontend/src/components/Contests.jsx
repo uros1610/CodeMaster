@@ -7,14 +7,15 @@ import axios from 'axios'
 
 const Contests = ({contests,setContests}) => {
 
- 
+  const [prev,setPrev] = useState([])
+  const [upc,setUpc] = useState([])
 
   useEffect(() => {
 
     const fetchData = async () => {
 
       const BASE_URL = process.env.REACT_APP_BASE_URL
-
+      
     const resp = await axios.get(`${BASE_URL}/contest`)
     
     console.log(resp)
@@ -23,34 +24,64 @@ const Contests = ({contests,setContests}) => {
     setContests(resp.data.sort(
       (a, b) => new Date(a.date) - new Date(b.date)
     ))
-
+    
+   
 }
 
 fetchData()
 
 },[])
+
+useEffect(() => {
+
+  setPrev(contests.filter(contest => new Date(contest.date) < Date.now()))
+  setUpc(contests.filter(contest => new Date(contest.date) >= Date.now()))
+
+},[contests])
     
 
    
   return (
     <div className = "table-div">
     <table id = "futurecontests">
+      <p className = "future">Upcoming contests</p>
+
+
+      <tr>
+          <th>Name</th>
+          <th>Authors</th>
+          <th>Date</th>
+          <th>Length</th>
+          <th className = "choice">Register</th>
+        
+      </tr>
+
+    {upc.map((item) => (<Contest key = {item.id} item = {item}/>))}
+
+
+</table>
+
+
+
+<table id = "futurecontests">
+
+<p className = "past">Past contests</p>
+
 
     <tr>
         <th>Name</th>
         <th>Authors</th>
         <th>Date</th>
         <th>Length</th>
-        <th className = "choice">Choose contest</th>
+        <th>Leaderboard</th>
       
     </tr>
 
-    {contests.map((item) => (<Contest key = {item.id} item = {item}/>))}
+    {prev.map((item) => (<Contest key = {item.id} item = {item}/>))}
 
 
 </table>
 
-<button className = "regButton">Register</button>
 
 </div>
   )

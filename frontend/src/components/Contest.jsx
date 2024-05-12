@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Contest = ({item}) => {
   return (
@@ -9,7 +10,7 @@ const Contest = ({item}) => {
         
         </td>
         <td>{item.length}</td>
-        <td><input type = "checkbox"/></td>
+        <td>{(new Date(item.date) > Date.now()) ? <Link className='standingsLink'>Register</Link> : <Link className = "standingsLink">Standings</Link>} </td>
     </tr>
   )
 }

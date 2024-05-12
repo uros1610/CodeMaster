@@ -75,6 +75,8 @@ const AddContest = ({contests,setContests}) => {
         for(let problem of problems) {
             console.log(problem)
             problem.contestname = name
+            problem.dateshown = date
+            
             try {
             await axios.post(`${BASE_URL}/problem`,problem)
             }
