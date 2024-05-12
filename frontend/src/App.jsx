@@ -22,6 +22,7 @@ import { Outlet } from 'react-router-dom';
 import { ProfileNavBar } from './components/ProfileNavBar';
 import Submissions from './components/Submissions';
 import UserContests from './components/UserContests';
+import ProblemsContext from './context/ProblemsContext';
 
 
 function App() {
@@ -32,6 +33,8 @@ function App() {
    const [contests, setContests] = useState([])
 
    const {user} = useContext(AuthContext)
+
+   const {problems,setProblems} = useContext(ProblemsContext)
 
 
   // dio za takmicenja
@@ -52,7 +55,7 @@ function App() {
       <Route path = '/submitproblem' element = {<SubmitProblem/>} />
       <Route path = '/contests'  element = {<Contests contests={contests} setContests={setContests}/>} />
       <Route path = '/addcontest' element = {<AddContest contests={contests} setContests={setContests}/>}/>
-      <Route path = '/singleproblem/:name' element = {<SingleProblem/>}/>
+      <Route path = '/problem/:name' element = {<SingleProblem/>}/>
       <Route path = '/submitproblem/:name' element = {<SubmitProblem/>}/>
       <Route path = '/problemset' element = {<ProblemSet/>}/>
       <Route path = '/rating' element = {<Rating/>}/>
