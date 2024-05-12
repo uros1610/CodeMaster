@@ -17,15 +17,14 @@ const SubmitProblem = () => {
 
     const BASE_URL = process.env.REACT_APP_BASE_URL
 
+    if(!localStorage.getItem('token')) {
+      navigate('/login')
+    }
+
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const config = {
-              headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-          };
-           
-            const response = await axios.get(`${BASE_URL}/${name}`,config)
-      
+            const response = await axios.get(`${BASE_URL}/problem/${name}`)
             setNameProblem(response.title)
             
           }
