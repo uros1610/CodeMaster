@@ -23,7 +23,7 @@ const getProblemByName = (req,res) => {
 
 const allProblems = (req,res) => {
 
-    const query = 'SELECT * from Problem'
+    const query = 'SELECT * from Problem p WHERE p.dateShown < NOW()'
 
     
     db.query(query,[],(err, data) => {
@@ -31,6 +31,8 @@ const allProblems = (req,res) => {
             console.error(err);
             return res.status(500).json({ message: 'Internal Server Error' });
         }
+
+        console.log("DATATATATATATATATA",data)
        
         res.status(200).json(data);
     })
@@ -52,9 +54,11 @@ const addProblem = (req,res) => {
     if(data.length > 0) {
         return res.status(403).json("Problem with that name already exists!")
     }
+
+    console.log(req.body.dateshown)
     
-    const insertQuery = 'INSERT INTO Problem(title,description,contest_name,rating,topics) VALUES(?)'
-    const values = [req.body.title,req.body.description,req.body.contestname,parseInt(req.body.rating),req.body.topics]
+    const insertQuery = 'INSERT INTO Problem(title,description,contest_name,rating,topics,dateshown) VALUES(?)'
+    const values = [req.body.title,req.body.description,req.body.contestname,parseInt(req.body.rating),req.body.topics,req.body.dateshown]
 
     const resp = db.query(insertQuery,[values],(err,otherdata) => {
         if (err) {
