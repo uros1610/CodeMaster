@@ -33,6 +33,8 @@ const NavBar = ({ width, isVisible,setIsVisible}) => {
           <Link className = "linksNavBar" to={user ? "/contests" : "/login"}>Contests</Link>
           <Link className = "linksNavBar" to={user ? "/rating" : "/login"}>Rating</Link>
           <Link className = "linksNavBar" to={user ? "/problemset" : "/login"}>Problemset</Link>
+          {user && user.role === "Admin" && <Link className = "linksNavBar" to={"/addcontest"}>Add Contest</Link>}
+
           </div>
       </div>
     );
@@ -71,6 +73,8 @@ const NavBar = ({ width, isVisible,setIsVisible}) => {
           <Link className = "linksNavBar" to={user ? "/contests" : "/login"}>Contests</Link>
           <Link className = "linksNavBar" to={user ? "/rating" : "/login"}>Rating</Link>
           <Link className = "linksNavBar" to={user ? "/problemset" : "/login"}>Problemset</Link>
+          {user && user.role === "Admin" && <Link className = "linksNavBar" to={"/addcontest"}>Add Contest</Link>}
+
         </div>
       </>
     );
