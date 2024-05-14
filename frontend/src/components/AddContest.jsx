@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import styles from '../styles/addcontest.css'
@@ -6,6 +6,7 @@ import {FaPlus} from 'react-icons/fa'
 import AddedProblem from './AddedProblem';
 import Input from './Input';
 import { useEffect } from 'react';
+import AuthContext from '../context/AuthContext';
 
 const AddContest = ({contests,setContests}) => {
   const navigate = useNavigate();
@@ -27,6 +28,28 @@ const AddContest = ({contests,setContests}) => {
   const [rating,setRating] = useState('')
   const [topics,setTopics] = useState('')
 
+  const [err,setErr] = useState(null)
+
+  const user = JSON.parse(localStorage.getItem('user'));
+  const token = localStorage.getItem('token');
+
+  const URL = process.env.REACT_APP_BASE_URL;
+
+
+  if(!token) {
+    navigate('/login');
+  }
+
+  
+
+ else if(user.role !== "Admin") {
+  
+
+    navigate('/Home');
+  }
+
+  
+
 
   const handleInputOutput = (e) => {
     e.preventDefault()
@@ -38,11 +61,29 @@ const AddContest = ({contests,setContests}) => {
 
   
 
-  const handleAddProblem = (e) => {
+  const handleAddProblem = async (e) => {
     e.preventDefault()
 
     const currProblem = {id:problems.length+1,contestname:name,title:problemName,description:problemDesc,inputs,outputs,rating,topics}
 
+   const topicsSplit = topics.split(",")
+
+    for(let topic of topicsSplit) {
+      const topicStrip = topic.trim();
+
+      console.log(topicStrip);
+
+      try {
+      const resp = await axios.get(`${URL}/topics/${topicStrip}`);
+      }
+      catch(err) {
+        if(err.response) {
+        setErr(err.response.data.message)
+        }
+        return;
+      }
+
+    }
 
     setProblems([...problems,currProblem])
     setproblemName('')
@@ -59,11 +100,13 @@ const AddContest = ({contests,setContests}) => {
 
 
 
+
   const handleClick = async (e) => {
     e.preventDefault();
 
     try {
-      const dateFormatted = new Date(date).toISOString();
+      const dateFormatted = new Date(date).toUTCString();
+      console.log(dateFormatted)
       const newContest = {name, authors, length, date: dateFormatted};
 
       const BASE_URL = process.env.REACT_APP_BASE_URL
@@ -84,6 +127,14 @@ const AddContest = ({contests,setContests}) => {
               await axios.delete(`${BASE_URL}/contest/delete/${name}`)
               break;
             }
+
+            for(let i = 0; i < problem.inputs.length; i++) {
+               const obj = {input:problem.inputs[i],problemname:problem.title,output:problem.outputs[i]}
+                await axios.post(`${BASE_URL}/inputsoutputs`,obj)
+            }
+
+            
+
         }
 
         const updatedContests = [...contests, newContest].sort(
@@ -194,7 +245,9 @@ const AddContest = ({contests,setContests}) => {
         placeholder='Topics'
         required
         value = {topics}
-        onChange = {(e) => setTopics(e.target.value)}/>
+        onChange = {(e) => {setTopics(e.target.value); setErr(null)}}/>
+
+        {err && <p>{err}</p>}
         
 
         <div className = "wrapperDiv">
