@@ -3,56 +3,50 @@
 
 
 
-
-table {
-    
-    width: 97%;  
-    border:2px solid #77B0AF;
+.submissionsTable {
+    margin-top:50px;
+    width: 100%;
+    color:#e3fef7;
+    border:1px solid #e3fef7;
     border-collapse: collapse;
-    margin-top:20px;
     text-align: center;
-    margin:auto;
-    margin-top:70px;
 }
 
-
-th, td {
-    color:#E3FEF7;
-    border: 2px solid #77B0AF;
-    padding-top:10px;
-    padding-bottom: 10px;
-
+.submissionsTable td, .submissionsTable th {
+    padding: 10px 20px;
+    border:1px solid #e3fef7;
 }
 
-td {
-    color:#E3FEF7;
-
-}
-
-.submissions {
-    margin-top:40px;
+.submissionsTable td:last-child {
     text-align: center;
-    font-size:2.4em;
-    color:#E3FEF7;
 }
 
-
-.datetime {
-    padding-top:5px;
+.submissionsTable td div {
     display: flex;
-    flex-direction: column;
     align-items: center;
+    justify-content: space-between;
+    width: 100%;
 }
 
-.datetime p {
-    padding: 0;
-    margin: 0;
+.submissionsTable .problemTitle {
+    font-size: 1rem;
+    
+}
+
+.submissionsTable .problemSpanTopics {
+    font-size:0.9rem;
+    color:#526D82;
+}
+
+.problemTitle, .problemTitle:visited {
+    color: #e3fef7;
+    text-decoration: none;
+}
+
+.problemTitle:hover {
+    text-decoration: underline;
 }
 
 
-
-tr:nth-child(even) {
-    background-color: #135D6B;
-}
 
 
