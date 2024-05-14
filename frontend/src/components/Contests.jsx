@@ -14,18 +14,13 @@ const Contests = ({contests,setContests}) => {
 
     const fetchData = async () => {
 
-      const BASE_URL = process.env.REACT_APP_BASE_URL
-      
+    const BASE_URL = process.env.REACT_APP_BASE_URL
+
     const resp = await axios.get(`${BASE_URL}/contest`)
     
     console.log(resp)
-  
 
-    setContests(resp.data.sort(
-      (a, b) => new Date(a.date) - new Date(b.date)
-    ))
-    
-   
+    setContests(resp.data)
 }
 
 fetchData()
@@ -34,8 +29,10 @@ fetchData()
 
 useEffect(() => {
 
-  setPrev(contests.filter(contest => new Date(contest.date) < Date.now()))
-  setUpc(contests.filter(contest => new Date(contest.date) >= Date.now()))
+  setPrev(contests.filter(contest => new Date(contest.date) < Date.now()).sort((a, b) => new Date(a.date) - new Date(b.date)
+  ))
+  setUpc(contests.filter(contest => new Date(contest.date) >= Date.now()).sort((a, b) => new Date(a.date) - new Date(b.date)
+  ))
 
 },[contests])
     
