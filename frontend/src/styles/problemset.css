@@ -12,7 +12,7 @@
     border:1px solid #e3fef7;
 }
 
-.problemsetTable tr:last-child {
+.problemsetTable td:last-child {
     text-align: center;
 }
 
