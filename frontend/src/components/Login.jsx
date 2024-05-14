@@ -46,15 +46,13 @@ const Login = ({isVisible}) => {
 
     }
 
-    
-
     try {
      
-      
-
+    
     await login(inputs)
     navigate('/home')
   }
+
   catch (err) {
     if(err.response) {
       setError(err.response.data.message)
