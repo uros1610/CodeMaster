@@ -53,7 +53,7 @@ function App() {
       <Route path = '/login' element = {<Login/>}/>
       <Route path = '/register' element = {<Signup/>} />
       <Route path = '/submitproblem' element = {<SubmitProblem/>} />
-      <Route path = '/contests'  element = {<Contests contests={contests} setContests={setContests}/>} />
+      <Route path = '/contests'  element = {<Contests contests={contests} setContests={setContests}/>}/>
       <Route path = '/addcontest' element = {<AddContest contests={contests} setContests={setContests}/>}/>
       <Route path = '/problem/:name' element = {<SingleProblem/>}/>
       <Route path = '/submitproblem/:name' element = {<SubmitProblem/>}/>
