@@ -3,7 +3,8 @@ import styles from '../styles/submitproblem.css'
 import {useRef,useState,useEffect} from 'react'
 import { useParams,useNavigate} from 'react-router-dom'
 import axios from 'axios'
-
+import { useContext } from 'react'
+import AuthContext from '../context/AuthContext'
 
 const SubmitProblem = () => {
 
@@ -15,6 +16,7 @@ const SubmitProblem = () => {
 
     const {name} = useParams()
 
+    const {user} = useContext(AuthContext)
     const BASE_URL = process.env.REACT_APP_BASE_URL
 
     if(!localStorage.getItem('token')) {
@@ -37,6 +39,23 @@ const SubmitProblem = () => {
        fetchData()
       
       },[])
+    
+
+      const handleClick = async (e) => {
+
+          try {
+            const date = Date.now()
+            const dateFormatted = new Date(date).toUTCString();
+            
+            const submission = {code:TextArea,date:dateFormatted,username:user.username,problemname:name}
+            await axios.post(`${BASE_URL}/submissions/`,submission)
+          }
+          catch(err) {
+            console.log(err)
+          }
+
+        
+      }
 
   
 
@@ -99,7 +118,7 @@ const SubmitProblem = () => {
 
             </div>
 
-            <button className = "btnSubmit" type = "submit">Submit</button>
+            <button className = "btnSubmit" type = "submit" onClick = {handleClick}>Submit</button>
         </div>
     </div>
   )
