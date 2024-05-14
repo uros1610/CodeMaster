@@ -23,11 +23,12 @@ app.use('/backend/contest',require('./routes/contests.js'))
 app.use('/backend/auth',require('./routes/auth.js'))
 app.use('/backend/problem',require('./routes/problem.js'))
 app.use('/backend/rating',require('./routes/rating'))
-app.use('/backend/submitproblem',require('./routes/submitproblem'))
+app.use('/backend/submissions',require('./routes/submissions'))
+app.use('/backend/inputsoutputs',require('./routes/inputoutput'))
+app.use('/backend/topics',require('./routes/topics'))
 
 
-
-// rute za profil
+// rute za profil   
 
 app.use('/backend/profile',require('./routes/users'))
 
