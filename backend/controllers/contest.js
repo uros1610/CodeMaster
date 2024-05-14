@@ -6,7 +6,6 @@ const createContest = async (req,res) => {
     const authors = req.body.authors;
     const date = new Date(req.body.date)
 
-    const mysqlDateTime = date.toISOString().slice(0, 19).replace('T', ' ');
     
 
     const query = "SELECT * From Contest WHERE name = ?"
@@ -23,7 +22,7 @@ const createContest = async (req,res) => {
 
 
         const queryInsert = "INSERT INTO Contest(name,date,authors,length) VALUES(?)"
-        const values = [name,mysqlDateTime,authors,req.body.length]
+        const values = [name,date,authors,req.body.length]
 
         db.query(queryInsert,[values],(err, data) => {
             if(err) {

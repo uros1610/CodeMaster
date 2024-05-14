@@ -65,15 +65,13 @@ const login = (req,res) => {
 
         
 
-        const token = jwt.sign(data[0].username,process.env.SECRET_KEY)
+        const token = jwt.sign({username:data[0].username,role:data[0].rola},process.env.SECRET_KEY)
 
-        const sendObj = {username:data[0].username,token:token,role:data[0].roleName}
+        const sendObj = {username:data[0].username,token:token,role:data[0].rola}
 
         console.log(sendObj)
 
-        res.cookie("access_token",token,{
-            httpOnly:true
-        }).status(200).json(sendObj)
+        res.status(200).json(sendObj)
 
 
     })
@@ -81,10 +79,7 @@ const login = (req,res) => {
 
 const logout = (req,res) => {
 
-    res.clearCookie("access_token",{
-        sameSite:"none",
-        secure:true
-    }).status(200).json("User has been logged out")
+    res.status(200).json("User has been logged out")
 }
 
 module.exports = {register,login,logout}
