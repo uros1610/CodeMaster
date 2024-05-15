@@ -1,14 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styles from '../styles/profile.css'
 import { useParams,Link} from 'react-router-dom'
 import {useState,useEffect} from 'react'
 import axios from 'axios'
 import { ProfileNavBar } from './ProfileNavBar'
+import AuthContext from '../context/AuthContext'
 
 const Profile = () => {
 
     const [userInfo,setUserInfo] = useState({})
     const {username} = useParams()
+
+    const {user} = useContext(AuthContext)
 
     const BASE_URL = process.env.REACT_APP_BASE_URL
     
@@ -45,7 +48,7 @@ const Profile = () => {
             <div className = "profileInfo">
                 <p>Username: {userInfo.username}</p>
                 <p>Rating: {userInfo.rating}</p>
-                <button className = 'editProfileBtn'><Link className='profile-link'>Edit profile</Link></button>
+                {userInfo.username === user.username && <button className = 'editProfileBtn'><Link className='profile-link'>Edit profile</Link></button>}
             </div>
             
         </div>
