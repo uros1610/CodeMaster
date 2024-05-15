@@ -27,4 +27,31 @@ const insertIO = (req,res) => {
     })
 }
 
-module.exports = insertIO
+const getInputs = (req,res) => {
+    const problemname = req.params.name
+    console.log("PROBLEMNAMEEE",problemname)
+    const q = "SELECT * FROM Input WHERE problem_title = ? LIMIT 2"
+
+    db.query(q,[problemname],(err,data) => {
+
+        if(err) {
+            return res.status(500)
+        }
+        return res.status(200).json(data);
+    })
+}
+
+const getOutputs = (req,res) => {
+    const problemname = req.params.name
+    const q = "SELECT * FROM Output WHERE problem_title = ? LIMIT 2"
+
+    db.query(q,[problemname],(err,data) => {
+
+        if(err) {
+            return res.status(500)
+        }
+        return res.status(200).json(data);
+    })
+}
+
+module.exports = {insertIO,getInputs,getOutputs}
