@@ -1,0 +1,45 @@
+
+.buttonEdit:hover, .buttonDelete:hover {
+    background-color: #DDE6ED;
+    color:#27374D;
+
+}
+
+.buttonEdit, .buttonDelete {
+    color:#DDE6ED;
+    background-color:#27374D;
+    padding:8px 12px;
+    border-radius:15px;
+}
+
+.radioBtns {
+    display: inline-block;
+}
+
+.mainFormForEdits {
+    display: flex;
+    gap:20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.mainDivForEdits {
+    display: flex;
+    gap:20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.radios {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    flex-direction: column;
+}
+
+@media (max-width:750px) {
+    .mainDivForEdits, .mainFormForEdits{
+        flex-direction: column;
+        gap:5px;
+    }
+}
