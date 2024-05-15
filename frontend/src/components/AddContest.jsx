@@ -64,7 +64,7 @@ const AddContest = ({contests,setContests}) => {
   const handleAddProblem = async (e) => {
     e.preventDefault()
 
-    const currProblem = {id:problems.length+1,contestname:name,title:problemName,description:problemDesc,inputs,outputs,rating,topics}
+   const currProblem = {id:problems.length+1,contestname:name,title:problemName,description:problemDesc,inputs,outputs,rating,topics}
 
    const topicsSplit = topics.split(",")
 
