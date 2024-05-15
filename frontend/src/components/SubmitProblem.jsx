@@ -6,15 +6,18 @@ import axios from 'axios'
 import { useContext } from 'react'
 import AuthContext from '../context/AuthContext'
 
-const SubmitProblem = () => {
+const SubmitProblem = ({errDesc,setErrDesc}) => {
 
     const [TextArea,setTextArea] = useState("")
 
     
     const navigate = useNavigate()
-    const [nameProblem,setNameProblem] = useState('')
+
+    const [val,setVal] = useState('cpp17');
 
     const {name} = useParams()
+
+
 
     const {user} = useContext(AuthContext)
     const BASE_URL = process.env.REACT_APP_BASE_URL
@@ -23,22 +26,18 @@ const SubmitProblem = () => {
       navigate('/login')
     }
 
-    useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const response = await axios.get(`${BASE_URL}/problem/${name}`)
-            setNameProblem(response.title)
-            
-          }
-          catch(error) {
-      
-            navigate('/notfound')
-          }
-        }
-      
-       fetchData()
-      
-      },[])
+    const languageMap = {
+      "C++ 17": "cpp17",
+      "Python 3": "python3",
+      "Java": "java"
+    };
+
+    
+      const handleLanguageChange = (lang) => {
+        
+        // Set selected language based on mapped value
+        setVal(lang);
+      };
     
 
       const handleClick = async (e) => {
@@ -47,17 +46,17 @@ const SubmitProblem = () => {
             const date = Date.now()
             const dateFormatted = new Date(date).toUTCString();
             
-            const submission = {code:TextArea,date:dateFormatted,username:user.username,problemname:name}
-            await axios.post(`${BASE_URL}/submissions/`,submission)
+            const submission = {code:TextArea,date:dateFormatted,username:user.username,problemname:name, val:val}
+            const resp = await axios.post(`${BASE_URL}/submit`,submission)
             navigate(`/profile/submissions/${user.username}`)
-          }
-          catch(err) {
-            console.log(err)
-          }
 
-        
+      }
+      catch(err) {
+        navigate(`/profile/submissions/${user.username}`)
+
       }
 
+    }
   
 
     let list = TextArea.split("\n");
@@ -87,10 +86,10 @@ const SubmitProblem = () => {
             <div className= "language-sourcecode">
                 <div className= "language">
                     <label htmlFor = "languages" style = {{color:'#E3FEF7',marginRight:'10px'}}>Choose a language:</label>
-                    <select name = "languages" id = "languages">
-                        <option value = "C++">C++</option>
-                        <option value = "Python">Python</option>
-                        <option value = "Java">Java</option>
+                    <select name = "languages" id = "languages" onChange = {(e) => {handleLanguageChange(e.target.value)}}>
+                        <option value = "cpp17">C++ 17</option>
+                        <option value = "python3">Python 3</option>
+                        <option value = "java">Java</option>
                         
                     </select>
                 </div>
@@ -109,14 +108,7 @@ const SubmitProblem = () => {
                     
                 </div>
 
-                <div className= "choose-file">
-                    <label for = "file" id = "lblfile">Choose a file:</label>
-                    <input type = "file" id = "fileinput"/>
-        
-                </div>
-
-                
-
+               
             </div>
 
             <button className = "btnSubmit" type = "submit" onClick = {handleClick}>Submit</button>
