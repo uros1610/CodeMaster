@@ -2,12 +2,11 @@ const express = require('express')
 const cors = require('cors');
 const cookieparser = require('cookie-parser')
 const redirection = require('./middleware/redirect')
+const axios = require('axios');
 
 
 
 const app = express();
-
-
 
 
 app.use(cors());
@@ -26,6 +25,7 @@ app.use('/backend/submissions',require('./routes/submissions'))
 app.use('/backend/inputsoutputs',require('./routes/inputoutput'))
 app.use('/backend/topics',require('./routes/topics'))
 app.use('/backend/user',require('./routes/users'))
+app.use('/backend/submit',require('./routes/submit'))
 
 
 // rute za profil   
