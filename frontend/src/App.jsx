@@ -23,6 +23,7 @@ import { ProfileNavBar } from './components/ProfileNavBar';
 import Submissions from './components/Submissions';
 import UserContests from './components/UserContests';
 import ProblemsContext from './context/ProblemsContext';
+import ManageUsers from './components/ManageUsers';
 
 
 function App() {
@@ -63,6 +64,7 @@ function App() {
       <Route path = '/profile/:username' element = {<Profile/>}/>
       <Route path = '/profile/submissions/:username' element = {<Submissions/>}/>
       <Route path = '/profile/contests/:username' element = {<UserContests/>}/>
+      <Route path = '/manageusers' element = {<ManageUsers/>}/>
 
 
       </Routes>
