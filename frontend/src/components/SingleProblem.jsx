@@ -11,28 +11,44 @@ const SingleProblem = () => {
   const [title,setTitle] = useState("")
   const [description,setDescription] = useState("")
   const navigate = useNavigate()
+  const [inputs,setInputs] = useState([])
+  const [outputs,setOutputs] = useState([])
+  const [topics,setTopics] = useState("")
+
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
+
 
   const {name} = useParams()
-  console.log(name)
 
-  useEffect(() => {
+
+
   const fetchData = async () => {
-    try {
-     
-      const response = await axios.get(`http://localhost:8800/backend/problem/${name}`)
 
+    try {
+      const response = await axios.get(`${BASE_URL}/problem/singleproblem/${name}`)
+      console.log("RESP",response)
+      const inputss = await axios.get(`${BASE_URL}/inputsoutputs/input/${name}`)
+      const outputss = await axios.get(`${BASE_URL}/inputsoutputs/output/${name}`)
+
+      console.log("INPUTI I OUTPUTI",inputss,outputss)
+
+      setInputs(inputss.data)
+      setOutputs(outputss.data)
       setTitle(response.title)
       setDescription(response.description)
+      setTopics(response.data.topics)
     }
     catch(error) {
-
-      navigate('/notfound')
+      console.log(error)
     }
   }
 
- // fetchData()
+  useEffect(() => {
+    console.log("PRIJE FETCH DATA");
+    fetchData();
+  },[])
 
-},[])
+
 
 
   return (
@@ -48,32 +64,7 @@ const SingleProblem = () => {
         </div>
 
         <div className = "problem-description">
-          There are n
-      coins on the table forming a circle, and each coin is either facing up or facing down. Alice and Bob take turns to play the following game, and Alice goes first.
-
-      In each operation, the player chooses a facing-up coin, removes the coin, and flips the two coins that are adjacent to it. If (before the operation) there are only two coins left, then one will be removed and the other won't be flipped (as it would be flipped twice). If (before the operation) there is only one coin left, no coins will be flipped. If (before the operation) there are no facing-up coins, the player loses.
-
-      Decide who will win the game if they both play optimally. It can be proved that the game will end in a finite number of operations, and one of them will win.
-
-      Input:
-      
-      Each test contains multiple test cases. The first line contains the number of test cases t
-      (1≤t≤100
-      ). The description of the test cases follows.
-
-      The first line of each test case contains only one positive integer n
-      (1≤n≤100
-      ), representing the number of the coins.
-
-      A string s
-      of length n
-      follows on the second line of each test case, containing only "U" and "D", representing that each coin is facing up or facing down.
-
-      Output:
-      For each test case, print "YES" if Alice will win the game, and "NO" otherwise.
-
-      You can output the answer in any case (upper or lower). For example, the strings "yEs", "yes", "Yes", and "YES" will be recognized as positive responses.
-          
+          {description}
       </div>
 
       
@@ -84,59 +75,25 @@ const SingleProblem = () => {
       
       <table className = "inputTable">
 
-        <tr>
-          <div><p className = "inputParagraphs">3</p></div>
-        </tr>
-
-        <tr>
-          <div>
-            <p className = "inputParagraphs">5</p>
-            <p className = "inputParagraphs">UUDUD</p>
-          </div>
-        </tr>
-
-        <tr>
-          <div>
-            <p className = "inputParagraphs">5</p>
-            <p className = "inputParagraphs">UUDDD</p>
-          </div>
-        </tr>
-
-        <tr>
-          <div>
-            <p className = "inputParagraphs">3</p>
-            <p className = "inputParagraphs">DUD</p>
-          </div>
-        </tr>
+        {inputs.map((input,idx) => (
+          <tr key = {idx+1}>
+            <p className = "inputParagraphs">{input.value}</p>
+          </tr>
+        ))}
 
 
       </table>
 
       <p className = "output">Output:</p>
       
-      <table className = "outputTable">
+      <table className = "inputTable">
 
        
-        <tr>
-          <div>
-           
-            <p className = "inputParagraphs">NO</p>
-          </div>
-        </tr>
-
-        <tr>
-          <div>
-           
-            <p className = "inputParagraphs">YES</p>
-          </div>
-        </tr>
-
-        <tr>
-          <div>
-            <p className = "inputParagraphs">YES</p>
-
-          </div>
-        </tr>
+      {outputs.map((output,idx) => (
+          <tr key = {idx+1}>
+            <p className = "inputParagraphs">{output.value}</p>
+          </tr>
+        ))}
 
 
       </table>
@@ -163,7 +120,7 @@ const SingleProblem = () => {
         <hr style = {{
           width:'100%'
         }}/>
-        <p className = "problem-tags">games,brute force</p>
+        <p className = "problem-tags">{topics}</p>
       </div>
 
     </div>
