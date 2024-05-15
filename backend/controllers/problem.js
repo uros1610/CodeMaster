@@ -16,7 +16,7 @@ const getProblemByName = (req,res) => {
             return res.status(404).json({ message: 'Problem not found' });
         }
 
-        const obj = { title: data[0].title, description: data[0].description };
+        const obj = { title: data[0].title, description: data[0].description,topics:data[0].topics};
         res.status(200).json(obj);
     })
 }
@@ -75,7 +75,36 @@ const addProblem = (req,res) => {
     })
 
 }
-  
+
+const getInputs = (req,res) => {
+    const name = req.params.name
+
+    const q = "SELECT * FROM Input WHERE problem_title = ?"
+
+    db.query(q,[name],(err,data) => {
+        if(err) {
+            return res.status(500).json("Internal server error!");
+        }
+        else {
+            return res.status(200).json(data)
+        }
+    })
+}
+
+const getOutputs = (req,res) => {
+    const name = req.params.name
+
+    const q = "SELECT * FROM Input WHERE problem_title = ?"
+
+    db.query(q,[name],(err,data) => {
+        if(err) {
+            return res.status(500).json("Internal server error!");
+        }
+        else {
+            return res.status(200).json(data)
+        }
+    })
+}
 
 
-module.exports = {getProblemByName,allProblems,addProblem}
+module.exports = {getProblemByName,allProblems,addProblem,getInputs,getOutputs}
