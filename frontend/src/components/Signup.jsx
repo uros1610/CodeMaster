@@ -21,7 +21,6 @@ const Signup = () => {
     const [error,setError] = useState(null)
 
     const handleChange = (e) => {
-    
       const value = e.target.value
       const changed = {...inputs,[e.target.id]:e.target.value}
       setError(null)
