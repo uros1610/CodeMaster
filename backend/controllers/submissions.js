@@ -25,7 +25,7 @@ const getAllSubmissionsOneUser = (req,res) => {
 
     console.log("USERNAME",username)
 
-    const query = "SELECT id,problemTitle,date,verdictdescription,userName FROM Submission WHERE userName = ?"
+    const query = "SELECT id,problemTitle,date,verdictdescription,userName,language FROM Submission WHERE userName = ?"
 
     db.query(query,[username],(err,data) => {
         if(err) {
@@ -50,11 +50,13 @@ const insertSubmission = (req,res) => {
 
     const username = req.body.username
     const problemname = req.body.problemname
+    const verdictdescription = req.body.verdictdescription
+    const val = req.body.val;
 
     console.log(req.body)
 
-    const query = "INSERT INTO Submission(date,problemTitle,userName,code,verdictdescription) VALUES(?)"
-    const values = [date,problemname,username,code,"Test"]
+    const query = "INSERT INTO Submission(date,problemTitle,userName,code,verdictdescription,language) VALUES(?)"
+    const values = [date,problemname,username,code,verdictdescription,val]
 
     db.query(query,[values],(err,data) => {
         if(err) {
