@@ -22,10 +22,10 @@ app.use(cookieparser())
 app.use('/backend/contest',require('./routes/contests.js'))
 app.use('/backend/auth',require('./routes/auth.js'))
 app.use('/backend/problem',require('./routes/problem.js'))
-app.use('/backend/rating',require('./routes/rating'))
 app.use('/backend/submissions',require('./routes/submissions'))
 app.use('/backend/inputsoutputs',require('./routes/inputoutput'))
 app.use('/backend/topics',require('./routes/topics'))
+app.use('/backend/user',require('./routes/users'))
 
 
 // rute za profil   
