@@ -40,11 +40,7 @@ const Login = ({isVisible}) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if((inputs.username).includes('\'')) {
-      setError("mene ces da zeznes")
-      return;
-
-    }
+    
 
     try {
      
