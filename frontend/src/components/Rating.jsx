@@ -13,12 +13,42 @@ const Rating = () => {
 
     const BASE_URL = process.env.REACT_APP_BASE_URL
 
+    const [no,setNo] = useState(0);
+    const [pageNumber,setpageNumber] = useState(1);
+
+
+  useEffect(() => {
+
+    const fetchNo = async () => {
+      const resp = await axios.get(`${BASE_URL}/user/allusersCount`);
+
+      var ind = resp.data[0].broj / 15;
+
+      console.log("IND",ind);
+
+      if(resp.data[0].broj % 15 !== 0) {
+        ind++;
+      }
+
+      setNo(ind);
+    }
+
+    fetchNo();
+
+  },[])
+
+  const handlePageChange = (e,id) => {
+      e.preventDefault();
+
+      setpageNumber(id);
+  }
+
     useEffect(() => {
 
         const fetchData = async () => {
             try {
                
-                const response = await axios.get(`${BASE_URL}/user/rating`)
+                const response = await axios.get(`${BASE_URL}/user/rating/${pageNumber}`)
                 console.log(response.data)
                 setUsers(response.data.sort((a,b) => {
                     if(a.rating > b.rating) {
@@ -36,9 +66,15 @@ const Rating = () => {
         }
 
     fetchData()
-    },[])
+    },[pageNumber])
 
   return (
+    <div className = "ratingDiv" style = {{
+        display:'flex',
+        alignItems:'center',
+        justifyContent:'center',
+        flexDirection:'column'
+    }}>
     <table className = "orderedListRating">
 
         <tr>
@@ -50,6 +86,10 @@ const Rating = () => {
         {users.map((item,index) => <RatingRow user = {item} index = {index+1} currentUser = {user}/>)}
 
     </table>
+    <div className = "pageNumbersDiv">
+      {Array.from({length:no},(_ , i) => <button className = "pageNumbers" onClick = {(e) => {handlePageChange(e,i+1)}}>{i+1}</button>)}
+      </div>
+    </div>
   )
 }
 
