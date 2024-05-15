@@ -39,6 +39,10 @@
     font-size:2rem;
 }
 
+.inputParagraphs {
+    padding-left:10px;
+}
+
 .problem-testIO {
     width: 100%;
     display: flex;
