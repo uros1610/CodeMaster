@@ -8,7 +8,7 @@ require('dotenv').config()
 const {getUser, getUsersRating,getUsers,deleteUser,filterUsers,noUsers, updateRole} = require('../controllers/user')
 
 router.get("/allusersCount",noUsers)
-router.get("/rating",getUsersRating)
+router.get("/rating/:id",getUsersRating)
 router.get("/allusers/:id",getUsers)
 router.delete("/:username",deleteUser)
 router.get("/filteredusers/:id",filterUsers);
