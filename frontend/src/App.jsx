@@ -35,16 +35,8 @@ function App() {
 
    const {user} = useContext(AuthContext)
 
-   const {problems,setProblems} = useContext(ProblemsContext)
 
 
-  // dio za takmicenja
-
-
-
-
-
- 
   return (
     <div className="App">
       <NavBar width = {width} isVisible={isVisible} setIsVisible={setIsVisible}/>
