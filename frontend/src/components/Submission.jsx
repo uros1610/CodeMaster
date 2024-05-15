@@ -7,7 +7,10 @@ const Submission = ({item}) => {
         <td>{new Date(item.date).toLocaleString()}</td>
         <td>{item.userName}</td>
         <td>{item.problemTitle}</td>
-        <td>{item.verdictdescription}</td>
+        <td>{item.language}</td>
+        <td style = {{
+          color:item.verdictdescription === "Accepted" ? 'lime' : 'red'
+        }}>{item.verdictdescription}</td>
     </tr>
     )
 }
