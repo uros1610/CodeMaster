@@ -20,16 +20,19 @@ const NavBar = ({ width, isVisible,setIsVisible}) => {
     // If the width is larger than 525px, render the full navbar
     return (
       <div className = "navBar">
-         <div className = "userNameLogout">
+         <div className = "userNameLogout" style={{
+          width: width < 1050 ? '100%' : 'inherit'
+         }}>
         <span className = "appNamefirst">Code<span className = "appNamesecond">Master</span></span>
 
        
         {user && <Link to = {`/profile/${user.username}`} className = "userName">{user.username}</Link>}
-        {user && user.role === "Admin" && <Link className = "linksNavBar" to={"/addcontest"}>Add Contest</Link>}
         {user && <span className = "logout" onClick = {logout}>Logout</span>}
         </div>
 
-          <div className = 'links-div'>
+          <div className = 'links-div' style = {{
+            justifyContent: width < 1050 ? 'center' : 'flex-end'
+          }}>
           <Link className = "linksNavBar" to={user ? "/home" : "/login"}>Home</Link>
           <Link className = "linksNavBar" to={user ? "/contests" : "/login"}>Contests</Link>
           <Link className = "linksNavBar" to={user ? "/rating" : "/login"}>Rating</Link>
