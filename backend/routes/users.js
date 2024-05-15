@@ -5,9 +5,15 @@ const router = express.Router()
 
 require('dotenv').config()
 
-const {getUser} = require('../controllers/user')
+const {getUser, getUsersRating,getUsers,deleteUser,filterUsers,noUsers, updateRole} = require('../controllers/user')
 
+router.get("/allusersCount",noUsers)
+router.get("/rating",getUsersRating)
+router.get("/allusers/:id",getUsers)
+router.delete("/:username",deleteUser)
+router.get("/filteredusers/:id",filterUsers);
 router.get("/:username",getUser)
+router.put("/updateRole/:username/:rola",updateRole);
 
 
 
