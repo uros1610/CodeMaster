@@ -18,7 +18,7 @@ const Rating = () => {
         const fetchData = async () => {
             try {
                
-                const response = await axios.get(`${BASE_URL}/rating`)
+                const response = await axios.get(`${BASE_URL}/user/rating`)
                 console.log(response.data)
                 setUsers(response.data.sort((a,b) => {
                     if(a.rating > b.rating) {
