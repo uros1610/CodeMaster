@@ -25,6 +25,7 @@ const NavBar = ({ width, isVisible,setIsVisible}) => {
 
        
         {user && <Link to = {`/profile/${user.username}`} className = "userName">{user.username}</Link>}
+        {user && user.role === "Admin" && <Link className = "linksNavBar" to={"/addcontest"}>Add Contest</Link>}
         {user && <span className = "logout" onClick = {logout}>Logout</span>}
         </div>
 
@@ -34,6 +35,8 @@ const NavBar = ({ width, isVisible,setIsVisible}) => {
           <Link className = "linksNavBar" to={user ? "/rating" : "/login"}>Rating</Link>
           <Link className = "linksNavBar" to={user ? "/problemset" : "/login"}>Problemset</Link>
           {user && user.role === "Admin" && <Link className = "linksNavBar" to={"/addcontest"}>Add Contest</Link>}
+          {user && user.role === "Admin" && <Link className = "linksNavBar" to={"/manageusers"}>Manage Users</Link>}
+
 
           </div>
       </div>
@@ -74,6 +77,8 @@ const NavBar = ({ width, isVisible,setIsVisible}) => {
           <Link className = "linksNavBar" to={user ? "/rating" : "/login"}>Rating</Link>
           <Link className = "linksNavBar" to={user ? "/problemset" : "/login"}>Problemset</Link>
           {user && user.role === "Admin" && <Link className = "linksNavBar" to={"/addcontest"}>Add Contest</Link>}
+          {user && user.role === "Admin" && <Link className = "linksNavBar" to={"/manageusers"}>Manage Users</Link>}
+
 
         </div>
       </>
