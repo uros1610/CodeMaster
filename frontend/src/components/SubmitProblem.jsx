@@ -49,6 +49,7 @@ const SubmitProblem = () => {
             
             const submission = {code:TextArea,date:dateFormatted,username:user.username,problemname:name}
             await axios.post(`${BASE_URL}/submissions/`,submission)
+            navigate(`/profile/submissions/${user.username}`)
           }
           catch(err) {
             console.log(err)
