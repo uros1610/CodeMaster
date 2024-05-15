@@ -92,6 +92,7 @@ span {
 }
 
 .btnSubmit {
+    transition: scale 0.3s ease-in;
     border:none;
     border-radius:15px;
     background-color:#DDE6ED;
@@ -99,16 +100,19 @@ span {
     font-weight: bold;
    
     padding:10px 50px;
+    scale:1;
 
 
 }
 
 .btnSubmit:hover {
+    transition: scale 0.3s ease-in;
     cursor: pointer;
     background-color: #27374D;
     color:#DDE6ED;
     border:2px solid #DDE6ED;
-    padding:8.5px 48.5px;
+    padding:10px 50px;
+    scale:1.1;
 
 }
 
