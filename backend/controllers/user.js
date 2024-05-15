@@ -45,10 +45,16 @@ const deleteUser = (req,res) => {
 
 
 const getUsersRating = (req,res) => {
-    const query = 'SELECT username,rating FROM User'
+    const query = 'SELECT username,rating FROM User LIMIT ?,?'
+
+    const id = req.params.id;   
+
+    const limit = 15;
+    const offset = (id - 1) * limit;
 
 
-    db.query(query,[],(err,data) => {
+
+    db.query(query,[offset,limit],(err,data) => {
         if(err) {
             return res.status(500).json(err)
         }
