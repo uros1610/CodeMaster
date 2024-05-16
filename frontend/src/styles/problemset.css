@@ -1,6 +1,78 @@
 
-.problemsetTable {
+
+.problemsetDivSearch {
     margin-top:50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap:20px;
+}
+
+.searchParagraph {
+    color:#e3fef7;
+    padding:4px;
+    margin: 0;
+}
+
+.search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap:20px;
+    border:2px solid #e3fef7;
+    padding:15px 15px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.searchRating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:10px;
+}
+
+.filterBtn {
+    transition:scale 0.3s ease-in-out;
+    scale: 1;
+    color:#e3fef7;
+    background-color: #526D82;
+    border:2px solid #e3fef7;
+    padding:10px 50px;
+    font-size: 1.4rem;
+    border-radius: 30px;
+}
+
+.filterBtn:hover {
+    transition:scale 0.3s ease-in-out;
+    background-color:#27374D;
+    scale:1.1;
+    
+}
+
+.problemsetDivSearch input {
+    background-color: #526D82;
+    border:2px solid #e3fef7;
+    padding:5px 10px;
+    color:#e3fef7;
+    width:70%;
+    min-width: 100px;
+
+}
+
+.problemsetDivSearch input::placeholder {
+    color:#e3fef7;
+}
+
+.problemsetDivSearch input:focus {
+    outline: none;
+}
+
+
+.problemsetTable {
     width: 100%;
     color:#e3fef7;
     border:1px solid #e3fef7;
@@ -21,6 +93,7 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    flex-wrap: wrap;
 }
 
 .problemsetTable .problemTitle {
