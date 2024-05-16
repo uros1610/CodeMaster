@@ -21,12 +21,38 @@ const getProblemByName = (req,res) => {
     })
 }
 
+const getCount = (req,res) => {
+    const q = "SELECT COUNT(*) AS broj FROM Problem"
+    db.query(q,[],(err,data) => { 
+    if (err) {
+        console.error(err);
+        return res.status(500).json({ message: 'Internal Server Error' });
+    }
+
+    return res.status(200).json(data);
+
+})
+
+
+}
+
 const allProblems = (req,res) => {
 
-    const query = 'SELECT * from Problem p WHERE p.dateShown < NOW()'
+    const up = req.query.up;
+    const down = req.query.down;
+    const search = "%"+req.query.title+"%";
+
+    console.log(up,down,search);
+
+    const query = 'SELECT * from Problem p WHERE p.dateShown < NOW() AND RATING BETWEEN ? AND ? AND title LIKE ? LIMIT ?, ?'
+    const id = req.params.id;
+    const limit = 10;
+    const offset = (id - 1) * limit;
 
     
-    db.query(query,[],(err, data) => {
+
+    
+    db.query(query,[down,up,search,offset,limit],(err, data) => {
         if (err) {
             console.error(err);
             return res.status(500).json({ message: 'Internal Server Error' });
@@ -107,4 +133,4 @@ const getOutputs = (req,res) => {
 }
 
 
-module.exports = {getProblemByName,allProblems,addProblem,getInputs,getOutputs}
+module.exports = {getProblemByName,allProblems,addProblem,getInputs,getOutputs,getCount}
