@@ -44,6 +44,7 @@ const Submissions = () => {
             <th>Date</th>
             <th>Username</th>
             <th>Problem Name</th>
+            <th>Language</th>
             <th>Verdict</th>
           </tr>
           {data.map(item => <Submission item = {item}/>)}
