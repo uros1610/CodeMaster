@@ -1,0 +1,29 @@
+.standingsTable {
+    width:80%;
+    text-align: center;
+    color:#e3fef7;
+    border-collapse: collapse;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+.standingsTable td, .standingsTable th {
+    border: 1px solid #e3fef7;
+}
+
+.solved {
+    color: lime;
+}
+.notsolved {
+    color:red;
+}
+
+.linksProblem {
+    color:#E3FEF7;
+    text-decoration: none;
+}
+
+.linksProblem:hover {
+   
+    text-decoration: underline;
+}
