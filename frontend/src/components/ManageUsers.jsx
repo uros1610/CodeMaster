@@ -16,14 +16,13 @@ const ManageUsers = () => {
 
   const [search,setSearch] = useState("");
 
-  const BASE_URL = process.env.REACT_APP_BASE_URL
 
   const [no,setNo] = useState(0);
 
   useEffect(() => {
 
     const fetchNo = async () => {
-      const resp = await axios.get(`${BASE_URL}/user/allusersCount`);
+      const resp = await axios.get(`/user/allusersCount`);
 
       var ind = resp.data[0].broj / 10;
 
@@ -51,7 +50,7 @@ const ManageUsers = () => {
     const fetchData = async () => {
         try {
             
-          const resp = await axios.get(`${BASE_URL}/user/filteredusers/${pageNumber}?search=${search}`)
+          const resp = await axios.get(`/user/filteredusers/${pageNumber}?search=${search}`)
 
           setUsers(resp.data)
         }
@@ -74,7 +73,7 @@ const ManageUsers = () => {
   e.preventDefault();
 
   try {
-    const resp = await axios.get(`${BASE_URL}/user/filteredusers/${pageNumber}?search=${search}`)
+    const resp = await axios.get(`/user/filteredusers/${pageNumber}?search=${search}`)
 
     console.log("RESPDATA",resp.data);
 

@@ -13,7 +13,6 @@ const Profile = () => {
 
     const {user} = useContext(AuthContext)
 
-    const BASE_URL = process.env.REACT_APP_BASE_URL
     
 
     useEffect(() => {
@@ -21,7 +20,7 @@ const Profile = () => {
         const fetchData = async () => {
             try {
               
-                const response = await axios.get(`${BASE_URL}/profile/${username}`)
+                const response = await axios.get(`/profile/${username}`)
                 console.log(response)
                 setUserInfo(response.data)
             }

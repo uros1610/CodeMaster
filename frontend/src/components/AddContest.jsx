@@ -33,7 +33,6 @@ const AddContest = ({contests,setContests}) => {
   const user = JSON.parse(localStorage.getItem('user'));
   const token = localStorage.getItem('token');
 
-  const URL = process.env.REACT_APP_BASE_URL;
 
 
   if(!token) {
@@ -113,7 +112,7 @@ const AddContest = ({contests,setContests}) => {
 
         console.log("NESTO",localStorage.getItem('token'))
       
-        await axios.post(`${BASE_URL}/contest/addcontest`, newContest);
+        await axios.post(`/contest/addcontest`, newContest);
 
         for(let problem of problems) {
             console.log(problem)
@@ -121,20 +120,19 @@ const AddContest = ({contests,setContests}) => {
             problem.dateshown = date
             
             try {
-            await axios.post(`${BASE_URL}/problem`,problem)
+            await axios.post(`/problem`,problem)
             }
             catch (err) {
-              await axios.delete(`${BASE_URL}/contest/delete/${name}`)
+              await axios.delete(`/contest/delete/${name}`)
               break;
             }
 
             for(let i = 0; i < problem.inputs.length; i++) {
                const obj = {input:problem.inputs[i],problemname:problem.title,output:problem.outputs[i]}
-                await axios.post(`${BASE_URL}/inputsoutputs`,obj)
+                await axios.post(`/inputsoutputs`,obj)
             }
 
-            
-
+          
         }
 
         const updatedContests = [...contests, newContest].sort(
