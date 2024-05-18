@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 
 const User = ({currUser,users,setUsers,role}) => {
 
-    const BASE_URL = process.env.REACT_APP_BASE_URL;
 
     const [selectedValue, setSelectedValue] = useState(role);
     const navigate = useNavigate();
@@ -19,7 +18,7 @@ const User = ({currUser,users,setUsers,role}) => {
 
     const handleClick = async (id) => {
         try {
-            await axios.delete(`${BASE_URL}/user/${id}`)
+            await axios.delete(`/user/${id}`)
             setUsers(users.filter(user => user.username !== currUser))
         }
         catch (err) {
@@ -31,7 +30,7 @@ const User = ({currUser,users,setUsers,role}) => {
     const handleEditRole = async (username) => {
 
         try {
-        const resp = await axios.put(`${BASE_URL}/user/updateRole/${username}/${selectedValue}`)
+        const resp = await axios.put(`/user/updateRole/${username}/${selectedValue}`)
         alert("Uspjesno editovano!");
         }
         catch(err) {

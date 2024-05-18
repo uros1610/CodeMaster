@@ -5,22 +5,16 @@ import { useParams,useNavigate} from 'react-router-dom'
 import axios from 'axios'
 import { useContext } from 'react'
 import AuthContext from '../context/AuthContext'
+import { SolvedProblemsContext} from '../context/SolvedProblemsContext'
 
 const SubmitProblem = () => {
 
     const [TextArea,setTextArea] = useState("")
-
-    
     const navigate = useNavigate()
-
     const [val,setVal] = useState('cpp17');
-
     const {name} = useParams()
-
-
-
     const {user} = useContext(AuthContext)
-    const BASE_URL = process.env.REACT_APP_BASE_URL
+    const {solvedProblems,setSolvedProblems} = useContext(SolvedProblemsContext)
 
     if(!localStorage.getItem('token')) {
       navigate('/login')
@@ -47,7 +41,11 @@ const SubmitProblem = () => {
             const dateFormatted = new Date(date).toUTCString();
             
             const submission = {code:TextArea,date:dateFormatted,username:user.username,problemname:name, val:val}
-            const resp = await axios.post(`${BASE_URL}/submit`,submission)
+            const resp = await axios.post(`/submit`,submission)
+            if(resp.data.verdictdescription == "Accepted") {
+              const before = [...solvedProblems]
+              setSolvedProblems([before,name])
+            }
             navigate(`/profile/submissions/${user.username}`)
 
       }
