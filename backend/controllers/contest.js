@@ -64,4 +64,37 @@ const deleteContest = (req,res) => {
     })
 }
 
-module.exports = {createContest,getAllContests,deleteContest}
+const getProblemsByContest = (req,res) => {
+    const q = "SELECT * FROM Problem WHERE contest_name = ?"
+    const contestName = req.params.contestName;
+
+    db.query(q,[contestName],(err,data) => {
+        if(err) {
+            return res.status(500).json("Internal server error!")
+        }
+        if(!data.length) {
+            return res.status(404)
+        }
+        return res.status(200).json(data)
+    })
+}
+
+const getUsersByContest = (req,res) => {
+    const q = "SELECT * FROM ContestUser WHERE contestName = ? LIMIT ?,?"
+    const contestName = req.params.contestName;
+    const id = req.params.id;
+
+    const limit = 100;
+    const offset = (id-1)*100;
+
+    db.query(q,[contestName,offset,limit],(err,data) => {
+        if(err) {
+            return res.status(500).json("Internal server error!")
+        }
+      
+        return res.status(200).json(data)
+    })
+}
+
+
+module.exports = {createContest,getAllContests,deleteContest,getProblemsByContest,getUsersByContest}
