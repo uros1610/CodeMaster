@@ -24,6 +24,7 @@ import Submissions from './components/Submissions';
 import UserContests from './components/UserContests';
 import ProblemsContext from './context/ProblemsContext';
 import ManageUsers from './components/ManageUsers';
+import Standings from './components/Standings';
 
 
 function App() {
@@ -57,6 +58,7 @@ function App() {
       <Route path = '/profile/submissions/:username' element = {<Submissions/>}/>
       <Route path = '/profile/contests/:username' element = {<UserContests/>}/>
       <Route path = '/manageusers' element = {<ManageUsers/>}/>
+      <Route path = '/contest/:name/standings' element = {<Standings/>}/>
 
 
       </Routes>
