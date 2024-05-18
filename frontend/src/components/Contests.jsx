@@ -14,9 +14,8 @@ const Contests = ({contests,setContests}) => {
 
     const fetchData = async () => {
 
-    const BASE_URL = process.env.REACT_APP_BASE_URL
 
-    const resp = await axios.get(`${BASE_URL}/contest`)
+    const resp = await axios.get(`/contest`)
     
     console.log(resp)
 
