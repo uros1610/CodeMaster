@@ -5,7 +5,7 @@
 
 .submissionsTable {
     margin-top:50px;
-    width: 100%;
+    width: 90%;
     color:#e3fef7;
     border:1px solid #e3fef7;
     border-collapse: collapse;
@@ -13,13 +13,17 @@
 }
 
 .submissionsTable td, .submissionsTable th {
-    padding: 10px 20px;
     border:1px solid #e3fef7;
+    padding:10px 20px;
 }
 
 .submissionsTable td:last-child {
     text-align: center;
+    
+    min-width:25px;
 }
+
+
 
 .submissionsTable td div {
     display: flex;
@@ -46,6 +50,90 @@
 .problemTitle:hover {
     text-decoration: underline;
 }
+
+
+
+.submissionIDbtn {
+    background-color: #27374D;
+    color:#DDE6ED;
+    border: none;
+    scale:1;
+ }
+ 
+ .displayCode {
+     position: absolute;
+     background-color: #526D82;
+     width:90%;
+     height: 90%;
+     z-index:50;
+     left:50%;
+     top:50%;
+     transform: translate(-50%,-50%);
+     color:#DDE6ED;
+     border: none;
+     opacity: 0.9;
+     padding-left: 5px;
+    
+     padding-top:20px;
+ }
+ 
+ .submissionIDbtn:hover {
+     
+     cursor: pointer;
+     scale: 1.1;
+ }
+
+ .closeWindow {
+    color:#e3fef7;
+    background-color: #27374D;
+    position: absolute;
+    top:0px;
+    right: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+ }
+
+ .closeWindow svg {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+ }
+ 
+
+.textareacode {
+    height: 100%;
+    width: 100%;
+    background-color: #526D82;
+    resize: none;
+    border: none;
+    padding: 0;
+    color:#e3fef7;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Background of the scrollbar track */
+}
+
+.textareacode:focus {
+    outline: none;
+}
+
+
+@media (max-width:600px) {
+    .submissionsTable, .submissionsTable .problemTitle {
+        font-size:0.7rem;
+    }
+
+    .submissionsTable td, .submissionsTable th {
+        padding: 4px;
+    }
+    
+}
+
+
 
 
 
