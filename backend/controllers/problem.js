@@ -120,7 +120,7 @@ const getInputs = (req,res) => {
 const getOutputs = (req,res) => {
     const name = req.params.name
 
-    const q = "SELECT * FROM Input WHERE problem_title = ?"
+    const q = "SELECT * FROM Output WHERE problem_title = ?"
 
     db.query(q,[name],(err,data) => {
         if(err) {
@@ -131,6 +131,7 @@ const getOutputs = (req,res) => {
         }
     })
 }
+
 
 
 module.exports = {getProblemByName,allProblems,addProblem,getInputs,getOutputs,getCount}
