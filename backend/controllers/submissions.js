@@ -25,7 +25,7 @@ const getAllSubmissionsOneUser = (req,res) => {
 
     console.log("USERNAME",username)
 
-    const query = "SELECT id,problemTitle,date,verdictdescription,userName,language FROM Submission WHERE userName = ?"
+    const query = "SELECT id,problemTitle,date,verdictdescription,userName,language,code FROM Submission WHERE userName = ?"
 
     db.query(query,[username],(err,data) => {
         if(err) {
@@ -66,4 +66,27 @@ const insertSubmission = (req,res) => {
     })
 }
 
-module.exports = {getAllSubmissionsOneUser,getSubmissionByID,insertSubmission}
+const getAllSubmissionsOneUserAccepted = (req,res) => {
+    const username = req.params.name
+
+    console.log("USERNAME",username)
+
+    const query = "SELECT DISTINCT id,problemTitle,date,verdictdescription,userName,language FROM Submission WHERE userName = ? AND verdictdescription = 'Accepted' "
+
+    db.query(query,[username],(err,data) => {
+        if(err) {
+            return res.status(500).json(err)
+        }
+
+        if(data.length === 0) {
+            return res.status(404).json("No such user exists!")
+        }
+
+        console.log(data)
+  
+        res.status(200).json(data)
+    })
+
+}
+
+module.exports = {getAllSubmissionsOneUser,getSubmissionByID,insertSubmission,getAllSubmissionsOneUserAccepted}
