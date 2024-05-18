@@ -15,7 +15,6 @@ const SingleProblem = () => {
   const [outputs,setOutputs] = useState([])
   const [topics,setTopics] = useState("")
 
-  const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 
   const {name} = useParams()
@@ -25,17 +24,18 @@ const SingleProblem = () => {
   const fetchData = async () => {
 
     try {
-      const response = await axios.get(`${BASE_URL}/problem/singleproblem/${name}`)
+      const response = await axios.get(`/problem/singleproblem/${name}`)
       console.log("RESP",response)
-      const inputss = await axios.get(`${BASE_URL}/inputsoutputs/input/${name}`)
-      const outputss = await axios.get(`${BASE_URL}/inputsoutputs/output/${name}`)
+      const inputss = await axios.get(`/inputsoutputs/input/${name}`)
+      const outputss = await axios.get(`/inputsoutputs/output/${name}`)
 
       console.log("INPUTI I OUTPUTI",inputss,outputss)
+
 
       setInputs(inputss.data)
       setOutputs(outputss.data)
       setTitle(response.title)
-      setDescription(response.description)
+      setDescription(response.data.description)
       setTopics(response.data.topics)
     }
     catch(error) {

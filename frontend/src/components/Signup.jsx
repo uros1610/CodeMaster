@@ -16,7 +16,6 @@ const Signup = () => {
       email:""
     })
 
-    const BASE_URL = process.env.REACT_APP_BASE_URL
 
     const [error,setError] = useState(null)
 
@@ -30,15 +29,11 @@ const Signup = () => {
     const handleSubmit = async (e) => {
       e.preventDefault()
 
-      if((inputs.username).includes('\'')) {
-        setError("mene ces da zeznes")
-        return;
-  
-      }
+   
   
         try {
          
-          const res = await axios.post(`${BASE_URL}/auth/register`,inputs)
+          const res = await axios.post(`/auth/register`,inputs)
           console.log(res)
           navigate('/login')
         }
