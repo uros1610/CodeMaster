@@ -10,7 +10,7 @@ const Contest = ({item}) => {
         
         </td>
         <td>{item.length}</td>
-        <td>{(new Date(item.date) > Date.now()) ? <Link className='standingsLink'>Register</Link> : <Link className = "standingsLink">Standings</Link>} </td>
+        <td>{(new Date(item.date) > Date.now()) ? <Link className='standingsLink'>Register</Link> : <Link className = "standingsLink" to = {`/contest/${item.name}/standings`}>Standings</Link>} </td>
     </tr>
   )
 }
