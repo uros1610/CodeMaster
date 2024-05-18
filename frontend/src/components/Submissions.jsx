@@ -15,16 +15,16 @@ const Submissions = () => {
 
   const {username} = useParams()
 
-  const BASE_URL = process.env.REACT_APP_BASE_URL
 
   useEffect(() => {
 
     const fetchData = async () => {
       try {
         
-      const response = await axios.get(`${BASE_URL}/submissions/${username}`)
+      const response = await axios.get(`/submissions/${username}`)
       console.log(response)
-      setData(response.data)
+      const sorted = response.data.sort((a,b) => ((a.id < b.id) ? 1 : -1))
+      setData(sorted)
       }
       catch(err) {
         console.log(err)
