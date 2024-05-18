@@ -12,9 +12,10 @@ const Standings = () => {
     const [arr,setArr] = useState({})
     const [users,setUsers] = useState([])
     const {solvedProblems} = useContext(SolvedProblemsContext)
+    const [loading,setLoading] = useState(false)
 
     useEffect(() => {
-
+        setLoading(true)
         const fetchData = async () => {
             try {
                 const resp = await axios.get(`/contest/${name}/standings`)
@@ -39,12 +40,15 @@ const Standings = () => {
             catch(err) {
                 setError(err.message)
             }
+            finally {
+                setLoading(false)
+            }
         }
     
         fetchData();
 
     },[])
-
+    
     const checkSolved = (id) => {
         if(!arr) {
             return false;
@@ -54,7 +58,21 @@ const Standings = () => {
         return solvedProblems.find(solved => solved.problemTitle === arr[id].title)
     }
 
+    if(loading) {
+        return <div className = "dlo" style = {{
+            margin:'auto auto',
+            fontSize:'60px',
+            color:'#e3fef7',
+            height:'100%',
+            width:'100%',
+            display:'flex',
+            alignItems:'center',
+            justifyContent:'center'
+        }}><p>Loading,Please wait...</p></div>
+    }
+
   return (
+    
     <table className = "standingsTable">
         <tr>
         <th>Place</th>
