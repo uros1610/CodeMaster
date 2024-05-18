@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const RatingRow = ({user,index,currentUser}) => {
   return (
@@ -9,7 +10,8 @@ const RatingRow = ({user,index,currentUser}) => {
         fontWeight: currentUser ? (currentUser.username === user.username ? '700' : '400') : null
     }}key = {index}>
         <td>{index}</td>
-        <td>{user.username}</td>
+        <td><Link to = {`/profile/${user.username}`} className = "problemTitle">{user.username}</Link></td>
+
         <td>{user.rating}</td>
     </tr>
   )
