@@ -11,7 +11,6 @@ const Rating = () => {
 
     const {user} = useContext(AuthContext)
 
-    const BASE_URL = process.env.REACT_APP_BASE_URL
 
     const [no,setNo] = useState(0);
     const [pageNumber,setpageNumber] = useState(1);
@@ -20,7 +19,7 @@ const Rating = () => {
   useEffect(() => {
 
     const fetchNo = async () => {
-      const resp = await axios.get(`${BASE_URL}/user/allusersCount`);
+      const resp = await axios.get(`/user/allusersCount`);
 
       var ind = resp.data[0].broj / 15;
 
@@ -48,7 +47,7 @@ const Rating = () => {
         const fetchData = async () => {
             try {
                
-                const response = await axios.get(`${BASE_URL}/user/rating/${pageNumber}`)
+                const response = await axios.get(`/user/rating/${pageNumber}`)
                 console.log(response.data)
                 setUsers(response.data.sort((a,b) => {
                     if(a.rating > b.rating) {
