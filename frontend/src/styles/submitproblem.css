@@ -82,12 +82,10 @@ textarea, .linenumbers {
     color: black;
 }
 
-span {
-    font-size: 1.7rem;
-}
 
 .prob {
     margin-right:10px;
+    font-size: 1.7rem;
 
 }
 
