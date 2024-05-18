@@ -17,7 +17,7 @@ const insertIO = (req,res) => {
         const q = "INSERT INTO Output(problem_title,value) VALUES(?)"
         const values2 = [problemname,val2]
 
-        db.query(q,[values],(err,data) => {
+        db.query(q,[values2],(err,data) => {
             if(err) {
                 return res.status(500)
             }
