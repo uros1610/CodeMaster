@@ -14,7 +14,7 @@ export const SolvedProblemsProvider = ({ children }) => {
         const fetchData = async () => {
           try {
             
-          const response = await axios.get(`/submissions/accepted/${user.username}`)
+          const response = await axios.get(`/backend/submissions/accepted/`)
           setSolvedProblems(response.data)
           }
           catch(err) {
