@@ -14,14 +14,14 @@ export const AuthContextProvider = ({children}) => {
     const [user,setuser] = useState(JSON.parse(localStorage.getItem('user')) || null)
 
     const login = async (inputs) => {
-        const resp = await axios.post(`/auth/login`,inputs)
+        const resp = await axios.post(`/backend/auth/login`,inputs)
         setuser(resp.data)
         localStorage.setItem('token',resp.data.token)
-        console.log(resp.data.username)
+        console.log(resp.data)
     }
 
     const logout = async () => {
-        const resp = await axios.post(`/auth/logout`)
+        const resp = await axios.post(`/backend/auth/logout`)
         setuser(null)
         localStorage.removeItem('token')
         navigate('/login')
