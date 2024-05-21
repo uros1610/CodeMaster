@@ -2,7 +2,7 @@ const db = require("../db")
 
 const getProblemByName = (req,res) => {
 
-    const query = 'SELECT * FROM Problem WHERE title = ?'
+    const query = 'SELECT * FROM Problem p INNER JOIN Contest c ON p.contest_name = c.name WHERE title = ?'
 
     const problemTitle = req.params.name;
 
@@ -16,8 +16,8 @@ const getProblemByName = (req,res) => {
             return res.status(404).json({ message: 'Problem not found' });
         }
 
-        const obj = { title: data[0].title, description: data[0].description,topics:data[0].topics};
-        res.status(200).json(obj);
+        
+        res.status(200).json(data);
     })
 }
 
