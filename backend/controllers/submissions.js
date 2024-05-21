@@ -23,7 +23,6 @@ const getSubmissionByID = (req,res) => {
 const getAllSubmissionsOneUser = (req,res) => {
     const username = req.params.name
 
-    console.log("USERNAME",username)
 
     const query = "SELECT id,problemTitle,date,verdictdescription,userName,language,code FROM Submission WHERE userName = ?"
 
@@ -36,7 +35,6 @@ const getAllSubmissionsOneUser = (req,res) => {
             return res.status(404).json("No such user exists!")
         }
 
-        console.log(data)
   
         res.status(200).json(data)
     })
@@ -53,7 +51,6 @@ const insertSubmission = (req,res) => {
     const verdictdescription = req.body.verdictdescription
     const val = req.body.val;
 
-    console.log(req.body)
 
     const query = "INSERT INTO Submission(date,problemTitle,userName,code,verdictdescription,language) VALUES(?)"
     const values = [date,problemname,username,code,verdictdescription,val]
@@ -67,13 +64,11 @@ const insertSubmission = (req,res) => {
 }
 
 const getAllSubmissionsOneUserAccepted = (req,res) => {
-    const username = req.params.name
+    
 
-    console.log("USERNAME",username)
+    const query = "SELECT DISTINCT id,problemTitle,date,verdictdescription,userName,language FROM Submission WHERE verdictdescription = 'Accepted' "
 
-    const query = "SELECT DISTINCT id,problemTitle,date,verdictdescription,userName,language FROM Submission WHERE userName = ? AND verdictdescription = 'Accepted' "
-
-    db.query(query,[username],(err,data) => {
+    db.query(query,[],(err,data) => {
         if(err) {
             return res.status(500).json(err)
         }
@@ -82,7 +77,6 @@ const getAllSubmissionsOneUserAccepted = (req,res) => {
             return res.status(404).json("No such user exists!")
         }
 
-        console.log(data)
   
         res.status(200).json(data)
     })
