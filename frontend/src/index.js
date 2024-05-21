@@ -12,11 +12,9 @@ root.render(
   <React.StrictMode>
     <Router>
       <AuthContextProvider>
-      <ProblemsContextProvider>
       <SolvedProblemsProvider>
     <App />
     </SolvedProblemsProvider>
-    </ProblemsContextProvider>
     </AuthContextProvider>
     </Router>
     
