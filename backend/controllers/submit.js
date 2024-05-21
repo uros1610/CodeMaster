@@ -2,7 +2,8 @@ const axios = require('axios');
 
 require('dotenv').config();
 
-async function submitSolution(req, res) {
+
+async function submitSolution(req, res,next) {
   try {
 
     const { code, date, username, problemname, val } = req.body;
@@ -16,6 +17,8 @@ async function submitSolution(req, res) {
     }
 
     const submission = {code,date,username,problemname,val:languageMap[val]}
+
+    console.log(submission);
 
 
     const BASE_URL = "http://localhost:8800/backend";
@@ -53,31 +56,29 @@ async function submitSolution(req, res) {
 
       try {
         const response = await axios.post("https://api.jdoodle.com/v1/execute", data,headers);
-        console.log("DATAAAAA", response.data);
 
         if (response.data.output !== outputs.data[i].value) {
           submission.verdictdescription = `Wrong answer on test case ${i+1}`
-          console.log(response.data.output,outputs.data[i].value);
-          await axios.post(`${BASE_URL}/submissions/`, submission);
-          return res.status(404).json({"message":`Wrong answer on test case ${i+1}`})
+          return res.status(200).json(submission)
           
         }
 
       } catch (error) {
         submission.verdictdescription = `Wrong answer on test case ${i+1}`
-        await axios.post(`${BASE_URL}/submissions/`, submission);
-        return res.status(200).json(submission);
+        return res.status(200).json(submission)
       }
     }
 
 
     submission.verdictdescription = 'Accepted'
-    await axios.post(`${BASE_URL}/submissions/`, submission);
-    return res.status(200).json(submission);}
+    return res.status(200).json(submission);
+    }
 
     catch (err) {
         res.status(500).json({ error: 'Internal server error' });
       }
 }
+
+
 
 module.exports = {submitSolution};
