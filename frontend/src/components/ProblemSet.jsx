@@ -23,7 +23,7 @@ const ProblemSet = () => {
     useEffect(() => {
 
         const fetchNo = async () => {
-          const resp = await axios.get(`/problem/problemCount`);
+          const resp = await axios.get(`/backend/problem/problemCount`);
     
           var ind = resp.data[0].broj / 10;
     
@@ -66,7 +66,7 @@ const ProblemSet = () => {
             down = 0;
         }
 
-        const response = await axios.get(`/problem/problemset/${pageNumber}`,{
+        const response = await axios.get(`/backend/problem/problemset/${pageNumber}`,{
             params:{
                 title:filter["title"],
                 up:up,
@@ -95,7 +95,7 @@ const ProblemSet = () => {
             down = 0;
         }
 
-        const response = await axios.get(`/problem/problemset/${pageNumber}`,{
+        const response = await axios.get(`/backend/problem/problemset/${pageNumber}`,{
             params:{
                 title:filter["title"],
                 up:up,

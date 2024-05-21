@@ -20,7 +20,7 @@ const Profile = () => {
         const fetchData = async () => {
             try {
               
-                const response = await axios.get(`/profile/${username}`)
+                const response = await axios.get(`/backend/profile/${username}`)
                 console.log(response)
                 setUserInfo(response.data)
             }
