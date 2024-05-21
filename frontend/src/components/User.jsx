@@ -3,6 +3,8 @@ import styles from '../styles/user.css'
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom'
+
 
 const User = ({currUser,users,setUsers,role}) => {
 
@@ -47,7 +49,7 @@ const User = ({currUser,users,setUsers,role}) => {
         color:'#DDE6ED',
         padding:'10px',
         width:'100%'
-    }}>{currUser}
+    }}> <Link className = "linksProblem" to = {`/profile/${currUser}`}>{currUser}</Link>
 
     <div className = "mainDivForEdits">
     
