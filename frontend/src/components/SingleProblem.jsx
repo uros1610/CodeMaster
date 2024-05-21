@@ -24,12 +24,10 @@ const SingleProblem = () => {
   const fetchData = async () => {
 
     try {
-      const response = await axios.get(`/problem/singleproblem/${name}`)
-      console.log("RESP",response)
-      const inputss = await axios.get(`/inputsoutputs/input/${name}`)
-      const outputss = await axios.get(`/inputsoutputs/output/${name}`)
+      const response = await axios.get(`/backend/problem/singleproblem/${name}`)
+      const inputss = await axios.get(`/backend/inputsoutputs/input/${name}`)
+      const outputss = await axios.get(`/backend/inputsoutputs/output/${name}`)
 
-      console.log("INPUTI I OUTPUTI",inputss,outputss)
 
 
       setInputs(inputss.data)
@@ -44,7 +42,6 @@ const SingleProblem = () => {
   }
 
   useEffect(() => {
-    console.log("PRIJE FETCH DATA");
     fetchData();
   },[])
 

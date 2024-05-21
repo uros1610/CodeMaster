@@ -21,8 +21,7 @@ const Submissions = () => {
     const fetchData = async () => {
       try {
         
-      const response = await axios.get(`/submissions/${username}`)
-      console.log(response)
+      const response = await axios.get(`/backend/submissions/${username}`)
       const sorted = response.data.sort((a,b) => ((a.id < b.id) ? 1 : -1))
       setData(sorted)
       }

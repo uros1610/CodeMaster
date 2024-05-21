@@ -14,48 +14,48 @@ const Standings = () => {
     const {solvedProblems} = useContext(SolvedProblemsContext)
     const [loading,setLoading] = useState(false)
 
-    useEffect(() => {
+    const fetchData = async () => {
         setLoading(true)
-        const fetchData = async () => {
-            try {
-                const resp = await axios.get(`/contest/${name}/standings`)
-                const resp2 = await axios.get(`/contest/${name}/users/1`)
-                
-                setProblems(resp.data)
 
-                const sorted = resp2.data.sort((a,b) => (
-                    a.ranking >= b.ranking ? -1 : 1
-                ))
+        try {
+            const resp = await axios.get(`/backend/contest/${name}/standings`)
+            const resp2 = await axios.get(`/backend/contest/${name}/users/1`)
+            
+            setProblems(resp.data)
 
-                setUsers(resp2.data)
+            const sorted = resp2.data.sort((a,b) => (
+                a.ranking >= b.ranking ? -1 : 1
+            ))
 
-                var tmp = {}
+            setUsers(resp2.data)
 
-                for(let i = 0; i < resp.data.length; i++) {
-                    tmp[i+1] = resp.data[i];
-                }
-                setArr(tmp)
+            var tmp = {}
 
+            for(let i = 0; i < resp.data.length; i++) {
+                tmp[i+1] = resp.data[i];
             }
-            catch(err) {
-                setError(err.message)
-            }
-            finally {
-                setLoading(false)
-            }
+            setArr(tmp)
+
         }
-    
+        catch(err) {
+            setError(err.message)
+        }
+        finally {
+            setLoading(false)
+        }
+    }
+
+    useEffect(() => {
         fetchData();
+    },[solvedProblems])
+   
 
-    },[])
+
     
-    const checkSolved = (id) => {
-        if(!arr) {
-            return false;
-        }
-        console.log(solvedProblems)
-        console.log("arr je",arr)
-        return solvedProblems.find(solved => solved.problemTitle === arr[id].title)
+    
+    const checkSolved = (id,userName) => {
+  
+      return solvedProblems.find(solved => (solved.problemTitle === arr[id].title && solved.userName === userName))
     }
 
     if(loading) {
@@ -87,7 +87,7 @@ const Standings = () => {
                 <td>{indx+1}</td>
                 <td><Link className = "linksProblem" to = {`/profile/${user.userName}`}>{user.userName}</Link></td>
                 {Object.keys(arr).map(ind => (
-                     <td>{checkSolved(ind) ? <span className = "solved"
+                     <td>{checkSolved(ind,user.userName) ? <span className = "solved"
                      
                      ><FaCheck/></span> : <span className = "notsolved"><FaTimes/></span>}</td>
                 ))}

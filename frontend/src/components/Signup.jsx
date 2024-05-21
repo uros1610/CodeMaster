@@ -33,7 +33,7 @@ const Signup = () => {
   
         try {
          
-          const res = await axios.post(`/auth/register`,inputs)
+          const res = await axios.post(`/backend/auth/register`,inputs)
           console.log(res)
           navigate('/login')
         }
