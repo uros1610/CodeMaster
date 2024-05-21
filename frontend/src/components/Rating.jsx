@@ -6,7 +6,7 @@ import RatingRow from './RatingRow'
 import AuthContext from '../context/AuthContext'
 
 const Rating = () => {
-
+  
     const [users,setUsers] = useState([])
 
     const {user} = useContext(AuthContext)
@@ -14,12 +14,13 @@ const Rating = () => {
 
     const [no,setNo] = useState(0);
     const [pageNumber,setpageNumber] = useState(1);
+    const [loading,setLoading] = useState(false)
 
 
   useEffect(() => {
 
     const fetchNo = async () => {
-      const resp = await axios.get(`/user/allusersCount`);
+      const resp = await axios.get(`/backend/user/allusersCount`);
 
       var ind = resp.data[0].broj / 15;
 
@@ -46,8 +47,8 @@ const Rating = () => {
 
         const fetchData = async () => {
             try {
-               
-                const response = await axios.get(`/user/rating/${pageNumber}`)
+                setLoading(true)
+                const response = await axios.get(`/backend/user/rating/${pageNumber}`)
                 console.log(response.data)
                 setUsers(response.data.sort((a,b) => {
                     if(a.rating > b.rating) {
@@ -62,6 +63,10 @@ const Rating = () => {
 
             }
 
+            finally {
+              setLoading(false)
+            }
+
         }
 
     fetchData()
@@ -74,6 +79,8 @@ const Rating = () => {
         justifyContent:'center',
         flexDirection:'column'
     }}>
+      
+    {!loading && 
     <table className = "orderedListRating">
 
         <tr>
@@ -81,10 +88,10 @@ const Rating = () => {
             <th>Username</th>
             <th>Rating</th>
         </tr>
+       {users.map((item,index) => <RatingRow user = {item} index = {index+1+(pageNumber-1)*15} currentUser = {user}/>)}
 
-        {users.map((item,index) => <RatingRow user = {item} index = {index+1} currentUser = {user}/>)}
+    </table>}
 
-    </table>
     <div className = "pageNumbersDiv">
       {Array.from({length:no},(_ , i) => <button className = "pageNumbers" onClick = {(e) => {handlePageChange(e,i+1)}}>{i+1}</button>)}
       </div>
