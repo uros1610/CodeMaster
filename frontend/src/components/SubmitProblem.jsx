@@ -40,11 +40,25 @@ const SubmitProblem = () => {
             const date = Date.now()
             const dateFormatted = new Date(date).toUTCString();
             
-            const submission = {code:TextArea,date:dateFormatted,username:user.username,problemname:name, val:val}
-            const resp = await axios.post(`/submit`,submission)
-            if(resp.data.verdictdescription == "Accepted") {
+           const submission = {code:TextArea,date:dateFormatted,username:user.username,problemname:name, val:val}
+           const resp = await axios.post(`/backend/submit`,submission)
+           await axios.post(`/backend/submissions/`, resp.data);
+           const prob = await axios.get(`/backend/problem/singleproblem/${name}`)
+          
+            if(resp.data.verdictdescription == "Accepted" && !solvedProblems.find(problem => (problem.problemTitle === name && problem.userName === user.username))) {
+             
+              
+              let startDate = new Date(prob.data[0].date)
+              let endDate = new Date(startDate.getTime() + prob.data[0].length*60*1000);
+
+              if(date >= startDate && date <= endDate) {
+
+                let diff = ((endDate - date) / 60 / 1000)*prob.data[0].rating / 1000;
+
+              await axios.put(`/backend/contest/${prob.data[0].contest_name}/${user.username}`,{diff})
               const before = [...solvedProblems]
               setSolvedProblems([before,name])
+              }
             }
             navigate(`/profile/submissions/${user.username}`)
 
