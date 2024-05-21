@@ -69,7 +69,6 @@ const login = (req,res) => {
 
         const sendObj = {username:data[0].username,token:token,role:data[0].rola}
 
-        console.log(sendObj)
 
         res.status(200).json(sendObj)
 
