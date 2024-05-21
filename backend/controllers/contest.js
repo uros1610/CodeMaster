@@ -96,5 +96,65 @@ const getUsersByContest = (req,res) => {
     })
 }
 
+const registerUser = (req,res) => {
+    console.log(req.body)
+    const q = "INSERT INTO ContestUser(ranking,ratingGain,numOfSolved,contestName,userName) VALUES(?)"
+    const values = [0,'0',0,req.body.contestName,req.body.user]
 
-module.exports = {createContest,getAllContests,deleteContest,getProblemsByContest,getUsersByContest}
+
+    db.query(q,[values],(err,data) => {
+        if(err) {
+            return res.status(500).json("Internal server error!")
+        }
+
+        else {
+            return res.status(200).json("User has been succesfully registered!")
+        }
+    })
+}
+
+const getContestsUser = (req,res) => {
+    const query = 'SELECT * From ContestUser WHERE contestName = ? AND userName = ?'
+
+    
+
+    db.query(query,[req.params.contestName,req.params.userName],(err,data) => {
+        if(err) {
+            return res.status(500).json(err)
+        }
+        
+        return res.status(200).json(data)
+    })
+}
+
+const deleteUserFromContest = (req,res) => {
+    const query = 'DELETE From ContestUser WHERE contestName = ? AND userName = ?'
+
+    
+
+    db.query(query,[req.params.contestName,req.params.userName],(err,data) => {
+        if(err) {
+            return res.status(500).json(err)
+        }
+        
+        return res.status(200).json(data)
+    })
+}
+
+const updateUserProblem = (req,res) => {
+    const query = 'UPDATE ContestUser SET ranking = ranking + ? , numOfSolved = numOfSolved + 1 WHERE contestName = ? AND userName = ?'
+
+
+    db.query(query,[req.body.diff,req.params.contestName,req.params.userName],(err,data) => {
+        if(err) {
+            return res.status(500).json(err)
+        }
+        
+        return res.status(200).json(data)
+    })
+}
+
+
+
+
+module.exports = {createContest,getAllContests,deleteContest,getProblemsByContest,getUsersByContest,registerUser,getContestsUser,deleteUserFromContest,updateUserProblem}
