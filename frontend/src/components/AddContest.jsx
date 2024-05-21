@@ -30,24 +30,26 @@ const AddContest = ({contests,setContests}) => {
 
   const [err,setErr] = useState(null)
 
-  const user = JSON.parse(localStorage.getItem('user'));
+  const {user} = useContext(AuthContext)
   const token = localStorage.getItem('token');
 
 
-
-  if(!token) {
-    navigate('/login');
-  }
-
-  
-
- else if(user.role !== "Admin") {
-  
-
-    navigate('/Home');
-  }
+  useEffect(() => {
+    
+    if(!token) {
+      navigate('/login');
+    }
 
   
+    
+
+  else if(user.role !== "Admin") {
+      
+      navigate('/home');
+    }
+
+  },[user,token])
+
 
 
   const handleInputOutput = (e) => {
@@ -73,7 +75,7 @@ const AddContest = ({contests,setContests}) => {
       console.log(topicStrip);
 
       try {
-      const resp = await axios.get(`${URL}/topics/${topicStrip}`);
+      const resp = await axios.get(`/backend/topics/${topicStrip}`);
       }
       catch(err) {
         if(err.response) {
@@ -108,11 +110,10 @@ const AddContest = ({contests,setContests}) => {
       console.log(dateFormatted)
       const newContest = {name, authors, length, date: dateFormatted};
 
-      const BASE_URL = process.env.REACT_APP_BASE_URL
 
         console.log("NESTO",localStorage.getItem('token'))
       
-        await axios.post(`/contest/addcontest`, newContest);
+        await axios.post(`/backend/contest/addcontest`, newContest);
 
         for(let problem of problems) {
             console.log(problem)
@@ -120,16 +121,16 @@ const AddContest = ({contests,setContests}) => {
             problem.dateshown = date
             
             try {
-            await axios.post(`/problem`,problem)
+            await axios.post(`/backend/problem`,problem)
             }
             catch (err) {
-              await axios.delete(`/contest/delete/${name}`)
+              await axios.delete(`/backend/contest/delete/${name}`)
               break;
             }
 
             for(let i = 0; i < problem.inputs.length; i++) {
                const obj = {input:problem.inputs[i],problemname:problem.title,output:problem.outputs[i]}
-                await axios.post(`/inputsoutputs`,obj)
+                await axios.post(`/backend/inputsoutputs`,obj)
             }
 
           
