@@ -6,6 +6,8 @@ import styles from '../styles/standings.css'
 import {FaCheck,FaTimes} from 'react-icons/fa'
 const Standings = () => {
 
+    
+
     const {name} = useParams()
     const [problem,setProblems] = useState([])
     const [error,setError] = useState(null)
@@ -13,13 +15,22 @@ const Standings = () => {
     const [users,setUsers] = useState([])
     const {solvedProblems} = useContext(SolvedProblemsContext)
     const [loading,setLoading] = useState(false)
+    const [date,setDate] = useState("");
+    const [length,setLength] = useState(0);
+    
+    
+    
+    
+    
 
     const fetchData = async () => {
         setLoading(true)
 
         try {
-            const resp = await axios.get(`/backend/contest/${name}/standings`)
+            const resp = await axios.get(`/backend/contest/${name}/problems`)
             const resp2 = await axios.get(`/backend/contest/${name}/users/1`)
+            setLength(resp.data[0].length)
+            setDate(new Date(resp.data[0].date))
             
             setProblems(resp.data)
 
@@ -47,18 +58,15 @@ const Standings = () => {
 
     useEffect(() => {
         fetchData();
+        
     },[solvedProblems])
    
-
-
-    
-    
     const checkSolved = (id,userName) => {
   
       return solvedProblems.find(solved => (solved.problemTitle === arr[id].title && solved.userName === userName))
     }
 
-    if(loading) {
+    if(!solvedProblems.length) {
         return <div className = "dlo" style = {{
             margin:'auto auto',
             fontSize:'60px',
@@ -79,6 +87,7 @@ const Standings = () => {
         <th>Username</th>
         {Object.keys(arr).map(ind => <th><Link className = "linksProblem " to = {`/problem/${arr[ind].title}`}>{ind} </Link></th>)}
         <th>Points</th>
+        <th>User rating</th>
         </tr>
 
         {users.map((user,indx) => (
@@ -93,6 +102,7 @@ const Standings = () => {
                 ))}
 
                 <td>{user.ranking}</td>
+                <td>{user.rating}</td>
             
             </tr>
 
