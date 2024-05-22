@@ -17,7 +17,6 @@ const Contests = ({contests,setContests}) => {
 
     const resp = await axios.get(`/backend/contest`)
     
-    console.log(resp)
 
     setContests(resp.data)
 }
@@ -26,15 +25,19 @@ fetchData()
 
 },[])
 
+
+
+
+
 useEffect(() => {
 
   setPrev(contests.filter(contest => new Date(contest.date) < Date.now()).sort((a, b) => new Date(a.date) - new Date(b.date)
-  ))
+  ).reverse())
   setUpc(contests.filter(contest => new Date(contest.date) >= Date.now()).sort((a, b) => new Date(a.date) - new Date(b.date)
-  ))
+  ).reverse())
 
 },[contests])
-    
+
 
    
   return (

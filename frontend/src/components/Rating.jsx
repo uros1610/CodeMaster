@@ -24,7 +24,6 @@ const Rating = () => {
 
       var ind = resp.data[0].broj / 15;
 
-      console.log("IND",ind);
 
       if(resp.data[0].broj % 15 !== 0) {
         ind++;
@@ -49,15 +48,8 @@ const Rating = () => {
             try {
                 setLoading(true)
                 const response = await axios.get(`/backend/user/rating/${pageNumber}`)
-                console.log(response.data)
-                setUsers(response.data.sort((a,b) => {
-                    if(a.rating > b.rating) {
-                        return -1;
-                    }
-                    return 1;
-
-                }
-                ))
+                setUsers(response.data)
+                    
             }
             catch(err) {
 
