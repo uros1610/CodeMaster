@@ -45,7 +45,7 @@ const deleteUser = (req,res) => {
 
 
 const getUsersRating = (req,res) => {
-    const query = 'SELECT username,rating FROM User LIMIT ?,?'
+    const query = 'SELECT username,rating FROM User ORDER BY rating DESC LIMIT ?,?'
 
     const id = req.params.id;   
 
@@ -146,4 +146,20 @@ const getUsers = (req, res) => {
         }
     });
 };
-module.exports = {getUser,getUsersRating,getUsers,deleteUser,filterUsers,noUsers,updateRole}
+
+const updateRating = (req,res) => {
+    const username = req.params.username;
+    const newRating = req.body.newRating;
+
+    const q = "UPDATE User SET rating = ? WHERE username = ?"
+    db.query(q,[newRating,username],(err,data) => {
+        if (err) {
+            console.error("Database error:", err);
+            return res.status(500).json("Internal server error");
+        } else {
+            return res.status(200).json("Update successful");
+        }
+    })
+}
+
+module.exports = {getUser,getUsersRating,getUsers,deleteUser,filterUsers,noUsers,updateRole,updateRating}
