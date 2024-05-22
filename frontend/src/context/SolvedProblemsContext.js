@@ -25,10 +25,14 @@ export const SolvedProblemsProvider = ({ children }) => {
         fetchData()
     
       },[])
+
+      const addSolvedProblem = (problem) => {
+        setSolvedProblems(prevProblems => [...prevProblems, problem]);
+      };
     
 
     return (
-        <SolvedProblemsContext.Provider value={{ solvedProblems, setSolvedProblems }}>
+        <SolvedProblemsContext.Provider value={{ solvedProblems,addSolvedProblem}}>
             {children}
         </SolvedProblemsContext.Provider>
     );
