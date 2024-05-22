@@ -21,8 +21,8 @@ const createContest = async (req,res) => {
 
 
 
-        const queryInsert = "INSERT INTO Contest(name,date,authors,length) VALUES(?)"
-        const values = [name,date,authors,req.body.length]
+        const queryInsert = "INSERT INTO Contest(name,date,authors,length,processed) VALUES(?)"
+        const values = [name,date,authors,req.body.length,false]
 
         db.query(queryInsert,[values],(err, data) => {
             if(err) {
@@ -80,7 +80,7 @@ const getProblemsByContest = (req,res) => {
 }
 
 const getUsersByContest = (req,res) => {
-    const q = "SELECT * FROM ContestUser WHERE contestName = ? LIMIT ?,?"
+    const q = "SELECT * FROM ContestUser cu INNER JOIN User u ON cu.userName = u.username WHERE contestName = ? LIMIT ?,?"
     const contestName = req.params.contestName;
     const id = req.params.id;
 
@@ -154,7 +154,18 @@ const updateUserProblem = (req,res) => {
     })
 }
 
+const setProcessedTrue = (req,res) => {
+    const q = "UPDATE Contest SET processed = TRUE WHERE name = ?"
+    db.query(q,[req.body.name],(err,data) => {
+        if(err) {
+            return res.status(500).json(err)
+        }
+        
+        return res.status(200).json(data)
+    })
+}
 
 
 
-module.exports = {createContest,getAllContests,deleteContest,getProblemsByContest,getUsersByContest,registerUser,getContestsUser,deleteUserFromContest,updateUserProblem}
+
+module.exports = {createContest,getAllContests,deleteContest,getProblemsByContest,getUsersByContest,registerUser,getContestsUser,deleteUserFromContest,updateUserProblem,setProcessedTrue}
