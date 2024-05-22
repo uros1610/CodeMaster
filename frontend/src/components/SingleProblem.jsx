@@ -14,12 +14,11 @@ const SingleProblem = () => {
   const [inputs,setInputs] = useState([])
   const [outputs,setOutputs] = useState([])
   const [topics,setTopics] = useState("")
-
-
-
+  const [contest,setContest] = useState("")
+  const [time,setTime] = useState(null)
+  const [length,setLength] = useState(0);
   const {name} = useParams()
-
-
+  
 
   const fetchData = async () => {
 
@@ -32,9 +31,13 @@ const SingleProblem = () => {
 
       setInputs(inputss.data)
       setOutputs(outputss.data)
-      setTitle(response.title)
-      setDescription(response.data.description)
-      setTopics(response.data.topics)
+      setTitle(response.data[0].title)
+      setDescription(response.data[0].description)
+      setTopics(response.data[0].topics)
+      setContest(response.data[0].contest_name)
+      setTime(response.data[0].date)
+      setLength(response.data[0].length)
+      
     }
     catch(error) {
       console.log(error)
@@ -44,6 +47,7 @@ const SingleProblem = () => {
   useEffect(() => {
     fetchData();
   },[])
+  
 
 
 
@@ -56,12 +60,12 @@ const SingleProblem = () => {
 
         <div className = "problem-title">
 
-          {name}
+          Problem: {title}
 
         </div>
 
         <div className = "problem-description">
-          {description}
+          Descritpion: {description}
       </div>
 
       
@@ -104,12 +108,13 @@ const SingleProblem = () => {
 
     <div className = "inContest">
       <div className = 'whichContest'>
-        <Link className = "linkToContest">Codeforces Round 942 (Div. 2)</Link>
+        <Link className = "linkToContest" to = {`/contest/${contest}/standings`}>{contest}</Link>
         <hr style = {{
           width:'100%'
         }}/>
-          <p className='status'>Finished</p>
-          <Link className = "tutorial">Go to Tutorial</Link>
+          <p className='status'>{
+            (new Date(new Date(time).getTime() + length*60*1000) < Date.now() ? "Contest is finished" : "Contest is running")
+          }</p>
         </div>
 
       <div className = "problem-tags-div">
