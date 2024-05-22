@@ -14,7 +14,7 @@ const SubmitProblem = () => {
     const [val,setVal] = useState('cpp17');
     const {name} = useParams()
     const {user} = useContext(AuthContext)
-    const {solvedProblems,setSolvedProblems} = useContext(SolvedProblemsContext)
+    const {solvedProblems,addSolvedProblem} = useContext(SolvedProblemsContext)
 
     if(!localStorage.getItem('token')) {
       navigate('/login')
@@ -56,8 +56,8 @@ const SubmitProblem = () => {
                 let diff = ((endDate - date) / 60 / 1000)*prob.data[0].rating / 1000;
 
               await axios.put(`/backend/contest/${prob.data[0].contest_name}/${user.username}`,{diff})
-              const before = [...solvedProblems]
-              setSolvedProblems([before,name])
+              addSolvedProblem(name);
+              
               }
             }
             navigate(`/profile/submissions/${user.username}`)
