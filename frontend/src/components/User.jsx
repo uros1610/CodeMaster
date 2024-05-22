@@ -32,10 +32,11 @@ const User = ({currUser,users,setUsers,role}) => {
     const handleEditRole = async (username) => {
 
         try {
-        const resp = await axios.put(`/user/updateRole/${username}/${selectedValue}`)
+        const resp = await axios.put(`/backend/user/updateRole/${username}/${selectedValue}`)
         alert("Uspjesno editovano!");
         }
         catch(err) {
+          alert("Nije uspjesno editovano!");
 
         }
     }
