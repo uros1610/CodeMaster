@@ -1,11 +1,13 @@
 const express = require('express')
 const cors = require('cors');
 const cookieparser = require('cookie-parser')
-const redirection = require('./middleware/redirect')
 const axios = require('axios');
 const http = require("http")
 const db = require('./db')
 const schedule = require('node-schedule')
+const {expressjwt} = require('express-jwt')
+require('dotenv').config()
+
 
 
 
@@ -19,10 +21,13 @@ app.use(cookieparser())
 //app.use(redirection)
 
 
-app.use('/backend/contest',require('./routes/contests.js'))
 app.use('/backend/auth',require('./routes/auth.js'))
-app.use('/backend/problem',require('./routes/problem.js'))
 app.use('/backend/submissions',require('./routes/submissions'))
+
+
+
+app.use('/backend/contest',require('./routes/contests.js'))
+app.use('/backend/problem',require('./routes/problem.js'))
 app.use('/backend/inputsoutputs',require('./routes/inputoutput'))
 app.use('/backend/topics',require('./routes/topics'))
 app.use('/backend/user',require('./routes/users'))
