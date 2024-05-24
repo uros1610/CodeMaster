@@ -33,10 +33,10 @@ const NavBar = ({ width, isVisible,setIsVisible}) => {
           <div className = 'links-div' style = {{
             justifyContent: width < 1050 ? 'center' : 'flex-end'
           }}>
-          <Link className = "linksNavBar" to={user ? "/home" : "/login"}>Home</Link>
-          <Link className = "linksNavBar" to={user ? "/contests" : "/login"}>Contests</Link>
-          <Link className = "linksNavBar" to={user ? "/rating" : "/login"}>Rating</Link>
-          <Link className = "linksNavBar" to={user ? "/problemset" : "/login"}>Problemset</Link>
+          <Link className = "linksNavBar" to="/home">Home</Link>
+          <Link className = "linksNavBar" to="/contests">Contests</Link>
+          <Link className = "linksNavBar" to="/rating">Rating</Link>
+          <Link className = "linksNavBar" to="/problemset">Problemset</Link>
           {user && user.role === "Admin" && <Link className = "linksNavBar" to={"/addcontest"}>Add Contest</Link>}
           {user && user.role === "Admin" && <Link className = "linksNavBar" to={"/manageusers"}>Manage Users</Link>}
 
@@ -75,10 +75,10 @@ const NavBar = ({ width, isVisible,setIsVisible}) => {
             
           }}
         >
-          <Link className = "linksNavBar" to={user ? "/home" : "/login"}>Home</Link>
-          <Link className = "linksNavBar" to={user ? "/contests" : "/login"}>Contests</Link>
-          <Link className = "linksNavBar" to={user ? "/rating" : "/login"}>Rating</Link>
-          <Link className = "linksNavBar" to={user ? "/problemset" : "/login"}>Problemset</Link>
+          <Link className = "linksNavBar" to="/home">Home</Link>
+          <Link className = "linksNavBar" to="/contests">Contests</Link>
+          <Link className = "linksNavBar" to="/rating">Rating</Link>
+          <Link className = "linksNavBar" to="/problemset">Problemset</Link>
           {user && user.role === "Admin" && <Link className = "linksNavBar" to={"/addcontest"}>Add Contest</Link>}
           {user && user.role === "Admin" && <Link className = "linksNavBar" to={"/manageusers"}>Manage Users</Link>}
 

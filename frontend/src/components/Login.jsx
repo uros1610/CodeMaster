@@ -13,13 +13,6 @@ const Login = ({isVisible}) => {
   const navigate = useNavigate()
   const {login,user} = useContext(AuthContext)
 
-  if(user) {
-    navigate('/home')
-  }
-
-
-
-
   const [inputs,setInputs] = useState({
     username:"",
     password:"",

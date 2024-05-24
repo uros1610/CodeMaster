@@ -20,7 +20,7 @@ const User = ({currUser,users,setUsers,role}) => {
 
     const handleClick = async (id) => {
         try {
-            await axios.delete(`/user/${id}`)
+            await axios.delete(`backend/user/${id}`)
             setUsers(users.filter(user => user.username !== currUser))
         }
         catch (err) {

@@ -16,10 +16,7 @@ const SubmitProblem = () => {
     const {user} = useContext(AuthContext)
     const {solvedProblems,addSolvedProblem} = useContext(SolvedProblemsContext)
 
-    if(!localStorage.getItem('token')) {
-      navigate('/login')
-    }
-
+ 
     const languageMap = {
       "C++ 17": "cpp17",
       "Python 3": "python3",

@@ -33,25 +33,6 @@ const AddContest = ({contests,setContests}) => {
   const {user} = useContext(AuthContext)
   const token = localStorage.getItem('token');
 
-
-  useEffect(() => {
-    
-    if(!token) {
-      navigate('/login');
-    }
-
-  
-    
-
-  else if(user.role !== "Admin") {
-      
-      navigate('/home');
-    }
-
-  },[user,token])
-
-
-
   const handleInputOutput = (e) => {
     e.preventDefault()
 
@@ -109,11 +90,8 @@ const AddContest = ({contests,setContests}) => {
       const dateFormatted = new Date(date).toUTCString();
       console.log(dateFormatted)
       const newContest = {name, authors, length, date: dateFormatted};
-
-
-        console.log("NESTO",localStorage.getItem('token'))
-      
-        await axios.post(`/backend/contest/addcontest`, newContest);
+      console.log("NESTO",localStorage.getItem('token'))
+      await axios.post(`/backend/contest/addcontest`, newContest);
 
         for(let problem of problems) {
             console.log(problem)

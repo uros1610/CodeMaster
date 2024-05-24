@@ -43,7 +43,7 @@ function App() {
       <NavBar width = {width} isVisible={isVisible} setIsVisible={setIsVisible}/>
       
       <Routes>
-      <Route path = '/' element = {!user ? <Login/> : <Home/>}/>
+      <Route path = '/' element = {<Login/>}/>
       <Route path = '/login' element = {<Login/>}/>
       <Route path = '/register' element = {<Signup/>} />
       <Route path = '/submitproblem' element = {<SubmitProblem/>} />
