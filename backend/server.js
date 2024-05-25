@@ -64,7 +64,8 @@ const updateRatings = async (name) => {
     users.forEach(async (user,index) => {
 
         const newRating = user.rating + 15 * (total-index-1);
-       
+        const ratingChange = newRating - user.rating;
+        await axios.put(`http://localhost:8800/backend/contest/${user.username}/${name}/updateRatingChange`,{ratingChange,placed:index+1})
         await axios.put(`http://localhost:8800/backend/user/${user.username}/rating`,{newRating})
     })
 }
