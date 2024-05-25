@@ -5,7 +5,7 @@ import axios from 'axios'
 
 
 
-const Contest = ({item}) => {
+const Contest = ({item,flag}) => {
 
   const style = {
     position: 'absolute',
@@ -81,12 +81,13 @@ const Contest = ({item}) => {
 
   return (
     <>{!loading && <tr>
-        <td>{item.name}</td>
+        <td>{Date.now() > new Date(item.date) ? (<Link className = "linksNavBar" to = {`/contest/${item.name}/standings`}>{item.name} </Link>) : item.name}</td>
         <td>{item.authors}</td>
         <td>{new Date(item.date).toLocaleString()}
         
         </td>
         <td>{item.length}</td>
+        {flag && 
         <td>{(new Date(item.date) > Date.now()) ? 
 
         <div>
@@ -115,7 +116,7 @@ const Contest = ({item}) => {
       </div>
             
       
-      : <Link className = "standingsLink" to = {`/contest/${item.name}/standings`}>Standings</Link>} </td>
+      : <Link className = "standingsLink" to = {`/contest/${item.name}/standings`}>Standings</Link>} </td>}
     </tr>}
     </>
   )
