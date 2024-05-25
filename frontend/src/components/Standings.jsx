@@ -66,7 +66,7 @@ const Standings = () => {
       return solvedProblems.find(solved => (solved.problemTitle === arr[id].title && solved.userName === userName))
     }
 
-    if(!solvedProblems.length) {
+    if(loading) {
         return <div className = "dlo" style = {{
             margin:'auto auto',
             fontSize:'60px',
