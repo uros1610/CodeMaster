@@ -1,44 +1,76 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { useState } from 'react'
-import { FaWindowClose } from 'react-icons/fa'
+import React, { useState, useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { FaWindowClose } from 'react-icons/fa';
 
-const Submission = ({item}) => {
+const Submission = ({ item }) => {
+  const [display, setDisplay] = useState(false);
+  const buttonRef = useRef(null);
 
-  const [display,setDisplay] = useState(false)
+  const handleClick = () => {
+    setDisplay(!display);
+  };
 
-  const handleClick1 = () => {
-    setDisplay(true)
-  }
+  const handleEsc = (e) => {
+    if (e.key === 'Escape') {
+      setDisplay(false);
+    }
+  };
 
-  const handleClick2 = () => {
-    setDisplay(false)
-  }
+  useEffect(() => {
+    const currentButton = buttonRef.current;
+    if (display && currentButton) {
+      currentButton.focus();
+      document.addEventListener('keyup', handleEsc);
+    }
+
+    return () => {
+      document.removeEventListener('keyup', handleEsc);
+    };
+  }, [display]);
 
   return (
     <>
-    <tr key = {item.id}>
-        <td><button className = "submissionIDbtn" onClick={handleClick1}>{item.id}</button></td>
-        <td>{new Date(item.date).toLocaleString()}</td>
-        <td><Link to = {`/profile/${item.userName}`} className = "problemTitle">{item.userName}</Link> </td>
-        <td><Link to = {`/problem/${item.problemTitle}`} className = "problemTitle">{item.problemTitle}</Link> </td>
+      <tr key={item.id}>
+        <td>
+          <button className="submissionIDbtn" onClick={handleClick}>
+            {item.id}
+          </button>
+        </td>
+        <td>{new Date(item.submissionDate).toLocaleString()}</td>
+        <td>
+          <Link to={`/profile/${item.userName}`} className="problemTitle">
+            {item.userName}
+          </Link>
+        </td>
+        <td>
+          <Link to={`/problem/${item.problemTitle}`} className="problemTitle">
+            {item.problemTitle}
+          </Link>
+        </td>
         <td>{item.language}</td>
-        <td style = {{
-          color:item.verdictdescription === "Accepted" ? 'lime' : 'red'
-        }}>{item.verdictdescription}</td>
-    </tr>
+        <td
+          style={{
+            color: item.verdictdescription === 'Accepted' ? 'lime' : 'red',
+          }}
+        >
+          {item.verdictdescription}
+        </td>
+      </tr>
 
-      {display && <div className = "displayCode" readOnly>
-        <button className = "closeWindow" onClick = {handleClick2}><FaWindowClose/></button>
-        <textarea className = "textareacode" readOnly>
-        {item.code}
-        </textarea>
-        
-        
-        </div>}
-
+      {display && Date.now() > new Date(new Date(item.contestDate).getTime() + item.length * 60 * 1000) && (
+        <div className="displayCode">
+          <button
+            className="closeWindow"
+            ref={buttonRef}
+            onClick={handleClick}
+          >
+            <FaWindowClose />
+          </button>
+          <textarea className="textareacode" readOnly value={item.code} />
+        </div>
+      )}
     </>
-    )
-}
+  );
+};
 
-export default Submission
+export default Submission;

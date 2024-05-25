@@ -17,20 +17,38 @@ const Standings = () => {
     const [loading,setLoading] = useState(false)
     const [date,setDate] = useState("");
     const [length,setLength] = useState(0);
+    const [pageNumber,setpageNumber] = useState(1);
+    const [no,setNo] = useState(0);
     
     
+    const handlePageChange = (e,id) => {
+        e.preventDefault();
+  
+        setpageNumber(id);
+    }
     
-    
-    
-
     const fetchData = async () => {
         setLoading(true)
 
         try {
+            const respNumber = await axios.get(`/backend/contest/${name}/count`);
             const resp = await axios.get(`/backend/contest/${name}/problems`)
-            const resp2 = await axios.get(`/backend/contest/${name}/users/1`)
+            const resp2 = await axios.get(`/backend/contest/${name}/users/${pageNumber}`)
             setLength(resp.data[0].length)
             setDate(new Date(resp.data[0].date))
+
+            console.log(resp2.data)
+            var ind = respNumber.data[0].broj / 100;
+
+            console.log(ind);
+
+            if(ind % 100 !== 0) {
+                ind++;
+            }
+
+         
+
+            setNo(ind);
             
             setProblems(resp.data)
 
@@ -59,7 +77,7 @@ const Standings = () => {
     useEffect(() => {
         fetchData();
         
-    },[solvedProblems])
+    },[solvedProblems,pageNumber])
    
     const checkSolved = (id,userName) => {
   
@@ -80,7 +98,14 @@ const Standings = () => {
     }
 
   return (
-    
+    <div className = "centered" style = {{
+        display:'flex',
+        alignItems:'center',
+        justifyContent:'space-between',
+        gap:'20px',
+        flexDirection:'column',
+        
+    }}>
     <table className = "standingsTable">
         <tr>
         <th>Place</th>
@@ -109,6 +134,12 @@ const Standings = () => {
         ))}
 
     </table>
+    
+    <div className = "pageNumbersDiv">
+      {Array.from({length:no},(_ , i) => <button className = "pageNumbers" onClick = {(e) => {handlePageChange(e,i+1)}}>{i+1}</button>)}
+      </div>
+
+    </div>
   )
 }
 

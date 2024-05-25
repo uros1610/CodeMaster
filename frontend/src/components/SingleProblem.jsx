@@ -122,7 +122,7 @@ const SingleProblem = () => {
         <hr style = {{
           width:'100%'
         }}/>
-        <p className = "problem-tags">{topics}</p>
+        <p className = "problem-tags">{ new Date(new Date(time).getTime() + length*60*1000) < Date.now() ? topics : "Not available yet"}</p>
       </div>
 
     </div>

@@ -41,7 +41,9 @@ const UserContests = () => {
         {contests.map(contest => (<tr>
           <td><Link className = "linksNavBar" to = {`/contest/${contest.contestName}/standings`}>{contest.contestName}</Link></td>
           <td>{contest.placed}</td>
-          <td>{contest.ratingGain}</td>
+          <td style = {{
+            color: contest.ratingGain > 0 ? 'lime' : contest.ratingGain === 0 ? '#e3fef7' : 'red'
+          }}>{contest.ratingGain > 0 ? `+${contest.ratingGain}` : (contest.ratingGain)}</td>
         </tr>))}
 
         </table>
