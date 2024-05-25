@@ -5,7 +5,6 @@ const getTopic = (req,res) => {
 
     const topic_name = req.params.topicName;
 
-    console.log(topic_name)
     const q = "SELECT * FROM Topic WHERE topic_name = ?";
 
     db.query(q,[topic_name],(err,data) => {
@@ -13,7 +12,6 @@ const getTopic = (req,res) => {
             return res.status(500).json({message:"Internal server error"});
         }
         
-        console.log(data.length)
 
         if(data.length === 0) {
             return res.status(403).json({message:"The topic isn't available,please choose another"})

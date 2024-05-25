@@ -18,7 +18,6 @@ async function submitSolution(req, res,next) {
 
     const submission = {code,date,username,problemname,val:languageMap[val]}
 
-    console.log(submission);
 
 
     const BASE_URL = "http://localhost:8800/backend";

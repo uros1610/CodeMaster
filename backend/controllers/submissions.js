@@ -24,7 +24,7 @@ const getAllSubmissionsOneUser = (req,res) => {
     const username = req.params.name
 
 
-    const query = "SELECT id,problemTitle,date,verdictdescription,userName,language,code FROM Submission WHERE userName = ?"
+    const query = "SELECT id,problemTitle,s.date AS submissionDate,verdictdescription,userName,language,code,c.length,c.date AS contestDate FROM Submission s INNER JOIN Problem p ON p.title = s.problemTitle INNER JOIN Contest c ON p.contest_name = c.name WHERE userName = ?"
 
     db.query(query,[username],(err,data) => {
         if(err) {
@@ -63,24 +63,27 @@ const insertSubmission = (req,res) => {
     })
 }
 
-const getAllSubmissionsOneUserAccepted = (req,res) => {
+const getAllSubmissionsAccepted = (req,res) => {
     
 
-    const query = "SELECT DISTINCT id,problemTitle,date,verdictdescription,userName,language FROM Submission WHERE verdictdescription = 'Accepted' "
-
+    const query = `
+    SELECT DISTINCT s.id, s.problemTitle, s.date, s.verdictdescription, s.userName, s.language 
+FROM Submission s 
+INNER JOIN Problem p ON s.problemTitle = p.title 
+INNER JOIN Contest c ON c.name = p.contest_name 
+WHERE s.verdictdescription = 'Accepted' 
+AND s.date BETWEEN c.date AND DATE_ADD(c.date, INTERVAL c.length MINUTE)
+`;
     db.query(query,[],(err,data) => {
         if(err) {
             return res.status(500).json(err)
         }
 
-        if(data.length === 0) {
-            return res.status(404).json("No such user exists!")
-        }
-
+        console.log("DATAAAAAA",data);
   
         res.status(200).json(data)
     })
 
 }
 
-module.exports = {getAllSubmissionsOneUser,getSubmissionByID,insertSubmission,getAllSubmissionsOneUserAccepted}
+module.exports = {getAllSubmissionsOneUser,getSubmissionByID,insertSubmission,getAllSubmissionsAccepted}

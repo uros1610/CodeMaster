@@ -65,7 +65,6 @@ const getUsersRating = (req,res) => {
 const noUsers = (req,res) => {
     const q = 'SELECT COUNT(*) as broj FROM User WHERE username LIKE ?'
 
-    console.log(req.query);
 
     const srch = "%" +req.query.search + "%";
 
