@@ -7,14 +7,14 @@ require('dotenv').config()
 
 
 router.get("/allusersCount",noUsers)
-router.get("/rating/:id",getUsersRating)
+router.get("/rating/:id",expressjwt({ secret: process.env.SECRET_KEY, algorithms: ['HS256']}),getUsersRating)
 router.get("/allusers/:id",getUsers)
 router.delete("/:username",verifyAdmin,deleteUser)
-router.get("/filteredusers/:id",filterUsers);
-router.get("/:username",getUser)
+router.get("/filteredusers/:id",expressjwt({ secret: process.env.SECRET_KEY, algorithms: ['HS256']}),filterUsers);
+router.get("/:username",expressjwt({ secret: process.env.SECRET_KEY, algorithms: ['HS256']}),getUser)
 router.put("/updateRole/:username/:rola",verifyAdmin,updateRole);
 router.put("/:username/rating",updateRating)
-router.get("/contests/:username",getAllContestsOneUser);
+router.get("/contests/:username",expressjwt({ secret: process.env.SECRET_KEY, algorithms: ['HS256']}),getAllContestsOneUser);
 
 
 

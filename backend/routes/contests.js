@@ -2,7 +2,7 @@ const express = require('express')
 
 const router = express.Router()
 const {createContest,getAllContests,deleteContest,getProblemsByContest, getUsersByContest,registerUser,getContestsUser,deleteUserFromContest,updateUserProblem,setProcessedTrue,
-updateRatingChange} = require('../controllers/contest.js')
+updateRatingChange,getCount} = require('../controllers/contest.js')
 const {expressjwt} = require('express-jwt');
 require('dotenv').config()
 const {verifyAdmin} = require('../middleware/verifyToken')
@@ -12,7 +12,7 @@ router.put("/updateProcessed",setProcessedTrue);
 
 
 
-
+router.get("/:contestName/count",getCount)
 router.post("/register",registerUser)
 router.put("/:contestName/:userName",updateUserProblem)
 router.delete("/delete/:contestName/:userName",deleteUserFromContest)
