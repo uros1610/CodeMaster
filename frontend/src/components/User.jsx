@@ -61,12 +61,7 @@ const User = ({currUser,users,setUsers,role}) => {
     onChange = {(e) => {handleRadioChange(e,"Admin")}}
     />
     
-    <label htmlFor = "Editor">Editor</label>
-    <input className = "radioBtns" name = {`nameRole${currUser}`} type = "radio" value = "Editor" checked = {selectedValue === "Editor"}
-    
-    onChange = {(e) => {handleRadioChange(e,"Editor")}}
-    />
-   
+  
 
    
     <label htmlFor = "User">User</label>

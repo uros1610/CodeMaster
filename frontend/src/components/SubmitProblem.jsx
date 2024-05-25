@@ -61,6 +61,7 @@ const SubmitProblem = () => {
 
       }
       catch(err) {
+        console.log(err);
         navigate(`/profile/submissions/${user.username}`)
 
       }
