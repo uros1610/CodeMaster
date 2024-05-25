@@ -154,6 +154,20 @@ const updateUserProblem = (req,res) => {
     })
 }
 
+const updateRatingChange = (req,res) => {
+    const query = 'UPDATE ContestUser SET ratingGain = ? , placed = ?  WHERE contestName = ? AND userName = ?'
+
+
+    db.query(query,[req.body.ratingChange,req.body.placed,req.params.contestName,req.params.userName],(err,data) => {
+        if(err) {
+            return res.status(500).json(err)
+        }
+        
+        return res.status(200).json(data)
+    })
+}
+
+
 const setProcessedTrue = (req,res) => {
     const q = "UPDATE Contest SET processed = TRUE WHERE name = ?"
     db.query(q,[req.body.name],(err,data) => {
@@ -168,4 +182,4 @@ const setProcessedTrue = (req,res) => {
 
 
 
-module.exports = {createContest,getAllContests,deleteContest,getProblemsByContest,getUsersByContest,registerUser,getContestsUser,deleteUserFromContest,updateUserProblem,setProcessedTrue}
+module.exports = {createContest,getAllContests,deleteContest,getProblemsByContest,getUsersByContest,registerUser,getContestsUser,deleteUserFromContest,updateUserProblem,setProcessedTrue,updateRatingChange}
