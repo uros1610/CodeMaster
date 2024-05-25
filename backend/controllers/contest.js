@@ -53,7 +53,6 @@ const getAllContests = (req,res) => {
 
 const deleteContest = (req,res) => {
     const name = req.params.name
-    console.log("NAME",name)
     const query = 'DELETE FROM Contest WHERE name = ? '
 
     db.query(query,[name],(err,data) => {
@@ -84,6 +83,8 @@ const getUsersByContest = (req,res) => {
     const contestName = req.params.contestName;
     const id = req.params.id;
 
+    console.log("usao ovdje",id)
+
     const limit = 100;
     const offset = (id-1)*100;
 
@@ -91,15 +92,13 @@ const getUsersByContest = (req,res) => {
         if(err) {
             return res.status(500).json("Internal server error!")
         }
-      
         return res.status(200).json(data)
     })
 }
 
 const registerUser = (req,res) => {
-    console.log(req.body)
     const q = "INSERT INTO ContestUser(ranking,ratingGain,numOfSolved,contestName,userName) VALUES(?)"
-    const values = [0,'0',0,req.body.contestName,req.body.user]
+    const values = [0,0,0,req.body.contestName,req.body.user]
 
 
     db.query(q,[values],(err,data) => {
@@ -180,6 +179,21 @@ const setProcessedTrue = (req,res) => {
 }
 
 
+const getCount = (req,res) => {
+    const q = 'SELECT COUNT(*) as broj FROM ContestUser'
 
 
-module.exports = {createContest,getAllContests,deleteContest,getProblemsByContest,getUsersByContest,registerUser,getContestsUser,deleteUserFromContest,updateUserProblem,setProcessedTrue,updateRatingChange}
+    db.query(q,[],(err,data) => {
+        if(err) {
+            return res.status(500).json("Internal server error");
+        }
+        else {
+            return res.status(200).json(data);
+        }
+    })
+}
+
+
+
+
+module.exports = {createContest,getAllContests,deleteContest,getProblemsByContest,getUsersByContest,registerUser,getContestsUser,deleteUserFromContest,updateUserProblem,setProcessedTrue,updateRatingChange,getCount}

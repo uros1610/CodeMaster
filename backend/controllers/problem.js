@@ -42,7 +42,7 @@ const allProblems = (req,res) => {
     const down = req.query.down;
     const search = "%"+req.query.title+"%";
 
-    console.log(up,down,search);
+
 
     const query = 'SELECT * from Problem p WHERE p.dateShown < NOW() AND RATING BETWEEN ? AND ? AND title LIKE ? LIMIT ?, ?'
     const id = req.params.id;
@@ -58,7 +58,6 @@ const allProblems = (req,res) => {
             return res.status(500).json({ message: 'Internal Server Error' });
         }
 
-        console.log("DATATATATATATATATA",data)
        
         res.status(200).json(data);
     })
@@ -66,11 +65,9 @@ const allProblems = (req,res) => {
 
 const addProblem = (req,res) => {
     
-    console.log(req.body)
     const query = 'SELECT * FROM Problem WHERE title = ?'
     const result = db.query(query,[req.body.title],(err,data) => {
 
-        console.log("DATAAAA",data)
 
         if (err) {
             console.error(err);
@@ -81,7 +78,6 @@ const addProblem = (req,res) => {
         return res.status(403).json("Problem with that name already exists!")
     }
 
-    console.log(req.body.dateshown)
     
     const insertQuery = 'INSERT INTO Problem(title,description,contest_name,rating,topics,dateshown) VALUES(?)'
     const values = [req.body.title,req.body.description,req.body.contestname,parseInt(req.body.rating),req.body.topics,req.body.dateshown]

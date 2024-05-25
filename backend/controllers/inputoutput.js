@@ -29,7 +29,6 @@ const insertIO = (req,res) => {
 
 const getInputs = (req,res) => {
     const problemname = req.params.name
-    console.log("PROBLEMNAMEEE",problemname)
     const q = "SELECT * FROM Input WHERE problem_title = ? LIMIT 2"
 
     db.query(q,[problemname],(err,data) => {
