@@ -19,21 +19,25 @@ const ManageUsers = () => {
 
   const [no,setNo] = useState(0);
 
+  const fetchNo = async () => {
+    const resp = await axios.get(`/backend/user/allusersCount?search=${search}`);
+
+    console.log("sdjsdfujfsdjfsgkgskjgfjkjgfdkkjgfkjdgfkjdgf",resp.data[0].broj)
+
+    var ind = resp.data[0].broj / 10;
+
+    console.log("IND",ind);
+
+    if(resp.data[0].broj % 10 !== 0) {
+      ind++;
+    }
+
+    setNo(ind);
+  }
+
+
   useEffect(() => {
 
-    const fetchNo = async () => {
-      const resp = await axios.get(`/backend/user/allusersCount`);
-
-      var ind = resp.data[0].broj / 10;
-
-      console.log("IND",ind);
-
-      if(resp.data[0].broj % 10 !== 0) {
-        ind++;
-      }
-
-      setNo(ind);
-    }
 
     fetchNo();
 
@@ -75,9 +79,8 @@ const ManageUsers = () => {
   try {
     const resp = await axios.get(`/backend/user/filteredusers/${pageNumber}?search=${search}`)
 
-    console.log("RESPDATA",resp.data);
-
     setUsers(resp.data);
+    fetchNo();
   }
   catch(err) {
 
