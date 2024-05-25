@@ -9,6 +9,7 @@ const Contests = ({contests,setContests}) => {
 
   const [prev,setPrev] = useState([])
   const [upc,setUpc] = useState([])
+  const [cur,setCur] = useState([])
 
   useEffect(() => {
 
@@ -31,10 +32,13 @@ fetchData()
 
 useEffect(() => {
 
-  setPrev(contests.filter(contest => new Date(contest.date) < Date.now()).sort((a, b) => new Date(a.date) - new Date(b.date)
+  setPrev(contests.filter(contest => new Date(new Date(contest.date).getTime() + contest.length*60*1000) < Date.now()).sort((a, b) => new Date(a.date) - new Date(b.date)
   ).reverse())
-  setUpc(contests.filter(contest => new Date(contest.date) >= Date.now()).sort((a, b) => new Date(a.date) - new Date(b.date)
+  setUpc(contests.filter(contest => new Date(contest.date) > Date.now()).sort((a, b) => new Date(a.date) - new Date(b.date)
   ).reverse())
+
+  setCur(contests.filter(contest => new Date(new Date(contest.date).getTime() + contest.length*60*1000) >= Date.now() && new Date(contest.date) <= Date.now()))
+
 
 },[contests])
 
@@ -55,10 +59,28 @@ useEffect(() => {
         
       </tr>
 
-    {upc.map((item) => (<Contest key = {item.id} item = {item}/>))}
+    {upc.map((item) => (<Contest key = {item.id} item = {item} flag = {true}/>))}
 
 
 </table>
+
+<table id = "futurecontests">
+      <p className = "future">Current contests</p>
+
+
+      <tr>
+          <th>Name</th>
+          <th>Authors</th>
+          <th>Date</th>
+          <th>Length</th>
+        
+      </tr>
+
+    {cur.map((item) => (<Contest key = {item.id} item = {item} flag = {false}/>))}
+
+
+</table>
+
 
 
 
@@ -76,7 +98,7 @@ useEffect(() => {
       
     </tr>
 
-    {prev.map((item) => (<Contest key = {item.id} item = {item}/>))}
+    {prev.map((item) => (<Contest key = {item.id} item = {item} flag = {true}/>))}
 
 
 </table>
