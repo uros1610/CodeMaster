@@ -13,6 +13,7 @@ export default function setupInterceptors(){
         if(error.request.status === 401 || error.request.status === 403) {
             localStorage.removeItem('token')
             localStorage.removeItem('user')
+            window.location.href = "/login";
         }
 
         
