@@ -63,9 +63,13 @@ const getUsersRating = (req,res) => {
 }
 
 const noUsers = (req,res) => {
-    const q = 'SELECT COUNT(*) as broj FROM User'
+    const q = 'SELECT COUNT(*) as broj FROM User WHERE username LIKE ?'
 
-    db.query(q,[],(err,data) => {
+    console.log(req.query);
+
+    const srch = "%" +req.query.search + "%";
+
+    db.query(q,[srch],(err,data) => {
         if(err) {
             return res.status(500).json("Internal server error");
         }
@@ -82,7 +86,6 @@ const filterUsers = (req, res) => {
         return res.status(400).json("Invalid ID");
     }
 
-    console.log("SEARCH",search)
 
     const limit = 10;
     const offset = (id - 1) * limit;
@@ -96,7 +99,6 @@ const filterUsers = (req, res) => {
         } 
         
         else {
-            console.log(data);
             return res.status(200).json(data);
         }
     });
@@ -107,7 +109,6 @@ const updateRole = (req,res) => {
     const username = req.params.username;
     const rola = req.params.rola;
 
-    console.log(username,rola)
 
     const q = "UPDATE User SET rola = ? WHERE username = ?"
 
@@ -119,7 +120,6 @@ const updateRole = (req,res) => {
         
 
         else {
-            console.log(data);
             return res.status(204).json("Updated role!");
         }
     })
@@ -128,7 +128,6 @@ const updateRole = (req,res) => {
 const getUsers = (req, res) => {
     const id = parseInt(req.params.id);
 
-    console.log("ID JE ",id);
     if (id < 1) {
         return res.status(400).json("Invalid ID");
     }
@@ -162,4 +161,18 @@ const updateRating = (req,res) => {
     })
 }
 
-module.exports = {getUser,getUsersRating,getUsers,deleteUser,filterUsers,noUsers,updateRole,updateRating}
+const getAllContestsOneUser = (req,res) => {
+    const q = "SELECT * FROM ContestUser WHERE userName = ?"
+
+
+    db.query(q,[req.params.username],(err,data) => {
+        if(err) {
+            return res.status(500).json("Internal server error!");
+        }
+        else {
+            return res.status(200).json(data);
+        }
+    })
+}
+
+module.exports = {getUser,getUsersRating,getUsers,deleteUser,filterUsers,noUsers,updateRole,updateRating,getAllContestsOneUser}
