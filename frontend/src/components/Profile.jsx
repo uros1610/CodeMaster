@@ -5,11 +5,13 @@ import {useState,useEffect} from 'react'
 import axios from 'axios'
 import { ProfileNavBar } from './ProfileNavBar'
 import AuthContext from '../context/AuthContext'
+import YearGrid from './YearGrid'
 
 const Profile = () => {
 
     const [userInfo,setUserInfo] = useState({})
     const {username} = useParams()
+    const [submissions,setSubmissions] = useState([])
 
     const {user} = useContext(AuthContext)
 
@@ -21,8 +23,11 @@ const Profile = () => {
             try {
               
                 const response = await axios.get(`/backend/profile/${username}`)
-                console.log(response)
+                const response2 = await axios.get(`/backend/submissions/allSubmissionsGrouped/${username}`);
+                console.log(response.data)
+                console.log(response2.data)
                 setUserInfo(response.data)
+                setSubmissions(response2.data);
             }
             catch(err) {
                 console.log(err)
@@ -32,7 +37,7 @@ const Profile = () => {
         fetchData()
     }
     
-    ,[])
+    ,[username])
     
 
   return (
@@ -51,6 +56,9 @@ const Profile = () => {
             </div>
             
         </div>
+
+        <YearGrid submissions={submissions}/>
+
 
     </div>
   )

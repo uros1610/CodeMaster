@@ -17,6 +17,7 @@ const Contests = ({contests,setContests}) => {
 
 
     const resp = await axios.get(`/backend/contest`)
+
     
 
     setContests(resp.data)
