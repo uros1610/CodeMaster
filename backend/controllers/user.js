@@ -52,6 +52,8 @@ const getUsersRating = (req,res) => {
     const limit = 15;
     const offset = (id - 1) * limit;
 
+   
+
 
 
     db.query(query,[offset,limit],(err,data) => {
@@ -64,15 +66,20 @@ const getUsersRating = (req,res) => {
 
 const noUsers = (req,res) => {
     const q = 'SELECT COUNT(*) as broj FROM User WHERE username LIKE ?'
-
-
-    const srch = "%" +req.query.search + "%";
+    var srch;
+    if(req.query.search) {
+    srch = "%" +req.query.search + "%";
+    }
+    else {
+        srch = "%";
+    }
 
     db.query(q,[srch],(err,data) => {
         if(err) {
             return res.status(500).json("Internal server error");
         }
         else {
+            
             return res.status(200).json(data);
         }
     })

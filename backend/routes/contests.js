@@ -13,7 +13,7 @@ router.put("/updateProcessed",setProcessedTrue);
 
 
 router.get("/:contestName/count",getCount)
-router.post("/register",registerUser)
+router.post("/register",expressjwt({ secret: process.env.SECRET_KEY, algorithms: ['HS256']}),registerUser)
 router.put("/:contestName/:userName",updateUserProblem)
 router.delete("/delete/:contestName/:userName",deleteUserFromContest)
 router.get('/:contestName/users/:id',getUsersByContest)
