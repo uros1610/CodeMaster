@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useRef} from 'react';
 import { isLeapYear } from 'date-fns';
 import styles from '../styles/yeargrid.css';
 import Loading from './Loading';
@@ -8,6 +8,9 @@ const YearGrid = ({ submissions }) => {
   const [isLeap, setIsLeap] = useState(isLeapYear(new Date(year, 0, 1)));
   const [daysColors, setDaysColors] = useState([]);
   const [hoveredDay, setHoveredDay] = useState(null);
+  const [tooltipVisible, setTooltipVisible] = useState(false);
+  const tooltipTimer = useRef(null);
+
 
   const handleYearChange = (e) => {
     const y = parseInt(e.target.value);
@@ -42,6 +45,22 @@ const YearGrid = ({ submissions }) => {
     } else {
       return { color: '#00FF3C', filtered: filtered };
     }
+  };
+
+  const handleMouseEnter = (tmp) => {
+    clearTimeout(tooltipTimer.current);
+    setHoveredDay(tmp);
+    tooltipTimer.current = setTimeout(() => {
+      setTooltipVisible(true);
+    }, 150);
+  };
+
+  const handleMouseLeave = () => {
+    clearTimeout(tooltipTimer.current);
+    tooltipTimer.current = setTimeout(() => {
+      setTooltipVisible(false);
+      setHoveredDay(null);
+    }, 150); 
   };
 
   const months = [
@@ -100,15 +119,15 @@ const YearGrid = ({ submissions }) => {
             <h3 className="months">{month.name}</h3>
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
               {Array.from({ length: month.days }, (_, dayIndex) => {
-                const dayIndexGlobal = sum;
+                const tmp = sum;
                 sum++;
 
-                const dayData = daysColors[dayIndexGlobal];
+                const dayData = daysColors[tmp];
 
                 return (
-                  <div key={`day${dayIndexGlobal}`}
-                    onMouseEnter={() => setHoveredDay(dayIndexGlobal)}
-                    onMouseLeave={() => setHoveredDay(null)}
+                  <div key={`day${tmp}`}
+                    onMouseEnter={() => {handleMouseEnter(tmp)}}
+                    onMouseLeave={handleMouseLeave}
                     style={{
                       position: 'relative',
                       backgroundColor: dayData ? dayData.color : 'lightgray',
@@ -118,14 +137,14 @@ const YearGrid = ({ submissions }) => {
                       margin: '7px',
                     }}
                   >
-                    {hoveredDay === dayIndexGlobal && dayData && (
+                    {hoveredDay === tmp && dayData && (
                       <div
                         className="tooltip"
                         style={{
                           display:'flex',
                           alignItems:'center',
                           flexDirection:'column',
-                          justifyContent:'center',
+                          
                           position: 'absolute',
                           top: '20px',
                           left: '0px',
@@ -134,6 +153,7 @@ const YearGrid = ({ submissions }) => {
                           border: '1px solid black',
                           zIndex: 1,
                           visibility: 'visible',
+                          whiteSpace: 'nowrap',
                         }}
                       >
                         <span className = "dayMonthParagraph">{(dayIndex+1 % 10 === 1) ? `${months[monthIndex].name} ${dayIndex+1}st` : (dayIndex+1 % 10 === 2) ? `${months[monthIndex].name} ${dayIndex+1}nd` :

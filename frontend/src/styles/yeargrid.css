@@ -50,6 +50,10 @@
     font-size:20px;
 }
 
+.dayMonthParagraph {
+    word-break: keep-all;
+    
+}
 
 
 
