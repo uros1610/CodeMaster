@@ -22,23 +22,6 @@
 
 }
 
-.pageNumbersDiv {
-    display: flex;
-    gap:10px;
-    margin-top:20px;
-}
-
-.pageNumbers:hover {
-    cursor: pointer;
-    text-decoration: underline;
-}
-
-.pageNumbers {
-    background-color: transparent;
-    border: none;
-    color:white;
-    font-size:1.3rem;
-}
 
 .searchIcon {
     position: absolute;

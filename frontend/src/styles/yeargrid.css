@@ -55,6 +55,22 @@
     
 }
 
+.linkToProblem {
+    color:lime;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.linkToProblem:hover {
+    text-decoration: underline;
+}
+
+.linkToProblem:visited {
+    color:lime;
+    font-weight: bold;
+    text-decoration: none;
+}
+
 
 
 @media (max-width:500px) {

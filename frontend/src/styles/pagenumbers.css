@@ -1,0 +1,49 @@
+.pageNumbersDiv {
+    display: flex;
+    gap:10px;
+    margin-top:20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.pageNumbers:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.pageNumbers {
+    background-color: transparent;
+    border: none;
+    color:#526D82;
+    font-size:1.3rem;
+    height: 20px;
+    width: 20px;
+    padding-top:2px;
+    
+}
+
+.svg {
+    color:white;
+    height: 20px;
+    width: 20px;
+  
+}
+
+ .selectedPageNumber {
+    height: 20px;
+    width: 20px;
+}
+
+
+
+
+.selectedPageNumber {
+   font-size: 1.3rem;
+   border: none;
+   background-color: transparent;
+   color: white;
+   padding-top:2px;
+   
+   
+}
+
