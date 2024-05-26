@@ -1,0 +1,50 @@
+
+.wrapMonthsDiv {
+    border:3px solid #e3fef7;
+    padding:5px 10px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.gridMonths {
+    display: grid;
+    grid-template-columns: repeat(4,minmax(50px,1fr));
+    grid-template-rows: repeat(3,1fr);
+    column-gap: 5px;
+    max-width: 700px;
+}
+
+.yearDiv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.yearInput {
+    
+    margin-top:3px;
+    
+}
+
+.yearInput:focus {
+    outline: none;
+}
+
+.yearDiv .solvedProblems {
+    padding: 0;
+    margin: 0;
+    font-size:1.7rem;
+    color:#e3fef7;
+}
+
+.months {
+    color:#e3fef7;
+    font-size:20px;
+}
+
+@media (max-width:500px) {
+    .months {
+        font-size:13px;
+    }
+}
