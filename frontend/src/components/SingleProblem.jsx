@@ -65,7 +65,7 @@ const SingleProblem = () => {
         </div>
 
         <div className = "problem-description">
-          Descritpion: {description}
+          Description: {description}
       </div>
 
       
