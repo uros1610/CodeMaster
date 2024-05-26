@@ -5,6 +5,7 @@ import styles from '../styles/manageusers.css'
 import AuthContext from '../context/AuthContext'
 import User from './User'
 import { FaSearch } from 'react-icons/fa'
+import PageNumbers from './PageNumbers'
 const ManageUsers = () => {
 
   
@@ -24,13 +25,9 @@ const ManageUsers = () => {
 
     console.log("sdjsdfujfsdjfsgkgskjgfjkjgfdkkjgfkjdgfkjdgf",resp.data[0].broj)
 
-    var ind = resp.data[0].broj / 10;
+    var ind = Math.ceil(resp.data[0].broj/10)
 
-    console.log("IND",ind);
 
-    if(resp.data[0].broj % 10 !== 0) {
-      ind++;
-    }
 
     setNo(ind);
   }
@@ -97,10 +94,8 @@ const ManageUsers = () => {
       </form>
       {users.map((user) => (<User currUser = {user.username} role = {user.rola} users = {users} setUsers={setUsers}/>))}
 
-      <div className = "pageNumbersDiv">
-      {Array.from({length:no},(_ , i) => <button className = "pageNumbers" onClick = {(e) => {handlePageChange(e,i+1)}}>{i+1}</button>)}
-      </div>
-
+      
+      <PageNumbers no = {no} setpageNumber={setpageNumber} pageNumber={pageNumber}/>
       
 
     </div>

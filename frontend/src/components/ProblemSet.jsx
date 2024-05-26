@@ -4,6 +4,7 @@ import axios from 'axios'
 import Problem from './Problem'
 import styles from '../styles/problemset.css'
 import { FaSearch } from 'react-icons/fa'
+import PageNumbers from './PageNumbers'
 
 const ProblemSet = () => {
 
@@ -23,15 +24,30 @@ const ProblemSet = () => {
     useEffect(() => {
 
         const fetchNo = async () => {
-          const resp = await axios.get(`/backend/problem/problemCount`);
+            var up = parseInt(filter["ratingUp"]);
+            var down = parseInt(filter["ratingDown"]);
+
+            if(isNaN(up)) {
+                up = 9999;
+            }
+            if(isNaN(down)) {
+                down = 0;
+            }
+
+          const resp = await axios.get(`/backend/problem/problemCount`,{
+            params:{
+                title:filter["title"],
+                up:up,
+                down:down
+            }
+          });
+
+          console.log(resp);
     
-          var ind = resp.data[0].broj / 10;
+          var ind = Math.ceil(resp.data[0].broj / 10);
     
           console.log("IND",ind);
     
-          if(resp.data[0].broj % 10 !== 0) {
-            ind++;
-          }
     
           setNo(ind);
         }
@@ -40,12 +56,7 @@ const ProblemSet = () => {
     
       },[])
     
-      const handlePageChange = (e,id) => {
-          e.preventDefault();
-    
-          setpageNumber(id);
-      }
-    
+     
 
     const handleChange = (e) => {
         const id = e.target.id;
@@ -55,7 +66,7 @@ const ProblemSet = () => {
     } 
 
     const handleFilter = async () => {
-
+        
         var up = parseInt(filter["ratingUp"]);
         var down = parseInt(filter["ratingDown"]);
 
@@ -83,7 +94,7 @@ const ProblemSet = () => {
     useEffect(() => {
     const fetchData = async () => {
 
-
+        setLoading(true)
         try {
         var up = parseInt(filter["ratingUp"]);
         var down = parseInt(filter["ratingDown"]);
@@ -115,7 +126,21 @@ const ProblemSet = () => {
     }
 
     fetchData()
-},[])
+},[pageNumber])
+
+    if(loading) {
+        return <div className = "dlo" style = {{
+            margin:'auto auto',
+            fontSize:'60px',
+            color:'#e3fef7',
+            height:'100%',
+            width:'100%',
+            display:'flex',
+            alignItems:'center',
+            justifyContent:'center'
+        }}><p>Loading,Please wait...</p></div>
+    }
+
 
     return (
         <div className = "problemsetDivSearch">
@@ -154,9 +179,9 @@ const ProblemSet = () => {
             
         </table>
 
-        <div className = "pageNumbersDiv">
-      {Array.from({length:no},(_ , i) => <button className = "pageNumbers" onClick = {(e) => {handlePageChange(e,i+1)}}>{i+1}</button>)}
-      </div>
+      <PageNumbers setpageNumber = {setpageNumber} no = {no} pageNumber = {pageNumber}/>
+
+    
     
         </div>
     )
