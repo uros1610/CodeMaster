@@ -4,6 +4,7 @@ import axios from 'axios'
 import { SolvedProblemsContext } from '../context/SolvedProblemsContext'
 import styles from '../styles/standings.css'
 import {FaCheck,FaTimes} from 'react-icons/fa'
+import PageNumbers from './PageNumbers'
 const Standings = () => {
 
     
@@ -38,13 +39,11 @@ const Standings = () => {
             setDate(new Date(resp.data[0].date))
 
             console.log(resp2.data)
-            var ind = respNumber.data[0].broj / 100;
+            var ind = Math.ceil(respNumber.data[0].broj / 100);
 
             console.log(ind);
 
-            if(ind % 100 !== 0) {
-                ind++;
-            }
+         
 
          
 
@@ -135,9 +134,7 @@ const Standings = () => {
 
     </table>
     
-    <div className = "pageNumbersDiv">
-      {Array.from({length:no},(_ , i) => <button className = "pageNumbers" onClick = {(e) => {handlePageChange(e,i+1)}}>{i+1}</button>)}
-      </div>
+    <PageNumbers no = {no} setpageNumber={setpageNumber} pageNumber={pageNumber}/>
 
     </div>
   )
