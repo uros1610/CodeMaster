@@ -5,6 +5,7 @@ import { SolvedProblemsContext } from '../context/SolvedProblemsContext'
 import styles from '../styles/standings.css'
 import {FaCheck,FaTimes} from 'react-icons/fa'
 import PageNumbers from './PageNumbers'
+
 const Standings = () => {
 
     

@@ -4,6 +4,7 @@ import axios from 'axios'
 import styles from '../styles/rating.css'
 import RatingRow from './RatingRow'
 import AuthContext from '../context/AuthContext'
+import PageNumbers from './PageNumbers'
 
 const Rating = () => {
   
@@ -22,12 +23,9 @@ const Rating = () => {
     const fetchNo = async () => {
       const resp = await axios.get(`/backend/user/allusersCount`);
 
-      var ind = resp.data[0].broj / 15;
+      console.log("IND",resp.data);
 
-
-      if(resp.data[0].broj % 15 !== 0) {
-        ind++;
-      }
+      var ind = Math.ceil(resp.data[0].broj / 15);
 
       setNo(ind);
     }
@@ -83,10 +81,10 @@ const Rating = () => {
        {users.map((item,index) => <RatingRow user = {item} index = {index+1+(pageNumber-1)*15} currentUser = {user}/>)}
 
     </table>}
+    
+    <PageNumbers no = {no} setpageNumber={setpageNumber} pageNumber={pageNumber}/>
 
-    <div className = "pageNumbersDiv">
-      {Array.from({length:no},(_ , i) => <button className = "pageNumbers" onClick = {(e) => {handlePageChange(e,i+1)}}>{i+1}</button>)}
-      </div>
+   
     </div>
   )
 }

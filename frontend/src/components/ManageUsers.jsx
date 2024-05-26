@@ -87,6 +87,7 @@ const ManageUsers = () => {
 
 
   return (
+    <>
     <div className = "usersDiv">
       <form className = "searchBarForm">
       <input type = "text" className = "searchUsers" placeholder='Search Users' value = {search} onChange = {(e) => {setSearch(e.target.value)}}/>
@@ -94,11 +95,13 @@ const ManageUsers = () => {
       </form>
       {users.map((user) => (<User currUser = {user.username} role = {user.rola} users = {users} setUsers={setUsers}/>))}
 
-      
-      <PageNumbers no = {no} setpageNumber={setpageNumber} pageNumber={pageNumber}/>
-      
+            
 
     </div>
+
+    <PageNumbers no = {no} setpageNumber={setpageNumber} pageNumber={pageNumber}/>
+
+    </>
 
       
   )
