@@ -10,6 +10,12 @@
     gap:20px;
 }
 
+.pageNumbersDiv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .searchParagraph {
     color:#e3fef7;
     padding:4px;
@@ -114,4 +120,30 @@
 .problemTitle:hover {
     text-decoration: underline;
 }
+
+.svg,.pageNumbers {
+    color:white;
+    height: 20px;
+    width: 20px;
+    padding-top:2px;
+
+    
+}
+
+.pageNumbers, .selectedPageNumber {
+    height: 20px;
+    width: 20px;
+}
+
+
+.selectedPageNumber {
+   font-size: 1.3rem;
+   border: none;
+   background-color: transparent;
+   color: black;
+   
+   
+}
+
+
 
