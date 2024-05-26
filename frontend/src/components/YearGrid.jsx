@@ -1,6 +1,7 @@
 import React, { useState, useEffect,useRef} from 'react';
 import { isLeapYear } from 'date-fns';
 import styles from '../styles/yeargrid.css';
+import { Link } from 'react-router-dom';
 import Loading from './Loading';
 
 const YearGrid = ({ submissions }) => {
@@ -52,7 +53,7 @@ const YearGrid = ({ submissions }) => {
     setHoveredDay(tmp);
     tooltipTimer.current = setTimeout(() => {
       setTooltipVisible(true);
-    }, 150);
+    }, 10);
   };
 
   const handleMouseLeave = () => {
@@ -60,7 +61,7 @@ const YearGrid = ({ submissions }) => {
     tooltipTimer.current = setTimeout(() => {
       setTooltipVisible(false);
       setHoveredDay(null);
-    }, 150); 
+    }, 10); 
   };
 
   const months = [
@@ -162,9 +163,12 @@ const YearGrid = ({ submissions }) => {
 
                         {dayData.filtered.length > 0
                           ? dayData.filtered.map((submission, index) => (
-                              <div className = "submissionsAcceptedCertainDay" key={index}>{submission.problemTitle}</div>
+                              <div className = "submissionsAcceptedCertainDay" key={index}><Link className = "linkToProblem" to = {`/problem/${submission.problemTitle}`}>{submission.problemTitle}</Link></div>
                             ))
-                          : 'No submissions'}
+                          : <span style = {{
+                            color:'red',
+                            fontWeight:'bold'
+                          }}>No submissions</span>}
                       </div>
                     )}
                   </div>

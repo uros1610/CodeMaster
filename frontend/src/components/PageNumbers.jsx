@@ -1,4 +1,5 @@
 import React from 'react'
+import styles from '../styles/pagenumbers.css'
 
 const PageNumbers = ({setpageNumber,no,pageNumber}) => {
 
