@@ -22,8 +22,14 @@ const getProblemByName = (req,res) => {
 }
 
 const getCount = (req,res) => {
-    const q = "SELECT COUNT(*) AS broj FROM Problem"
-    db.query(q,[],(err,data) => { 
+    const up = req.query.up;
+    const down = req.query.down;
+    const search = "%"+req.query.title+"%";
+
+
+
+   const q = 'SELECT COUNT(*) AS broj from Problem p WHERE p.dateShown < NOW() AND RATING BETWEEN ? AND ? AND title LIKE ?'
+    db.query(q,[down,up,search],(err,data) => { 
     if (err) {
         console.error(err);
         return res.status(500).json({ message: 'Internal Server Error' });

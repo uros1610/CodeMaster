@@ -79,11 +79,32 @@ AND s.date BETWEEN c.date AND DATE_ADD(c.date, INTERVAL c.length MINUTE)
             return res.status(500).json(err)
         }
 
-        console.log("DATAAAAAA",data);
   
         res.status(200).json(data)
     })
 
 }
 
-module.exports = {getAllSubmissionsOneUser,getSubmissionByID,insertSubmission,getAllSubmissionsAccepted}
+const getAllSubmissionsGrouped = (req,res) => {
+
+    const q = `SELECT s.*
+    FROM Submission s
+    JOIN (
+        SELECT problemTitle, MIN(date) AS firstDate
+        FROM Submission
+        WHERE userName = ?
+        GROUP BY problemTitle
+    ) AS first_submissions ON s.problemTitle = first_submissions.problemTitle AND s.date = first_submissions.firstDate
+    WHERE s.userName = ? `
+
+    db.query(q,[req.params.username,req.params.username],(err,data) => {
+        if(err) {
+            return res.status(500).json("Internal server error!")
+        }
+        else {
+            return res.status(200).json(data);
+        }
+    })
+}
+
+module.exports = {getAllSubmissionsOneUser,getSubmissionByID,insertSubmission,getAllSubmissionsAccepted,getAllSubmissionsGrouped}
