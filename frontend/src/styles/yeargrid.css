@@ -27,6 +27,13 @@
     
 }
 
+.submissionsAcceptedCertainDay {
+    color:lime;
+    font-weight: bold;
+}
+
+
+
 .yearInput:focus {
     outline: none;
 }
@@ -42,6 +49,9 @@
     color:#e3fef7;
     font-size:20px;
 }
+
+
+
 
 @media (max-width:500px) {
     .months {
