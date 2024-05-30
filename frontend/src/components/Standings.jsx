@@ -5,6 +5,7 @@ import { SolvedProblemsContext } from '../context/SolvedProblemsContext'
 import styles from '../styles/standings.css'
 import {FaCheck,FaTimes} from 'react-icons/fa'
 import PageNumbers from './PageNumbers'
+import Loading from './Loading'
 
 const Standings = () => {
 
@@ -30,12 +31,18 @@ const Standings = () => {
     }
     
     const fetchData = async () => {
+        console.log("USAO");
+
         setLoading(true)
+
 
         try {
             const respNumber = await axios.get(`/backend/contest/${name}/count`);
+            console.log("IZVRSIO SE");
             const resp = await axios.get(`/backend/contest/${name}/problems`)
+            console.log("IZVRSIO SE2");
             const resp2 = await axios.get(`/backend/contest/${name}/users/${pageNumber}`)
+
             setLength(resp.data[0].length)
             setDate(new Date(resp.data[0].date))
 
@@ -76,6 +83,10 @@ const Standings = () => {
 
     useEffect(() => {
         fetchData();
+    },[])
+
+    useEffect(() => {
+        fetchData();
         
     },[solvedProblems,pageNumber])
    
@@ -85,16 +96,7 @@ const Standings = () => {
     }
 
     if(loading) {
-        return <div className = "dlo" style = {{
-            margin:'auto auto',
-            fontSize:'60px',
-            color:'#e3fef7',
-            height:'100%',
-            width:'100%',
-            display:'flex',
-            alignItems:'center',
-            justifyContent:'center'
-        }}><p>Loading,Please wait...</p></div>
+       return <Loading/>
     }
 
   return (
