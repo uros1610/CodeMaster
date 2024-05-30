@@ -5,7 +5,10 @@ const axios = require('axios');
 const http = require("http")
 const db = require('./db')
 const schedule = require('node-schedule')
+const bodyParser = require('body-parser');
+
 const {expressjwt} = require('express-jwt')
+const multer = require('multer');
 require('dotenv').config()
 
 
@@ -18,9 +21,11 @@ app.use(express.json())
 
 app.use(cookieparser())
 
+
 //app.use(redirection)
 
-
+app.use(express.static('./public'));
+app.use("/public/images",express.static(__dirname + "/public/images/"));
 app.use('/backend/auth',require('./routes/auth.js'))
 app.use('/backend/submissions',require('./routes/submissions'))
 
@@ -107,6 +112,37 @@ const scheduleContestEndJob = (contest) => {
 setInterval(checkForNewContests, 60000);
 
 checkForNewContests();
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/images'); // Destination folder for storing images
+    },
+    filename: function (req, file, cb) {
+        cb(null,file.originalname); // Unique filename
+    }
+});
+
+const upload = multer({
+    storage: storage,
+    limits: { fileSize: 50 * 1024 * 1024 }
+}).single('file');
+
+
+app.post('/backend/upload', (req, res) => {
+    
+    upload(req, res, function (err) {
+        if (err instanceof multer.MulterError) {
+            
+            return res.status(500).json({ message: 'File upload error', error: err });
+        } else if (err) {
+            
+            return res.status(500).json({ message: 'Unknown error', error: err });
+        }
+
+        
+        res.status(200).send();
+    });
+});
 
 
 
