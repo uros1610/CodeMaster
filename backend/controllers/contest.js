@@ -1,10 +1,14 @@
 const db = require('../db')
+const jwt = require('jsonwebtoken')
+require('dotenv').config();
 
 const createContest = async (req,res) => {
    
     const name = req.body.name;
     const authors = req.body.authors;
     const date = new Date(req.body.date)
+
+    
 
     
 
@@ -71,9 +75,7 @@ const getProblemsByContest = (req,res) => {
         if(err) {
             return res.status(500).json("Internal server error!")
         }
-        if(!data.length) {
-            return res.status(404)
-        }
+        
         return res.status(200).json(data)
     })
 }
@@ -97,6 +99,18 @@ const getUsersByContest = (req,res) => {
 }
 
 const registerUser = (req,res) => {
+
+    const username = req.body.user;
+    const token = req.headers.authorization.split(" ")[1];
+
+    const decoded = jwt.verify(token,process.env.SECRET_KEY);
+
+    if(decoded.username !== username) {
+        return res.status(401);
+    }
+
+    
+
     const q = "INSERT INTO ContestUser(ranking,ratingGain,numOfSolved,contestName,userName) VALUES(?)"
     const values = [0,0,0,req.body.contestName,req.body.user]
 
