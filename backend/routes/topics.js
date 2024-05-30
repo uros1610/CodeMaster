@@ -2,10 +2,10 @@ const express = require("express")
 
 const router = express.Router()
 
-const {getTopic} = require('../controllers/topics')
+const {getTopics} = require('../controllers/topics')
 
 
 
-router.get('/:topicName',getTopic)
+router.get('/',getTopics)
 
 module.exports = router
