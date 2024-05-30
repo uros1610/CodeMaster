@@ -21,6 +21,21 @@ const getProblemByName = (req,res) => {
     })
 }
 
+const getTopics = (req,res) => {
+    const name = req.params.name;
+    const q = "SELECT topicName FROM ProblemTopic WHERE problemTitle = ?"
+
+    db.query(q,[name],(err,data) => {
+        if(err) {
+            return res.status(500).json("Internal server error!");
+        }
+        if(data.length === 0) {
+            return res.status(404).json("Not found!");
+        }
+        return res.status(200).json(data);
+    })
+}
+
 const getCount = (req,res) => {
     const up = req.query.up;
     const down = req.query.down;
@@ -69,6 +84,35 @@ const allProblems = (req,res) => {
     })
 }
 
+const insertProblemTopic = (req,res) => {
+
+    const query = 'SELECT * FROM ProblemTopic WHERE title = ?'
+    const result = db.query(query,[req.body.title],(err,data) => {
+
+
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ message: 'Internal Server Error' });
+        }
+
+    if(data.length > 0) {
+        return res.status(403).json("Problem with that name already exists!")
+    }
+    const insertQuery = 'INSERT INTO ProblemTopic(problemTitle,topicName) VALUES(?)'
+    const values = [req.body.title,req.body.topic];
+
+    const resp = db.query(insertQuery,[values],(err,otherdata) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ message: 'Internal Server Error' });
+        }
+        return res.status(200).json("Problem has successfully been created!")
+    })
+
+    })
+
+}
+
 const addProblem = (req,res) => {
     
     const query = 'SELECT * FROM Problem WHERE title = ?'
@@ -97,8 +141,7 @@ const addProblem = (req,res) => {
 
     });
 
-    //console.log(resp)
-
+    
 
     })
 
@@ -136,4 +179,4 @@ const getOutputs = (req,res) => {
 
 
 
-module.exports = {getProblemByName,allProblems,addProblem,getInputs,getOutputs,getCount}
+module.exports = {getProblemByName,allProblems,addProblem,getInputs,getOutputs,getCount,insertProblemTopic,getTopics}
