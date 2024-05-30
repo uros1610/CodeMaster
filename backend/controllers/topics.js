@@ -1,25 +1,20 @@
 const db = require("../db")
 
 
-const getTopic = (req,res) => {
+const getTopics = (req,res) => {
 
     const topic_name = req.params.topicName;
 
-    const q = "SELECT * FROM Topic WHERE topic_name = ?";
+    const q = "SELECT * FROM Topic";
 
     db.query(q,[topic_name],(err,data) => {
         if(err) {
             return res.status(500).json({message:"Internal server error"});
         }
-        
-
-        if(data.length === 0) {
-            return res.status(403).json({message:"The topic isn't available,please choose another"})
-        }
-
-        return res.status(200).json("OK");
+    
+        return res.status(200).json(data);
     })
 }
 
 
-module.exports = {getTopic}
+module.exports = {getTopics}
