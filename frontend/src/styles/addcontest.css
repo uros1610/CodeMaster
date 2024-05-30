@@ -100,7 +100,10 @@
 .inputoutput textarea {
     min-height: 50px;
     width: 70%;
+    
 }
+
+
 
 .main-containerProblem textarea:focus {
     outline: none;
@@ -114,6 +117,41 @@
     flex-direction: column;
     gap:20px;
 }
+
+.addedTopicsDiv {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+    justify-content: center;
+    gap:20px;
+}
+
+.addedTopic {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    background-color: #DDE6ED;
+    border-radius: 10px;
+    padding:10px;
+}
+
+
+
+.addedTopicsDiv button {
+    background-color: transparent;
+    color:#27374D;
+    border:none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size:1.3rem;
+}
+.addedTopicsDiv button:hover {
+    background-color: #E3FEF7;
+}
+
+
 
 .inputoutput {
     display: flex;

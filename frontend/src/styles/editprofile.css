@@ -1,0 +1,85 @@
+
+.wrapDiv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.divEditProfile {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap:30px;
+    color:#e3fef7;
+    border:2px solid #e3fef7;
+    padding:10px 20px;
+
+}
+
+.changeUsernameDiv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:10px;
+}
+
+.changeUsername {
+    color:#27374D;
+    border-radius: 20px;
+    padding:5px 20px;
+    font-size: 1.3rem;
+}
+
+.changeUsername:focus {
+    outline: none;
+}
+
+
+.changePicture {
+    display: flex;
+    gap:10px;
+    align-items: center;
+}
+
+
+
+.profileImg {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.divEditProfile p {
+    margin: 0;
+    padding: 0;
+    text-wrap: nowrap;
+}
+
+.editProfile {
+    background-color: white;
+    color:#27374D;
+    padding:10px 40px;
+    border-radius: 10px;
+    border:2px solid #e3fef7;
+    scale: 1;
+    transition: scale 0.3s ease-in;
+}
+
+.editProfile:hover {
+    transition: scale 0.3s ease-in;
+    color:white;
+    background-color: #27374D;
+    scale: 1.1;
+}
+
+
+@media (max-width: 600px) {
+
+    .changePicture {
+        flex-direction: column;
+    }
+}

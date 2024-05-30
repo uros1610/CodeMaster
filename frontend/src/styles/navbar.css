@@ -63,6 +63,16 @@ button .appNamesecond {
     text-decoration: underline;
 }
 
+.linksNavBaractive,.userNameactive {
+    color:#526D82;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.linksNavBaractive:hover,.userNameactive:hover {
+    text-decoration: underline;
+}
+
 .userNameLogout {
     color:#E3FEF7;
     margin-left:20px;
