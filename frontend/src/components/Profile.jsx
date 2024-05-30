@@ -47,12 +47,14 @@ const Profile = () => {
 
         <div className = "profileInfoAndImg">
 
-            <img src = 'https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png'/>
+            <img className = "profileImg" src = {!userInfo.img ? 'https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png' : userInfo.img}/>
 
             <div className = "profileInfo">
                 <p>Username: {userInfo.username}</p>
                 <p>Rating: {userInfo.rating}</p>
-                {userInfo.username === user.username && <button className = 'editProfileBtn'><Link className='profile-link'>Edit profile</Link></button>}
+                {userInfo.username === user.username && <button className = 'editProfileBtn'><Link className='profile-link'  to={{
+        pathname: `/profile/editProfile/${user.username}`
+      }}>Edit profile</Link></button>}
             </div>
             
         </div>
