@@ -7,6 +7,7 @@ const getSubmissionByID = (req,res) => {
     const id = req.params.id
     const username = req.params.name
 
+    
 
     const query = "SELECT code FROM Submission WHERE id = ? AND userName = ?"
 
@@ -20,13 +21,33 @@ const getSubmissionByID = (req,res) => {
     })
 }
 
-const getAllSubmissionsOneUser = (req,res) => {
-    const username = req.params.name
+const getNoSubmissions = (req,res) => {
+    const username = req.params.username
+    
 
 
-    const query = "SELECT id,problemTitle,s.date AS submissionDate,verdictdescription,userName,language,code,c.length,c.date AS contestDate FROM Submission s INNER JOIN Problem p ON p.title = s.problemTitle INNER JOIN Contest c ON p.contest_name = c.name WHERE userName = ?"
+    const query = "SELECT COUNT(*) AS broj FROM Submission WHERE userName = ? "
 
     db.query(query,[username],(err,data) => {
+        if(err) {
+            return res.status(500).json(err)
+        }
+ 
+        
+        res.status(200).json(data)
+    })
+
+}
+
+
+const getAllSubmissionsOneUser = (req,res) => {
+    const username = req.params.name
+    const id = req.params.id;
+
+
+    const query = "SELECT id,problemTitle,s.date AS submissionDate,verdictdescription,userName,language,code,c.length,c.date AS contestDate FROM Submission s INNER JOIN Problem p ON p.title = s.problemTitle INNER JOIN Contest c ON p.contest_name = c.name WHERE userName = ? ORDER BY ID DESC LIMIT ?,?"
+
+    db.query(query,[username,(id-1)*20,20],(err,data) => {
         if(err) {
             return res.status(500).json(err)
         }
@@ -35,7 +56,8 @@ const getAllSubmissionsOneUser = (req,res) => {
             return res.status(404).json("No such user exists!")
         }
 
-  
+        
+        
         res.status(200).json(data)
     })
 
@@ -107,4 +129,4 @@ const getAllSubmissionsGrouped = (req,res) => {
     })
 }
 
-module.exports = {getAllSubmissionsOneUser,getSubmissionByID,insertSubmission,getAllSubmissionsAccepted,getAllSubmissionsGrouped}
+module.exports = {getAllSubmissionsOneUser,getSubmissionByID,insertSubmission,getAllSubmissionsAccepted,getAllSubmissionsGrouped,getNoSubmissions}
