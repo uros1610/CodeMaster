@@ -1,12 +1,47 @@
-import React, { useState,useContext } from 'react';
+import React, { useState,useContext,useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import { FaBars } from 'react-icons/fa';
 import '../styles/navbar.css'; 
 import AuthContext from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const NavBar = ({ width, isVisible,setIsVisible}) => {
 
   const {user,logout} = useContext(AuthContext)
+  const currentUrl = window.location.href;
+  const navigate = useNavigate();
+
+  const parsed = currentUrl.split("/");
+
+  const [home,sethome] = useState(false);
+  const [profile,setprofile] = useState(false);
+  const [contests,setcontests] = useState(false);
+  const [problemset,setproblemset] = useState(false);
+  const [addcontest,setaddcontest] = useState(false);
+  const [manageusers,setmanageusers] = useState(false);
+  const [rating,setrating] = useState(false);
+
+ 
+
+
+ useEffect(() => {
+
+ 
+
+  sethome(parsed.indexOf("home") === -1 ? false : true);
+  if(user) {
+  setprofile(parsed.indexOf(`${user.username}`) === -1 ? false : true);
+  }
+  setcontests(parsed.indexOf("contests") === -1 ? false : true);
+  setproblemset(parsed.some(pars => pars.includes("problem")));
+  setaddcontest(parsed.indexOf("addcontest") === -1 ? false : true);
+  setmanageusers(parsed.indexOf("manageusers") === -1 ? false : true);
+  setrating(parsed.indexOf("rating") === -1 ? false : true);
+
+ },[user,window.location.href])
+
+
+
 
   const btnClick = () => {
     setIsVisible(!isVisible); 
@@ -17,7 +52,7 @@ const NavBar = ({ width, isVisible,setIsVisible}) => {
 
   if (width > 780) {
     setIsVisible(false)
-    // If the width is larger than 525px, render the full navbar
+    
     return (
       <div className = "navBar">
          <div className = "userNameLogout" style={{
@@ -26,19 +61,19 @@ const NavBar = ({ width, isVisible,setIsVisible}) => {
         <span className = "appNamefirst">Code<span className = "appNamesecond">Master</span></span>
 
        
-        {user && <Link to = {`/profile/${user.username}`} className = "userName">{user.username}</Link>}
+        {user && <Link to = {`/profile/${user.username}`} className = {profile ? "userNameactive" : "userName"}>{user.username}</Link>}
         {user && <span className = "logout" onClick = {logout}>Logout</span>}
         </div>
 
           <div className = 'links-div' style = {{
             justifyContent: width < 1050 ? 'center' : 'flex-end'
           }}>
-          <Link className = "linksNavBar" to="/home">Home</Link>
-          <Link className = "linksNavBar" to="/contests">Contests</Link>
-          <Link className = "linksNavBar" to="/rating">Rating</Link>
-          <Link className = "linksNavBar" to="/problemset">Problemset</Link>
-          {user && user.role === "Admin" && <Link className = "linksNavBar" to={"/addcontest"}>Add Contest</Link>}
-          {user && user.role === "Admin" && <Link className = "linksNavBar" to={"/manageusers"}>Manage Users</Link>}
+          <Link className = {home ? "linksNavBaractive" : "linksNavBar"} to="/home" >Home</Link>
+          <Link className = {contests ? "linksNavBaractive" : "linksNavBar"} to="/contests" >Contests</Link>
+          <Link className = {rating  ? "linksNavBaractive" : "linksNavBar"} to="/rating">Rating</Link>
+          <Link className = {problemset ? "linksNavBaractive" : "linksNavBar"} to="/problemset">Problemset</Link>
+          {user && user.role === "Admin" && <Link className = {addcontest ? "linksNavBaractive" : "linksNavBar"} to={"/addcontest"}>Add Contest</Link>}
+          {user && user.role === "Admin" && <Link className = {manageusers ? "linksNavBaractive" : "linksNavBar"} to={"/manageusers"}>Manage Users</Link>}
 
 
           </div>
@@ -60,7 +95,7 @@ const NavBar = ({ width, isVisible,setIsVisible}) => {
         </button>
 
         <div className = "userNameDropdown">
-        {user && <span className = "userName">{user.username}</span>}
+        {user && <Link to = {`/profile/${user.username}`} className = {profile ? "userNameactive" : "userName"}>{user.username}</Link>}
         {user && <span className = "logout" onClick = {logout}>Logout</span>}
         </div>
         
@@ -75,13 +110,12 @@ const NavBar = ({ width, isVisible,setIsVisible}) => {
             
           }}
         >
-          <Link className = "linksNavBar" to="/home">Home</Link>
-          <Link className = "linksNavBar" to="/contests">Contests</Link>
-          <Link className = "linksNavBar" to="/rating">Rating</Link>
-          <Link className = "linksNavBar" to="/problemset">Problemset</Link>
-          {user && user.role === "Admin" && <Link className = "linksNavBar" to={"/addcontest"}>Add Contest</Link>}
-          {user && user.role === "Admin" && <Link className = "linksNavBar" to={"/manageusers"}>Manage Users</Link>}
-
+          <Link className = {home ? "linksNavBaractive" : "linksNavBar"} to="/home" >Home</Link>
+          <Link className = {contests ? "linksNavBaractive" : "linksNavBar"} to="/contests" >Contests</Link>
+          <Link className = {rating  ? "linksNavBaractive" : "linksNavBar"} to="/rating">Rating</Link>
+          <Link className = {problemset ? "linksNavBaractive" : "linksNavBar"} to="/problemset">Problemset</Link>
+          {user && user.role === "Admin" && <Link className = {addcontest ? "linksNavBaractive" : "linksNavBar"} to={"/addcontest"}>Add Contest</Link>}
+          {user && user.role === "Admin" && <Link className = {manageusers ? "linksNavBaractive" : "linksNavBar"} to={"/manageusers"}>Manage Users</Link>}
 
         </div>
       </>
