@@ -21,37 +21,38 @@ const ProblemSet = () => {
         ratingUp:"",
         ratingDown:""
     })
+    const fetchNo = async () => {
+        var up = parseInt(filter["ratingUp"]);
+        var down = parseInt(filter["ratingDown"]);
+
+        if(isNaN(up)) {
+            up = 9999;
+        }
+        if(isNaN(down)) {
+            down = 0;
+        }
+
+      const resp = await axios.get(`/backend/problem/problemCount`,{
+        params:{
+            title:filter["title"],
+            up:up,
+            down:down
+        }
+      });
+
+      console.log(resp);
+
+      var ind = Math.ceil(resp.data[0].broj / 10);
+
+      console.log("IND",ind);
+
+
+      setNo(ind);
+    }
 
     useEffect(() => {
 
-        const fetchNo = async () => {
-            var up = parseInt(filter["ratingUp"]);
-            var down = parseInt(filter["ratingDown"]);
-
-            if(isNaN(up)) {
-                up = 9999;
-            }
-            if(isNaN(down)) {
-                down = 0;
-            }
-
-          const resp = await axios.get(`/backend/problem/problemCount`,{
-            params:{
-                title:filter["title"],
-                up:up,
-                down:down
-            }
-          });
-
-          console.log(resp);
-    
-          var ind = Math.ceil(resp.data[0].broj / 10);
-    
-          console.log("IND",ind);
-    
-    
-          setNo(ind);
-        }
+        
     
         fetchNo();
     
@@ -66,8 +67,8 @@ const ProblemSet = () => {
         setFilter(newObj);
     } 
 
-    const handleFilter = async () => {
-        
+    const handleFilter = async (e) => {
+        e.preventDefault();
         var up = parseInt(filter["ratingUp"]);
         var down = parseInt(filter["ratingDown"]);
 
@@ -85,6 +86,7 @@ const ProblemSet = () => {
                 down:down
             }
         })
+        fetchNo()
         setProblems(response.data)
 
 
@@ -146,12 +148,14 @@ const ProblemSet = () => {
             <div className = "searchRating">
             <input type = "text" id = "ratingDown"
             placeholder='Rating lower bound'
+            value = {filter.ratingDown}
             onChange={handleChange}
             />
 
             <input type = "text"
             id = "ratingUp"
             placeholder='Rating upper bound'
+            value = {filter.ratingUp}
             onChange={handleChange}/>
             </div>
 
