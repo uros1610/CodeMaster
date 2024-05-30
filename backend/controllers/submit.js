@@ -1,4 +1,5 @@
 const axios = require('axios');
+const jwt = require('jsonwebtoken')
 
 require('dotenv').config();
 
@@ -7,6 +8,20 @@ async function submitSolution(req, res,next) {
   try {
 
     const { code, date, username, problemname, val } = req.body;
+
+    if(!req.headers.authorization) {
+      return res.status(401);
+    }
+
+    const tokenn = req.headers.authorization.split(" ")[1];
+
+
+    const decoded = jwt.verify(tokenn,process.env.SECRET_KEY);
+
+    if(decoded.username !== username) {
+      return res.status(401).json("Unauthorized");
+    }
+
 
 
     const languageMap = {
@@ -51,13 +66,18 @@ async function submitSolution(req, res,next) {
         "stdin": inputs.data[i].value
       };
 
+      console.log("INPUT",inputs.data[i].value)
+
+
       const headers = { 'Authorization': `Bearer ${token}` }
 
       try {
         const response = await axios.post("https://api.jdoodle.com/v1/execute", data,headers);
 
-        if (response.data.output !== outputs.data[i].value) {
+        if (((response.data.output).toString()).trim() !== ((outputs.data[i].value).toString()).trim()) {
           submission.verdictdescription = `Wrong answer on test case ${i+1}`
+          console.log("ACTUAL",response.data.output)
+          console.log("EXPECTED",outputs.data[i].value)
           return res.status(200).json(submission)
           
         }
