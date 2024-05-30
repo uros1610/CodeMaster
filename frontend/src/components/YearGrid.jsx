@@ -11,6 +11,7 @@ const YearGrid = ({ submissions }) => {
   const [hoveredDay, setHoveredDay] = useState(null);
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const tooltipTimer = useRef(null);
+  const [howMany,sethowMany] = useState(0);
 
 
   const handleYearChange = (e) => {
@@ -24,8 +25,15 @@ const YearGrid = ({ submissions }) => {
   }, [year, submissions]);
 
   const generateAll = () => {
-    const days = Array.from({ length: isLeap ? 366 : 365 }, (_, i) => numberOfSubmissionsColored(i));
+    let total = 0;
+    const days = Array.from({ length: isLeap ? 366 : 365 }, (_, i) => {
+      const data = numberOfSubmissionsColored(i)
+      total+=data.filtered.length;
+      return data;
+    
+    });
     setDaysColors(days);
+    sethowMany(total);
   };
 
   const numberOfSubmissionsColored = (i) => {
@@ -36,6 +44,7 @@ const YearGrid = ({ submissions }) => {
     const filtered = submissions.filter(
       (submission) => new Date(submission.date) >= dateDown && new Date(submission.date) < dateUp
     );
+
 
     if (filtered.length === 0) {
       return { color: 'lightgray', filtered: filtered };
@@ -53,7 +62,7 @@ const YearGrid = ({ submissions }) => {
     setHoveredDay(tmp);
     tooltipTimer.current = setTimeout(() => {
       setTooltipVisible(true);
-    }, 10);
+    }, 150);
   };
 
   const handleMouseLeave = () => {
@@ -61,7 +70,7 @@ const YearGrid = ({ submissions }) => {
     tooltipTimer.current = setTimeout(() => {
       setTooltipVisible(false);
       setHoveredDay(null);
-    }, 10); 
+    }, 150); 
   };
 
   const months = [
@@ -88,7 +97,7 @@ const YearGrid = ({ submissions }) => {
   return (
     <div className="wrapMonthsDiv">
       <div className="yearDiv">
-        <p className="solvedProblems">Solved problems by year</p>
+        <p className="solvedProblems">Solved problems by year: {howMany}</p>
         <div
           style={{
             display: 'flex',
@@ -139,7 +148,7 @@ const YearGrid = ({ submissions }) => {
                     }}
                   >
                     {hoveredDay === tmp && dayData && (
-                      <div
+                      <div 
                         className="tooltip"
                         style={{
                           display:'flex',
@@ -157,8 +166,11 @@ const YearGrid = ({ submissions }) => {
                           whiteSpace: 'nowrap',
                         }}
                       >
-                        <span className = "dayMonthParagraph">{(dayIndex+1 % 10 === 1) ? `${months[monthIndex].name} ${dayIndex+1}st` : (dayIndex+1 % 10 === 2) ? `${months[monthIndex].name} ${dayIndex+1}nd` :
-                        (dayIndex+1 % 10 === 3) ? `${months[monthIndex].name} ${dayIndex+1}rd` :  `${months[monthIndex].name} ${dayIndex+1}th` 
+                        <span className = "dayMonthParagraph">{ Math.floor((dayIndex+1)/10) !== 1 ?
+                        (((dayIndex+1) % 10 === 1) ? `${months[monthIndex].name} ${(dayIndex+1)}st` : ((dayIndex+1) % 10 === 2) ? `${months[monthIndex].name} ${(dayIndex+1)}nd` :
+                        ((dayIndex+1) % 10 === 3) ? `${months[monthIndex].name} ${(dayIndex+1)}rd` :  `${months[monthIndex].name} ${(dayIndex+1)}th`) : (
+                          `${months[monthIndex].name} ${dayIndex+1}th`
+                        )
                       }</span>
 
                         {dayData.filtered.length > 0
