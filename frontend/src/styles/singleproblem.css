@@ -66,8 +66,22 @@
     border:2px solid #DDE6ED;
 }
 
-.problem-testIO .inputTable tr:nth-child(odd) {
+.problem-testIO .inputTable pre {
+    padding:10px;
+    font-size: 1.1rem;
+}
+
+.auto-resize-textarea:focus {
+    outline: none;
+}
+
+.problem-testIO .inputTable pre:nth-child(odd) {
     background-color: #9DB2BF;
+    
+}
+
+.problem-testIO .inputTable pre:nth-child(even) {
+    background-color: #526D82;
     
 }
 
@@ -92,7 +106,6 @@
     grid-row-end:3;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
    
 }
 

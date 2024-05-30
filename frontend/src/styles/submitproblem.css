@@ -20,7 +20,7 @@
     position: relative;
 }
 
-textarea, .linenumbers {
+.code, .linenumbers {
     font-size:0.9rem;
 }
 
