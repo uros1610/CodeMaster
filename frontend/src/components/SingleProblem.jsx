@@ -13,12 +13,35 @@ const SingleProblem = () => {
   const navigate = useNavigate()
   const [inputs,setInputs] = useState([])
   const [outputs,setOutputs] = useState([])
-  const [topics,setTopics] = useState("")
   const [contest,setContest] = useState("")
   const [time,setTime] = useState(null)
   const [length,setLength] = useState(0);
   const {name} = useParams()
-  
+
+  const [topics,setTopics] = useState([]);
+
+  const fetchAll = async () => {
+    await fetchData();
+    await fetchData2();
+  }
+
+  const fetchData2 = async () => {
+    try {
+      const response = await axios.get(`/backend/problem/problemTopic/${name}`);
+      console.log("RESP",response);
+      var arr = [];
+      
+      for(let i = 0; i < response.data.length - 1; i++) {
+        arr.push(`${response.data[i].topicName}, `)
+      }
+      arr.push(response.data[response.data.length-1].topicName);
+      setTopics(arr);
+    }
+    catch(err) {
+      console.log(err);
+    }
+  }
+
 
   const fetchData = async () => {
 
@@ -45,8 +68,9 @@ const SingleProblem = () => {
   }
 
   useEffect(() => {
-    fetchData();
+    fetchAll();
   },[])
+
   
 
 
@@ -77,9 +101,7 @@ const SingleProblem = () => {
       <table className = "inputTable">
 
         {inputs.map((input,idx) => (
-          <tr key = {idx+1}>
-            <p className = "inputParagraphs">{input.value}</p>
-          </tr>
+          <pre>{input.value}</pre>
         ))}
 
 
@@ -91,9 +113,7 @@ const SingleProblem = () => {
 
        
       {outputs.map((output,idx) => (
-          <tr key = {idx+1}>
-            <p className = "inputParagraphs">{output.value}</p>
-          </tr>
+         <pre>{output.value}</pre>
         ))}
 
 
@@ -122,7 +142,7 @@ const SingleProblem = () => {
         <hr style = {{
           width:'100%'
         }}/>
-        <p className = "problem-tags">{ new Date(new Date(time).getTime() + length*60*1000) < Date.now() ? topics : "Not available yet"}</p>
+        <p className = "problem-tags">{ new Date(new Date(time).getTime() + length*60*1000) < Date.now() ? <p>{topics?.map(topic => topic)}</p> : "Not available yet"}</p>
       </div>
 
     </div>
