@@ -23,11 +23,8 @@ const ManageUsers = () => {
   const fetchNo = async () => {
     const resp = await axios.get(`/backend/user/allusersCount?search=${search}`);
 
-    console.log("sdjsdfujfsdjfsgkgskjgfjkjgfdkkjgfkjdgfkjdgf",resp.data[0].broj)
 
     var ind = Math.ceil(resp.data[0].broj/10)
-
-
 
     setNo(ind);
   }
@@ -49,10 +46,11 @@ const ManageUsers = () => {
   useEffect(() => {
 
     const fetchData = async () => {
+        
         try {
             
           const resp = await axios.get(`/backend/user/filteredusers/${pageNumber}?search=${search}`)
-
+          console.log(resp.data)
           setUsers(resp.data)
         }
         catch(err) {
@@ -75,7 +73,7 @@ const ManageUsers = () => {
 
   try {
     const resp = await axios.get(`/backend/user/filteredusers/${pageNumber}?search=${search}`)
-
+   
     setUsers(resp.data);
     fetchNo();
   }
@@ -93,7 +91,8 @@ const ManageUsers = () => {
       <input type = "text" className = "searchUsers" placeholder='Search Users' value = {search} onChange = {(e) => {setSearch(e.target.value)}}/>
       <button className = "searchIcon" onClick={filterSearch}><FaSearch/></button>
       </form>
-      {users.map((user) => (<User currUser = {user.username} role = {user.rola} users = {users} setUsers={setUsers}/>))}
+      
+      {users.map((user) => (<User key = {user.username} currUser = {user.username} role = {user.rola} users = {users} setUsers={setUsers}/>))}
 
             
 
