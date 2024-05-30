@@ -35,16 +35,11 @@ font-size: 1.5rem;
     display: flex;
     background-color: #526D82;
     justify-content: space-between;
+    gap:20px;
+    padding:10px 20px;
 }
 
 
-.profileInfoAndImg img {
-    max-width: 150px;
-   
-    width: 100%;
-    height: auto; 
-    object-fit: contain;
-}
 
 .profileInfo {
 
@@ -66,13 +61,21 @@ font-size: 1.5rem;
 
 .editProfileBtn {
     background-color: #526D82;
-    padding: 10px 0px;
+    
     border:2px solid #E3FEF7;
     border-radius: 10px;
 }
 
+
+
+.editProfileBtn:hover {
+    background-color:#27374D;
+    color: #526D82;
+}
+
 .editProfileBtn .profile-link {
     display: block;
+    padding: 10px 0px;
 }
 
 .editProfileBtn .profile-link:hover {
