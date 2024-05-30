@@ -67,7 +67,7 @@ const login = (req,res) => {
 
         const token = jwt.sign({username:data[0].username,role:data[0].rola},process.env.SECRET_KEY)
 
-        const sendObj = {username:data[0].username,token:token,role:data[0].rola}
+        const sendObj = {username:data[0].username,token:token,role:data[0].rola,img:data[0].userPicture}
 
 
         res.status(200).json(sendObj)
