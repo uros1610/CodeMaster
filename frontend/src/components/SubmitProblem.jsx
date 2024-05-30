@@ -6,6 +6,7 @@ import axios from 'axios'
 import { useContext } from 'react'
 import AuthContext from '../context/AuthContext'
 import { SolvedProblemsContext} from '../context/SolvedProblemsContext'
+import { Link } from 'react-router-dom'
 
 const SubmitProblem = () => {
 
@@ -15,6 +16,10 @@ const SubmitProblem = () => {
     const {name} = useParams()
     const {user} = useContext(AuthContext)
     const {solvedProblems,addSolvedProblem} = useContext(SolvedProblemsContext)
+
+    if(!user) {
+      navigate("/login")
+    }
 
  
     const languageMap = {
@@ -89,7 +94,7 @@ const SubmitProblem = () => {
             <div className= "problem">
                 
                 <span className= "prob">Problem:</span>
-                <span className = "prob">{name}</span>
+                <span className = "prob"><Link className = "linksNavBar" to = {`/problem/${name}`}>{name}</Link></span>
 
             </div>
 
