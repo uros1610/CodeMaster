@@ -67,7 +67,7 @@ const Signup = () => {
             Have an account?
             <Link to = '/login' className = "signinHere">Sign in here</Link>
         </div>
-        <label htmlFor = "password" id = "passwordSuggestion">Password should contain at least 7 characters</label>
+       
         {error && <p style = {{
           color:'red',
           fontSize:'1.2rem',
