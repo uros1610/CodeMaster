@@ -1,16 +1,23 @@
 import React from 'react'
 import styles from '../styles/user.css'
 import axios from 'axios';
-import { useState } from 'react';
+import { useState,useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom'
+import Modal from './Modal';
 
 
 const User = ({currUser,users,setUsers,role}) => {
 
 
     const [selectedValue, setSelectedValue] = useState(role);
+
+   
+
     const navigate = useNavigate();
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
   const handleRadioChange = (event) => {
     setSelectedValue(event.target.value);
@@ -18,15 +25,7 @@ const User = ({currUser,users,setUsers,role}) => {
 
 
 
-    const handleClick = async (id) => {
-        try {
-            await axios.delete(`backend/user/${id}`)
-            setUsers(users.filter(user => user.username !== currUser))
-        }
-        catch (err) {
-            console.log(err)
-        }
-    }
+ 
 
 
     const handleEditRole = async (username) => {
@@ -51,8 +50,12 @@ const User = ({currUser,users,setUsers,role}) => {
         padding:'10px',
         width:'100%'
     }}> <Link className = "linksProblem" to = {`/profile/${currUser}`}>{currUser}</Link>
+        {open && <Modal open={open} setOpen={setOpen} users = {users} user = {currUser} type = 'confirmDelete' setUsers={setUsers}/>}
+
 
     <div className = "mainDivForEdits">
+
+
     
     <form className = "mainFormForEdits" >
     <label htmlFor = "Admin">Admin</label>
@@ -77,11 +80,10 @@ const User = ({currUser,users,setUsers,role}) => {
     <button className = "buttonEdit"
     onClick = {(e) => {handleEditRole(currUser)}}
     >Edit Role</button>
-    <button className = "buttonDelete" 
-
-    onClick={(e) => {handleClick(currUser)}}
+    <button className = "buttonDelete" onClick={handleOpen}
 
     >Delete</button>
+
 
     </div>
 
