@@ -22,6 +22,25 @@ const getUser = (req,res) => {
     })
 }
 
+const updateUser = (req,res) => {
+    const {username,picture} = req.body;
+
+    console.log(req.params);
+
+    console.log(username);
+
+    const q = "UPDATE User SET username = ? , userPicture = ? WHERE username = ?"
+
+    db.query(q,[username,picture,req.params.username],(err,data) => {
+        if(err) {
+            return res.status(500).json("Internal server error!");
+        }
+        else {
+            return res.status(204).json("Update successful");
+        }
+    })
+}
+
 const deleteUser = (req,res) => {
     const username = req.params.username;
 
@@ -181,4 +200,4 @@ const getAllContestsOneUser = (req,res) => {
     })
 }
 
-module.exports = {getUser,getUsersRating,getUsers,deleteUser,filterUsers,noUsers,updateRole,updateRating,getAllContestsOneUser}
+module.exports = {getUser,getUsersRating,getUsers,deleteUser,filterUsers,noUsers,updateRole,updateRating,getAllContestsOneUser,updateUser}
