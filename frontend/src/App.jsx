@@ -26,6 +26,7 @@ import ProblemsContext from './context/ProblemsContext';
 import ManageUsers from './components/ManageUsers';
 import Standings from './components/Standings';
 import EditProfile from './components/EditProfile';
+import EditContest from './components/EditContest';
 
 
 function App() {
@@ -61,6 +62,7 @@ function App() {
       <Route path = '/manageusers' element = {<ManageUsers/>}/>
       <Route path = '/contest/:name/standings' element = {<Standings/>}/>
       <Route path = '/profile/editProfile/:username' element = {<EditProfile/>}/>
+      <Route path = '/contest/editContest/:contestName' element = {<EditContest/>}/>
 
 
       </Routes>
