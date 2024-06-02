@@ -208,6 +208,46 @@ const getCount = (req,res) => {
 }
 
 
+const getContest = (req,res) => {
+    const contestName = req.params.contestName;
+
+    const q = "SELECT * FROM Contest WHERE name = ?"
+
+    db.query(q,[contestName],(err,data) => {
+        if(err) {
+            return res.status(500).json("Internal server error!");
+        }
+        else {
+            if(!data.length) {
+                return res.status(404).json("Contest not found!");
+            }
+            else {
+                return res.status(200).json(data);
+            }
+        }
+    })
+
+}
+
+const updateContest = (req,res) => {
+
+    const contestName = req.params.contestName;
+
+    console.log(req.body,contestName);
+
+    const q = "UPDATE Contest SET length = ? , date = ? , name = ? WHERE name = ?"
+
+    db.query(q,[req.body.length,new Date(req.body.date),req.body.name,contestName], (err,data) => {
+        if(err) {
+            return res.status(500).json("Internal server error!");
+        }
+        else {
+            return res.status(200).json("Success!");
+        }
+    })
+
+}
 
 
-module.exports = {createContest,getAllContests,deleteContest,getProblemsByContest,getUsersByContest,registerUser,getContestsUser,deleteUserFromContest,updateUserProblem,setProcessedTrue,updateRatingChange,getCount}
+
+module.exports = {createContest,getAllContests,deleteContest,getProblemsByContest,getUsersByContest,registerUser,getContestsUser,deleteUserFromContest,updateUserProblem,setProcessedTrue,updateRatingChange,getCount,getContest,updateContest}
