@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useContext,useRef} from 'react'
 import styles from '../styles/singleproblem.css'
 import {Link} from 'react-router-dom'
 import axios from 'axios'
 import { useState, useEffect} from 'react'
 import { useParams,useNavigate} from 'react-router-dom'
+import AuthContext from '../context/AuthContext'
+import { FaWindowClose } from 'react-icons/fa';
+
 
 
 const SingleProblem = () => {
@@ -17,12 +20,51 @@ const SingleProblem = () => {
   const [time,setTime] = useState(null)
   const [length,setLength] = useState(0);
   const {name} = useParams()
+  const [submissions,setSubmissions] = useState([])
+
+  const {user} = useContext(AuthContext);
 
   const [topics,setTopics] = useState([]);
+
+  const [display, setDisplay] = useState(false);
+  const buttonRef = useRef(null);
+
+  const handleClick = (submissionId) => {
+    setDisplay(display === submissionId ? null : submissionId);
+  };
+
+  const handleEsc = (e) => {
+    if (e.key === 'Escape') {
+      setDisplay(false);
+    }
+  };
+
+  useEffect(() => {
+    const currentButton = buttonRef.current;
+    if (display && currentButton) {
+      currentButton.focus();
+      document.addEventListener('keyup', handleEsc);
+    }
+
+    return () => {
+      document.removeEventListener('keyup', handleEsc);
+    };
+  }, [display]);
+
 
   const fetchAll = async () => {
     await fetchData();
     await fetchData2();
+    await fetchSubmissions();
+  }
+
+  const fetchSubmissions = async () => {
+    const resp = await axios.get(`/backend/submissions/allSubmissions/${user.username}/${name}`);
+
+    console.log("RESPFIDKIDSFG",resp);
+
+    setSubmissions(resp.data)
+    
   }
 
   const fetchData2 = async () => {
@@ -79,6 +121,8 @@ const SingleProblem = () => {
   return (
 
     <div className='singleproblemmain'>
+
+      
 
       <div className = "singleproblemdiv">
 
@@ -145,8 +189,48 @@ const SingleProblem = () => {
         <p className = "problem-tags">{ new Date(new Date(time).getTime() + length*60*1000) < Date.now() ? <p>{topics?.map(topic => topic)}</p> : "Not available yet"}</p>
       </div>
 
+        <div className="wrapSubmissions">
+      <p className="lastSubmissions">Last submissions:</p>
+      <table>
+        
+          {submissions.map((submission, idx) => (
+            <React.Fragment key={idx}>
+              <tr className="submissionRow">
+                <td>
+                  <button onClick={() => handleClick(submission.id)} className="submissionIDbtn">
+                    <span>{submission.id}</span>
+                  </button>
+                </td>
+                <td>Date: {new Date(submission.date).toLocaleString()}</td>
+                <td style={{
+                  color: submission.verdictdescription === 'Accepted' ? 'lime' : 'red'
+                }}>{submission.verdictdescription}</td>
+              </tr>
+              {display === submission.id && (
+                <tr>
+                  <td colSpan="3">
+                    <div className="displayCode">
+                      <button
+                        className="closeWindow"
+                        ref={buttonRef}
+                        onClick={() => handleClick(submission.id)}
+                      >
+                        <FaWindowClose />
+                      </button>
+                      <textarea className="textareacode" readOnly value={submission.code} />
+                    </div>
+                  </td>
+                </tr>
+              )}
+            </React.Fragment>
+          ))}
+       
+      </table>
     </div>
 
+    </div>
+
+   
     </div>
   )
 }
