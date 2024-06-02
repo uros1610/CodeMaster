@@ -1,10 +1,11 @@
 const express = require("express")
 const router = express.Router()
-const {getUser, getUsersRating,getUsers,deleteUser,filterUsers,noUsers, updateRole,updateRating,getAllContestsOneUser,updateUser} = require('../controllers/user')
+const {getUser, getUsersRating,getUsers,deleteUser,filterUsers,noUsers, updateRole,updateRating,getAllContestsOneUser,updateUser,getAdmins} = require('../controllers/user')
 const {verifyAdmin} = require('../middleware/verifyToken')
 const {expressjwt} = require('express-jwt');
 require('dotenv').config()
 
+router.get("/allAdmins",getAdmins)
 router.put("/updateUser/:username",updateUser)
 router.get("/allusersCount",noUsers)
 router.get("/rating/:id",expressjwt({ secret: process.env.SECRET_KEY, algorithms: ['HS256']}),getUsersRating)
