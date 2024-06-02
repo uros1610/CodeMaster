@@ -24,15 +24,19 @@ const getSubmissionByID = (req,res) => {
 const getNoSubmissions = (req,res) => {
     const username = req.params.username
     
-
+    console.log(req.params)
 
     const query = "SELECT COUNT(*) AS broj FROM Submission WHERE userName = ? "
 
     db.query(query,[username],(err,data) => {
+
+        console.log("BROJJ",data);
+
         if(err) {
             return res.status(500).json(err)
         }
- 
+        
+       
         
         res.status(200).json(data)
     })
@@ -62,6 +66,29 @@ const getAllSubmissionsOneUser = (req,res) => {
     })
 
 }
+
+const getAllSubmissionsOneUserOneProblem = (req,res) => {
+    const username = req.params.username
+    const problemname = req.params.problemname
+
+    
+    
+
+
+    const query = "SELECT code,id,date,verdictdescription FROM Submission WHERE userName = ? AND problemTitle = ?"
+
+    db.query(query,[username,problemname],(err,data) => {
+        if(err) {
+            return res.status(500).json(err)
+        }
+
+       console.log(data);
+
+        res.status(200).json(data)
+    })
+
+}
+
 
 const insertSubmission = (req,res) => {
 
@@ -129,4 +156,4 @@ const getAllSubmissionsGrouped = (req,res) => {
     })
 }
 
-module.exports = {getAllSubmissionsOneUser,getSubmissionByID,insertSubmission,getAllSubmissionsAccepted,getAllSubmissionsGrouped,getNoSubmissions}
+module.exports = {getAllSubmissionsOneUser,getSubmissionByID,insertSubmission,getAllSubmissionsAccepted,getAllSubmissionsGrouped,getNoSubmissions,getAllSubmissionsOneUserOneProblem}
