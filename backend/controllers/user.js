@@ -62,6 +62,17 @@ const deleteUser = (req,res) => {
 
 }
 
+const getAdmins = (req,res) => {
+    const q = "SELECT username FROM User WHERE rola = 'Admin' "
+
+    db.query(q,[],(err,data) => {
+        if(err) {
+            return res.status(500).json(err)
+        }
+        return res.status(200).json(data)
+    })
+}
+
 
 const getUsersRating = (req,res) => {
     const query = 'SELECT username,rating FROM User ORDER BY rating DESC LIMIT ?,?'
@@ -79,7 +90,7 @@ const getUsersRating = (req,res) => {
         if(err) {
             return res.status(500).json(err)
         }
-        return res.json(data)
+        return res.status(200).json(data)
     })
 }
 
@@ -200,4 +211,4 @@ const getAllContestsOneUser = (req,res) => {
     })
 }
 
-module.exports = {getUser,getUsersRating,getUsers,deleteUser,filterUsers,noUsers,updateRole,updateRating,getAllContestsOneUser,updateUser}
+module.exports = {getUser,getUsersRating,getUsers,deleteUser,filterUsers,noUsers,updateRole,updateRating,getAllContestsOneUser,updateUser,getAdmins}
