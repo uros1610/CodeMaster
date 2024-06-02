@@ -49,7 +49,12 @@ const User = ({currUser,users,setUsers,role}) => {
         color:'#DDE6ED',
         padding:'10px',
         width:'100%'
-    }}> <Link className = "linksProblem" to = {`/profile/${currUser}`}>{currUser}</Link>
+    }}> <div>
+      <span style = {{
+        marginRight:'10px'
+      }}>Username:</span>
+          <Link className = "linksProblem" to = {`/profile/${currUser}`}>{currUser}</Link>
+        </div>
         {open && <Modal open={open} setOpen={setOpen} users = {users} user = {currUser} type = 'confirmDelete' setUsers={setUsers}/>}
 
 
