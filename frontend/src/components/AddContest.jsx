@@ -13,7 +13,7 @@ const AddContest = ({contests,setContests}) => {
   const navigate = useNavigate();
 
   const [name,setName] = useState('')
-  const [authors,setAuthors] = useState('')
+  const [authors,setAuthors] = useState([])
   const [length,setLength] = useState('')
   const [date,setDate] = useState('')
   const [problemName,setproblemName] = useState('')
@@ -24,6 +24,9 @@ const AddContest = ({contests,setContests}) => {
   const [outputs,setOutputs] = useState([])
   const [allTopics,setallTopics] = useState([]);
   const [selectedTopic,setSelectedTopic] = useState('');
+  const [selectedAuthor,setSelectedAuthor] = useState('')
+  const [allAuthors,setallAuthors] = useState([])
+
 
   const [currInput,setCurrInput] = useState('')
   const [currOutput,setCurrOutput] = useState('')
@@ -33,6 +36,7 @@ const AddContest = ({contests,setContests}) => {
 
   const [err,setErr] = useState(null)
   const [err2,setErr2] = useState(null);
+  const [err3,setErr3] = useState(null);
 
   const {user} = useContext(AuthContext)
 
@@ -47,6 +51,8 @@ const AddContest = ({contests,setContests}) => {
 
   }
 
+  
+
    const handleClose = (e,id) => {
         e.preventDefault();
 
@@ -55,6 +61,26 @@ const AddContest = ({contests,setContests}) => {
         setTopics(filtered);
         
     }
+
+    const handleCloseAuthors = (e,id) => {
+      e.preventDefault();
+
+      const filtered = authors.filter(author => author !== id);
+
+      setAuthors(filtered);
+      
+  }
+
+  const fetchAuthors = async () => {
+    try {
+      const response = await axios.get(`/backend/user/allAdmins`);
+      console.log("RESPONSEEE",response);
+      setallAuthors(response.data);
+    }
+    catch(err) {
+      console.log(err);
+    }
+  }
 
   const fetchData = async (e) => {
     try {
@@ -67,8 +93,15 @@ const AddContest = ({contests,setContests}) => {
     }
   }
 
+  const fetchAll = async () => {
+    await fetchData();
+    await fetchAuthors();
+  }
+
   useEffect(() => {
-    fetchData();
+
+    fetchAll();
+  
   },[])
 
   useEffect(() => {
@@ -77,6 +110,14 @@ const AddContest = ({contests,setContests}) => {
       setSelectedTopic(allTopics[0].topic_name);
     }
   },[allTopics])
+
+  useEffect(() => {
+    if(allAuthors.length > 0) {
+      setSelectedAuthor(allAuthors[0].username);
+    }
+  },[allAuthors])
+
+  
 
   
 
@@ -90,10 +131,6 @@ const AddContest = ({contests,setContests}) => {
 
    const currProblem = {id:problems.length+1,contestname:name,title:problemName,description:problemDesc,inputs,outputs,rating,topics}
 
-
-
-
-   
     setProblems([...problems,currProblem])
     setproblemName('')
     setproblemDesc('')
@@ -104,8 +141,8 @@ const AddContest = ({contests,setContests}) => {
     setRating('')
     setTopics('')
 
-    console.log(currProblem)
   }
+
 
 
 
@@ -115,14 +152,14 @@ const AddContest = ({contests,setContests}) => {
 
     try {
       const dateFormatted = new Date(date).toUTCString();
-      console.log(dateFormatted)
-      const newContest = {name, authors, length, date: dateFormatted};
+      const newContest = {name, authors:authors.toString(), length, date: dateFormatted};
 
-      
+      /*
       if(problems.length !== noProblems) {
         setErr2("Please match the number of problems specified!");
         return;
       }
+      */
       
 
 
@@ -130,7 +167,6 @@ const AddContest = ({contests,setContests}) => {
       await axios.post(`/backend/contest/addcontest`, newContest);
 
         for(let problem of problems) {
-            console.log(problem)
             problem.contestname = name
             problem.dateshown = date
             
@@ -188,25 +224,41 @@ const AddContest = ({contests,setContests}) => {
             onChange={(e) => setName(e.target.value)}
           />
 
-          <input
-            type="text"
-            placeholder="Authors"
-            required
-            value={authors}
-            onChange={(e) => setAuthors(e.target.value)}
-          />
+          <div className = "addedTopicsDiv">
+            {authors?.map(author => <div key = {author} className = "addedTopic"><div>{author}</div> <button onClick = {(e) => {handleCloseAuthors(e,author)}}><FaTimes/></button></div>)}
+          </div>
+
+        <div style = {{
+          display:'flex',
+          alignItems:'center',
+          justifyContent:'center',
+          gap:'10px'
+        }}>
+            
+
+            <label htmlFor = "Choose Authors" style = {{
+                  color:'#e3fef7'
+                }}>Choose Authors:</label>
+
+            <select name = "Choose Authors" onChange = {(e) => {setSelectedAuthor(e.target.value)}} style = {{
+                
+              }}> 
+                  {allAuthors?.map(author => <option value = {author.username}>{author.username}</option>)}
+                </select>
+                <button className = "addInputOutput" onClick = {(e) => { e.preventDefault(); setAuthors(Array.from(new Set([...authors,selectedAuthor])))}}><FaPlus/></button>
+         </div>
 
           <input
             type="datetime-local"
             required
             value={date}
-            onChange={(e) => setDate(e.target.value)}
+            onChange={(e) => { setErr2(''); if(new Date(e.target.value) < Date.now()) {setErr2("Please set valid date!"); return;} setDate(e.target.value)}}
+
           />
 
           <input
             type="text"
             placeholder="Length"
-            pattern="\d{2}:\d{2}"
             required
             value={length}
             onChange={(e) => setLength(e.target.value)}
