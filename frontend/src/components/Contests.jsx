@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styles from '../styles/contests.css'
 import {useState,useEffect} from 'react'
 import Contest from './Contest'
 import axios from 'axios'
+import AuthContext from '../context/AuthContext'
 
 
 const Contests = ({contests,setContests}) => {
@@ -10,6 +11,8 @@ const Contests = ({contests,setContests}) => {
   const [prev,setPrev] = useState([])
   const [upc,setUpc] = useState([])
   const [cur,setCur] = useState([])
+
+  const {user} = useContext(AuthContext);
 
   useEffect(() => {
 
@@ -57,6 +60,8 @@ useEffect(() => {
           <th>Date</th>
           <th>Length</th>
           <th className = "choice">Register</th>
+          {user.role === 'Admin' && <th>Edit contest</th>}
+
         
       </tr>
 
