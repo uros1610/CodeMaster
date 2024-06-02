@@ -56,10 +56,13 @@ const Contest = ({item,flag}) => {
           color:'#e3fef7',
           border:'none'}}>Register</button>}
         
+        
         {registered && <button onClick={handleOpen} style = {{
           backgroundColor:'transparent',
           color:'#e3fef7',
           border:'none'}}>Cancel Registration</button>}
+
+          <Link to = {`/contest/editContest/${item.name}`}>Edit contest</Link>
 
               { open && <Modal what = {item.name} type = 'registration' registered = {registered} setRegistered={setRegistered} open = {open} setOpen = {setOpen} user = {user.username}/>
                 }
