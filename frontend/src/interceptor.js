@@ -5,10 +5,11 @@ export default function setupInterceptors(){
     axios.interceptors.response.use(response => {            
         return response;
     }, error => {
-        
+     
         if(error.response.message) {
             return Promise.reject(error);
         }
+    
 
         if(error.request.status === 401 || error.request.status === 403) {
             localStorage.removeItem('token')
@@ -26,6 +27,15 @@ export default function setupInterceptors(){
             const token = localStorage.getItem('token');
             if ( token != null ) {
                 config.headers.Authorization = 'Bearer ' + token;
+            }
+
+            const user = localStorage.getItem('user');
+            if (!user) {
+               
+                config.data = {
+                    ...config.data,
+                    usernameHelper: user.username
+                };
             }
 
             return config;
