@@ -2,9 +2,9 @@ import React from 'react'
 import {useState,useEffect,useContext} from 'react'
 import axios from 'axios'
 import styles from '../styles/rating.css'
-import RatingRow from './RatingRow'
 import AuthContext from '../context/AuthContext'
 import PageNumbers from './PageNumbers'
+import Card from './Card'
 
 const Rating = () => {
   
@@ -71,16 +71,12 @@ const Rating = () => {
     }}>
       
     {!loading && 
-    <table className = "orderedListRating">
+    <div className = "orderedListRating">
 
-        <tr>
-            <th>Place</th>
-            <th>Username</th>
-            <th>Rating</th>
-        </tr>
-       {users.map((item,index) => <RatingRow user = {item} index = {index+1+(pageNumber-1)*15} currentUser = {user}/>)}
+    
+       {users.map((item,index) => <Card user = {item} index = {index+1+(pageNumber-1)*15} currentUser = {user}/>)}
 
-    </table>}
+    </div>}
     
     <PageNumbers no = {no} setpageNumber={setpageNumber} pageNumber={pageNumber}/>
 
