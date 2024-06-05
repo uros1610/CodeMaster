@@ -12,6 +12,7 @@ const Profile = () => {
     const [userInfo,setUserInfo] = useState({})
     const {username} = useParams()
     const [submissions,setSubmissions] = useState([])
+    
 
     const {user} = useContext(AuthContext)
 
