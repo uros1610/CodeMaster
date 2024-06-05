@@ -1,0 +1,70 @@
+.homeDiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap:20px;
+}
+
+.quoteDiv {
+    text-align: center;
+    color:#e3fef7;
+    margin-bottom: 20px;
+    font-size:2rem;
+}
+
+.welcome {
+    color: #e3fef7;
+    font-size: 2.5rem;
+    text-align: center;
+}
+
+.startSolving {
+    transition: scale 0.4s ease-in-out;
+    font-size:2rem;
+    padding:30px 50px;
+    border-radius:30px;
+    background-color: #e3fef7;
+    color:#27374D;
+    border: 2px solid #e3fef7;
+    scale:1.2;
+}
+
+.startSolving:hover {
+    transition: scale 0.4s ease-in-out;
+    color:#e3fef7;
+    background-color: #27374D;
+    scale:1.3
+}
+
+
+.homeDiv img {
+    height: 70%;
+    width: 50%;
+    object-fit: contain;
+}
+
+.solvingLink {
+    color: inherit;
+    text-decoration: none;
+}
+
+.solvingLink:visited {
+    color: inherit;
+}
+
+.solvingLink:hover {
+    text-decoration: none;
+}
+
+@media (max-width:1000px) {
+    .homeDiv {
+        flex-direction: column-reverse;
+    }
+
+    .quoteDiv {
+        width: 85%;
+    }
+    .homeDiv img {
+        min-width: 300px;
+    }
+}

@@ -1,0 +1,51 @@
+.singleCard {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap:5px;
+    border:none;
+    box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.4);
+    padding:5px 5px;
+    border-radius: 20px;
+    text-decoration: none;
+    scale: 1;
+    transition: scale 0.1s ease-in-out;
+    color:#e3fef7;
+
+}
+
+.singleCard:visited, .singleCard:active  {
+    color:#e3fef7;
+    text-decoration: none;
+}
+
+.singleCard:hover {
+    scale:1.05;
+    transition: scale 0.4s ease-in-out;
+    text-decoration: none;
+}
+
+
+.singleCard p {
+    margin: 0;
+    padding: 0;
+}
+
+.gold {
+    color:gold;
+    height: 100px;
+    width: 100px;
+}
+
+.silver {
+    color:silver;
+    height: 100px;
+    width: 100px;
+}
+
+.bronze {
+    color:rgb(205, 127, 50);
+    height: 100px;
+    width: 100px;
+}
