@@ -75,7 +75,7 @@ const getAdmins = (req,res) => {
 
 
 const getUsersRating = (req,res) => {
-    const query = 'SELECT username,rating FROM User ORDER BY rating DESC LIMIT ?,?'
+    const query = 'SELECT username,rating,userPicture FROM User ORDER BY rating DESC LIMIT ?,?'
 
     const id = req.params.id;   
 
@@ -90,6 +90,7 @@ const getUsersRating = (req,res) => {
         if(err) {
             return res.status(500).json(err)
         }
+        console.log(data);
         return res.status(200).json(data)
     })
 }
