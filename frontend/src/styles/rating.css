@@ -4,29 +4,18 @@
     margin-top:50px;
     width: 100%;
     color:#E3FEF7;
-    text-align: center;
-    border:1px solid #E3FEF7;
-    border-collapse: collapse;
-    
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap:50px;
 }
 
-.orderedListRating td, .orderedListRating th  {
-    border:1px solid #E3FEF7;
-    padding:5px 10px;
-}
 
-.orderedListRating tr:nth-child(odd) {
-    background-color: #27374F;
-   
+@media (max-width:780px) {
+    .orderedListRating {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap:15px;
+    }
 }
-
-.orderedListRating td:first-child {
-    width:10%;
-    min-width: 50px;
-}
-
-.orderedListRating td:last-child{
-    width:10%;
-    min-width: 50px;
-}
-
