@@ -15,7 +15,7 @@ export const AuthContextProvider = ({children}) => {
 
     const login = async (inputs) => {
         const resp = await axios.post(`/backend/auth/login`,inputs)
-        const data = {role:resp.data.role,username:resp.data.username}
+        const data = {role:resp.data.role,username:resp.data.username,userPicture:resp.data.img}
         setuser(data)
         localStorage.setItem('token',resp.data.token)
         console.log(resp.data)
