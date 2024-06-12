@@ -68,7 +68,7 @@ const calculateEloRating = (R_A, R_B, S_A) => {
 
 const updateRatings = async (name) => {
     await axios.put(`http://localhost:8800/backend/contest/updateProcessed`, { name: name });
-    const resp = await axios.get(`http://localhost:8800/backend/contest/${name}/users/1`);
+    const resp = await axios.get(`http://localhost:8800/backend/contest/${name}/users`);
     const users = [...resp.data];
 
     const total = users.length;
@@ -84,7 +84,7 @@ const updateRatings = async (name) => {
             if (i !== j) {
                 const user_B = users[j];
                 const R_B = user_B.rating;
-                const S_A = (user_A.points > user_B.points) ? 1 : (user_A.points === user_B.points ? 0.5 : 0);
+                const S_A = (user_A.ranking > user_B.ranking) ? 1 : (user_A.ranking === user_B.ranking ? 0.5 : 0);
                 new_R_A = calculateEloRating(new_R_A, R_B, S_A);
             }
         }
