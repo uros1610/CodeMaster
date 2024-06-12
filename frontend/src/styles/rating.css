@@ -1,21 +1,33 @@
 
 .orderedListRating {
    
-    margin-top:50px;
+    margin-top:120px;
     width: 100%;
     color:#E3FEF7;
     display: grid;
     grid-template-columns: repeat(3,1fr);
-    gap:50px;
+    column-gap:50px;
+    row-gap: 150px;
 }
 
 
-@media (max-width:780px) {
+@media (max-width:760px) {
+    .orderedListRating {
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap:100px;
+    }
+}
+
+@media (max-width:560px) {
     .orderedListRating {
         display: flex;
         align-items: center;
         justify-content: center;
         flex-direction: column;
-        gap:15px;
+        gap:100px;
     }
 }
