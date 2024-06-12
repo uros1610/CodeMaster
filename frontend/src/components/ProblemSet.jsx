@@ -94,7 +94,6 @@ const ProblemSet = () => {
 
     }
 
-    useEffect(() => {
     const fetchData = async () => {
 
         setLoading(true)
@@ -128,7 +127,11 @@ const ProblemSet = () => {
         }
     }
 
+
+    useEffect(() => {
+    
     fetchData()
+    window.scrollTo(0,0);
 },[pageNumber])
 
     if(loading) {
