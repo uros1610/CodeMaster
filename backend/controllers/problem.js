@@ -6,6 +6,8 @@ const getProblemByName = (req,res) => {
 
     const problemTitle = req.params.name;
 
+    console.log("ProblemTitle je",problemTitle);
+
     db.query(query,[problemTitle],(err, data) => {
         if (err) {
             console.error(err);
@@ -29,9 +31,7 @@ const getTopics = (req,res) => {
         if(err) {
             return res.status(500).json("Internal server error!");
         }
-        if(data.length === 0) {
-            return res.status(404).json("Not found!");
-        }
+        
         return res.status(200).json(data);
     })
 }
@@ -86,18 +86,9 @@ const allProblems = (req,res) => {
 
 const insertProblemTopic = (req,res) => {
 
-    const query = 'SELECT * FROM ProblemTopic WHERE title = ?'
-    const result = db.query(query,[req.body.title],(err,data) => {
+  
 
-
-        if (err) {
-            console.error(err);
-            return res.status(500).json({ message: 'Internal Server Error' });
-        }
-
-    if(data.length > 0) {
-        return res.status(403).json("Problem with that name already exists!")
-    }
+   
     const insertQuery = 'INSERT INTO ProblemTopic(problemTitle,topicName) VALUES(?)'
     const values = [req.body.title,req.body.topic];
 
@@ -109,7 +100,7 @@ const insertProblemTopic = (req,res) => {
         return res.status(200).json("Problem has successfully been created!")
     })
 
-    })
+    
 
 }
 
@@ -129,8 +120,8 @@ const addProblem = (req,res) => {
     }
 
     
-    const insertQuery = 'INSERT INTO Problem(title,description,contest_name,rating,topics,dateshown) VALUES(?)'
-    const values = [req.body.title,req.body.description,req.body.contestname,parseInt(req.body.rating),req.body.topics,req.body.dateshown]
+    const insertQuery = 'INSERT INTO Problem(title,description,contest_name,rating,dateshown) VALUES(?)'
+    const values = [req.body.title,req.body.description,req.body.contestname,parseInt(req.body.rating),req.body.dateshown]
 
     const resp = db.query(insertQuery,[values],(err,otherdata) => {
         if (err) {
