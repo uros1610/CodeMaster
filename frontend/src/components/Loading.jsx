@@ -1,6 +1,7 @@
 import React from 'react'
-
+import ReactLoading from "react-loading";
 const Loading = () => {
+    
     return <div className = "dlo" style = {{
         margin:'auto auto',
         fontSize:'60px',
@@ -9,8 +10,21 @@ const Loading = () => {
         width:'100%',
         display:'flex',
         alignItems:'center',
-        justifyContent:'center'
-    }}><p>Loading,Please wait...</p></div>
+        justifyContent:'center',
+        position:'absolute',
+        top:'50%',
+        left:'50%',
+        transform:'translate(-50%,-50%)',
+        flexDirection:'column'
+    }}><p>Loading,Please wait...</p>
+    
+    <ReactLoading
+          type={"bars"}
+          color={"#03fc4e"}
+          height={100}
+          width={100}
+        />
+    </div>
 }
 
 export default Loading
