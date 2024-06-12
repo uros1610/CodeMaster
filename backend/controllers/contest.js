@@ -80,6 +80,20 @@ const getProblemsByContest = (req,res) => {
     })
 }
 
+const allUsersByContest = (req,res) => {
+    const q = "SELECT * FROM ContestUser cu INNER JOIN User u ON cu.userName = u.username WHERE contestName = ?"
+    const contestName = req.params.contestName;
+   
+    
+
+    db.query(q,[contestName],(err,data) => {
+        if(err) {
+            return res.status(500).json("Internal server error!")
+        }
+        return res.status(200).json(data)
+    })
+}
+
 const getUsersByContest = (req,res) => {
     const q = "SELECT * FROM ContestUser cu INNER JOIN User u ON cu.userName = u.username WHERE contestName = ? LIMIT ?,?"
     const contestName = req.params.contestName;
@@ -250,4 +264,4 @@ const updateContest = (req,res) => {
 
 
 
-module.exports = {createContest,getAllContests,deleteContest,getProblemsByContest,getUsersByContest,registerUser,getContestsUser,deleteUserFromContest,updateUserProblem,setProcessedTrue,updateRatingChange,getCount,getContest,updateContest}
+module.exports = {createContest,getAllContests,deleteContest,getProblemsByContest,getUsersByContest,registerUser,getContestsUser,deleteUserFromContest,updateUserProblem,setProcessedTrue,updateRatingChange,getCount,getContest,updateContest,allUsersByContest}
