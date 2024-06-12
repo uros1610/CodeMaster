@@ -1,9 +1,11 @@
-import React, { useContext } from 'react'
+import React, { useContext, useRef } from 'react'
 import styles from '../styles/contests.css'
 import {useState,useEffect} from 'react'
 import Contest from './Contest'
 import axios from 'axios'
 import AuthContext from '../context/AuthContext'
+import { useNavigate } from 'react-router-dom'
+import Loading from './Loading'
 
 
 const Contests = ({contests,setContests}) => {
@@ -11,25 +13,65 @@ const Contests = ({contests,setContests}) => {
   const [prev,setPrev] = useState([])
   const [upc,setUpc] = useState([])
   const [cur,setCur] = useState([])
+  const navigate = useNavigate();
+  const [past,setPast] = useState(false);
+  const [upcoming,setUpcoming] = useState(false);
+  const [current,setCurrent] = useState(true);
+  const [loading,setLoading] = useState(false);
 
-  const {user} = useContext(AuthContext);
+  const [active,setActive] = useState("current");
+
+  const {user} = useContext(AuthContext)
 
   useEffect(() => {
 
+    if(!user) {
+      navigate('/login')
+    }
+  },[user])
+
+  useEffect(() => {
+
+
     const fetchData = async () => {
-
-
+    setLoading(true);
+    try {
     const resp = await axios.get(`/backend/contest`)
+    setContests(resp.data)
+
+    }
+
+    catch(err) {
+      console.log(err);
+    }
+
+    finally {
+      setLoading(false);
+    }
 
     
 
-    setContests(resp.data)
 }
 
 fetchData()
 
 },[])
 
+
+const handleClickCurrent = () => {
+
+setActive("current");
+}
+const handleClickPast = () => {
+
+  setActive("past");
+
+}
+
+const handleClickUpcoming = () => {
+  setActive("upcoming");
+
+}
 
 
 
@@ -47,11 +89,64 @@ useEffect(() => {
 },[contests])
 
 
+if(loading) {
+  return <Loading/>
+}
    
   return (
+
+    <>
     <div className = "table-div">
-    <table id = "futurecontests">
-      <p className = "future">Upcoming contests</p>
+
+      <div className = "buttonsContests">
+        <button className = {active === "upcoming" ? "activeBtn" : "notactiveBtn"} onClick = {handleClickUpcoming}>Upcoming Contests</button>
+        <button className = {active === "current" ? "activeBtn" : "notactiveBtn"} onClick = {handleClickCurrent}>Current Contests</button>
+        <button className = {active === "past" ? "activeBtn" : "notactiveBtn"} onClick = {handleClickPast}>Past Contests</button>
+      </div>
+
+
+      {active === "upcoming" && <table className = "contests">
+
+
+        <tr>
+            <th>Name</th>
+            <th>Authors</th>
+            <th>Date</th>
+            <th>Length</th>
+            <th className = "choice">Register</th>
+            {user?.role === 'Admin' && <th>Edit</th>}
+            {user?.role === 'Admin' && <th>Delete</th>}
+
+          
+        </tr>
+
+      {upc.map((item) => (<Contest key = {item.id} item = {item} flag = {true}/>))}
+
+
+  </table>}
+
+
+
+  {active === "current" && <table className = "contests">
+
+
+        <tr>
+            <th>Name</th>
+            <th>Authors</th>
+            <th>Date</th>
+            <th>Length</th>
+            
+          
+        </tr>
+
+      {cur.map((item) => (<Contest key = {item.id} item = {item} flag = {false}/>))}
+
+
+  </table>}
+
+
+  {active === "past" && <table className = "contests">
+
 
 
       <tr>
@@ -59,58 +154,20 @@ useEffect(() => {
           <th>Authors</th>
           <th>Date</th>
           <th>Length</th>
-          <th className = "choice">Register</th>
-          {user.role === 'Admin' && <th>Edit contest</th>}
+          <th>Leaderboard</th>
+          {user?.role === 'Admin' && <th>Delete contest</th>}
 
         
       </tr>
 
-    {upc.map((item) => (<Contest key = {item.id} item = {item} flag = {true}/>))}
+      {prev.map((item) => (<Contest key = {item.id} item = {item} flag = {true} contests = {contests} setContests={setContests}/>))}
 
 
-</table>
-
-<table id = "futurecontests">
-      <p className = "future">Current contests</p>
+  </table>}
 
 
-      <tr>
-          <th>Name</th>
-          <th>Authors</th>
-          <th>Date</th>
-          <th>Length</th>
-        
-      </tr>
-
-    {cur.map((item) => (<Contest key = {item.id} item = {item} flag = {false}/>))}
-
-
-</table>
-
-
-
-
-<table id = "futurecontests">
-
-<p className = "past">Past contests</p>
-
-
-    <tr>
-        <th>Name</th>
-        <th>Authors</th>
-        <th>Date</th>
-        <th>Length</th>
-        <th>Leaderboard</th>
-      
-    </tr>
-
-    {prev.map((item) => (<Contest key = {item.id} item = {item} flag = {true}/>))}
-
-
-</table>
-
-
-</div>
+  </div>
+  </> 
   )
 }
 
