@@ -40,9 +40,13 @@ const YearGrid = ({ submissions }) => {
     const date = new Date(year, 0, 1, 0, 0, 0);
     const dateDown = new Date(date.getTime() + i * 24 * 60 * 60 * 1000);
     const dateUp = new Date(dateDown.getTime() + 24 * 60 * 60 * 1000);
+    
+    submissions.forEach(submission => {
+      console.log(new Date(submission.date));
+    })
 
     const filtered = submissions.filter(
-      (submission) => new Date(submission.date) >= dateDown && new Date(submission.date) < dateUp
+      (submission) => new Date(submission.date) >= dateDown && new Date(submission.date) < dateUp && submission.verdictdescription === 'Accepted'
     );
 
 
