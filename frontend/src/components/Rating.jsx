@@ -5,6 +5,7 @@ import styles from '../styles/rating.css'
 import AuthContext from '../context/AuthContext'
 import PageNumbers from './PageNumbers'
 import Card from './Card'
+import Loading from './Loading'
 
 const Rating = () => {
   
@@ -16,6 +17,8 @@ const Rating = () => {
     const [no,setNo] = useState(0);
     const [pageNumber,setpageNumber] = useState(1);
     const [loading,setLoading] = useState(false)
+
+    
 
 
   useEffect(() => {
@@ -61,6 +64,10 @@ const Rating = () => {
 
     fetchData()
     },[pageNumber])
+
+  if(loading) {
+    return (<Loading/>)
+  }
 
   return (
     <div className = "ratingDiv" style = {{
