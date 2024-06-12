@@ -142,6 +142,7 @@ const getAllSubmissionsGrouped = (req,res) => {
         SELECT problemTitle, MIN(date) AS firstDate
         FROM Submission
         WHERE userName = ?
+        AND verdictdescription = 'Accepted'
         GROUP BY problemTitle
     ) AS first_submissions ON s.problemTitle = first_submissions.problemTitle AND s.date = first_submissions.firstDate
     WHERE s.userName = ? `
