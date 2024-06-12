@@ -118,7 +118,9 @@ const AddContest = ({contests,setContests}) => {
   },[allAuthors])
 
   
-
+  useEffect(() => {
+    console.log(topics);
+},[topics])
   
 
   const handleAddProblem = async (e) => {
@@ -162,6 +164,18 @@ const AddContest = ({contests,setContests}) => {
       */
       
 
+      if(!name) {
+        setErr2("Give a title to contest!");
+        return;
+      }
+
+      if(!authors.length) {
+        setErr2("Specify the authors of the contest!");
+        return;
+      }
+      
+     
+
 
 
       await axios.post(`/backend/contest/addcontest`, newContest);
@@ -169,11 +183,18 @@ const AddContest = ({contests,setContests}) => {
         for(let problem of problems) {
             problem.contestname = name
             problem.dateshown = date
+
+            console.log(problem.topics);
             
             try {
             await axios.post(`/backend/problem`,problem)
             
-            for(let topic of topics) {
+            console.log("USAO JE OVDJEEEEEEE");
+
+            console.log("DUZINA OVOG NIZA JE",topics.length);
+            
+            for(let topic of problem.topics) {
+              console.log("TRENTUNI TOPIC JEEEEEE",topic)
               await axios.post(`/backend/problem/problemTopic`,{title:problem.title,topic:topic});
             }
 
@@ -204,6 +225,7 @@ const AddContest = ({contests,setContests}) => {
 
     } catch (error) {
       console.error("Error adding contest:", error);
+      setErr2(error.data.message)
     }
   };
 
