@@ -2,7 +2,6 @@
 .usersDiv {
     display: flex;
     flex-direction: column;
-    background-color: #526D82;
     align-items: center;
     gap:10px;
     padding:15px 30px;
@@ -19,9 +18,15 @@
     justify-content: center;
     position: relative;
     min-width: 150px;
+    
 
 }
 
+.searchBarBtnEdit {
+    display: flex;
+    width:100%;
+    justify-content: center;
+}
 
 .searchIcon {
     position: absolute;
@@ -49,4 +54,43 @@
 .usersDiv input::placeholder {
     color:#DDE6ED;
 
+}
+
+.manageUsers {
+   
+    margin-top:120px;
+    width: 100%;
+    color:#E3FEF7;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    column-gap:50px;
+    row-gap: 150px;
+}
+
+
+@media (max-width:760px) {
+    .manageUsers {
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap:100px;
+    }
+}
+
+@media (max-width:600px) {
+    .manageUsers {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap:100px;
+    }
+}
+
+@media (max-width:560px) {
+    .singleCard {
+        min-width:95%;
+    }
 }
