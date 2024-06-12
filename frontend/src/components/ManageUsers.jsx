@@ -3,9 +3,10 @@ import {useState,useEffect,useContext} from 'react'
 import axios from 'axios'
 import styles from '../styles/manageusers.css'
 import AuthContext from '../context/AuthContext'
-import User from './User'
 import { FaSearch } from 'react-icons/fa'
 import PageNumbers from './PageNumbers'
+import Card from './Card'
+import Loading from './Loading'
 const ManageUsers = () => {
 
   
@@ -16,6 +17,9 @@ const ManageUsers = () => {
   const [pageNumber,setpageNumber] = useState(1);
 
   const [search,setSearch] = useState("");
+
+
+  const [loading,setLoading] = useState(false);
 
 
   const [no,setNo] = useState(0);
@@ -43,23 +47,29 @@ const ManageUsers = () => {
       setpageNumber(id);
   }
 
-  useEffect(() => {
-
-    const fetchData = async () => {
+  const fetchData = async () => {
+    setLoading(true);
+    try {
         
-        try {
-            
-          const resp = await axios.get(`/backend/user/filteredusers/${pageNumber}?search=${search}`)
-          console.log(resp.data)
-          setUsers(resp.data)
-        }
-        catch(err) {
-          console.log(err);
-        }
-
+      const resp = await axios.get(`/backend/user/filteredusers/${pageNumber}?search=${search}`)
+      console.log(resp.data)
+      setUsers(resp.data)
+    }
+    catch(err) {
+      console.log(err);
     }
 
-  fetchData()
+    finally {
+      setLoading(false);
+    }
+
+  }
+
+  useEffect(() => {
+
+    fetchData();
+    window.scrollTo(0,0);
+  
   },[pageNumber])
 
   useEffect(() => {
@@ -67,38 +77,47 @@ const ManageUsers = () => {
   },[no])
 
   
- const filterSearch = async (e) => {
-
-  e.preventDefault();
+ const filterSearch = async () => {
 
   try {
-    const resp = await axios.get(`/backend/user/filteredusers/${pageNumber}?search=${search}`)
-   
-    setUsers(resp.data);
+    fetchData();
     fetchNo();
   }
   catch(err) {
 
   }
  }
-  
 
+ useEffect(() => {
+  filterSearch();
+ },[search])
+  
+ 
 
   return (
     <>
     <div className = "usersDiv">
-      <form className = "searchBarForm">
-      <input type = "text" className = "searchUsers" placeholder='Search Users' value = {search} onChange = {(e) => {setSearch(e.target.value)}}/>
-      <button className = "searchIcon" onClick={filterSearch}><FaSearch/></button>
-      </form>
+
+      <div className = "searchBarBtnEdit">
+        <form className = "searchBarForm">
+        <input type = "text" className = "searchUsers" placeholder='Search Users' value = {search} onChange = {(e) => {setSearch(e.target.value)}}/>
+        <button className = "searchIcon" ><FaSearch/></button>
       
-      {users.map((user) => (<User key = {user.username} currUser = {user.username} role = {user.rola} users = {users} setUsers={setUsers}/>))}
+        </form>
+
+
+      </div>
+
+      <div className = "manageUsers">
+        {!loading && users.map((user) => (<Card key = {user.username} user = {user} role = {user.rola} users = {users} setUsers={setUsers} type = 'delete'/>))}
+        {loading && <Loading/>}
+      </div>
 
             
 
     </div>
 
-    <PageNumbers no = {no} setpageNumber={setpageNumber} pageNumber={pageNumber}/>
+    {!loading && <PageNumbers no = {no} setpageNumber={setpageNumber} pageNumber={pageNumber}/>}
 
     </>
 
