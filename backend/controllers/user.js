@@ -29,9 +29,11 @@ const updateUser = (req,res) => {
 
     console.log(username);
 
+    const picturePath = `/public/images/${picture}`
+
     const q = "UPDATE User SET username = ? , userPicture = ? WHERE username = ?"
 
-    db.query(q,[username,picture,req.params.username],(err,data) => {
+    db.query(q,[username,picturePath,req.params.username],(err,data) => {
         if(err) {
             return res.status(500).json("Internal server error!");
         }
